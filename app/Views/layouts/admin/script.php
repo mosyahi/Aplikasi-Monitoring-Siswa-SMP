@@ -34,7 +34,7 @@
 			return Math.ceil(totalItems / itemsPerPage);
 		}
 
-    	// CEVRON MUNCUL SAAT ADA LEBIH DARI 1 HALAMAN
+    	// CEVRON MUNCUL SAAT ADA LEBIH DARI 1 HALAMANNNNNNN
 		// function createPaginationItems() {
 		// 	var totalPages = calculateTotalPages();
 		// 	var $pagination = $('.pagination');
