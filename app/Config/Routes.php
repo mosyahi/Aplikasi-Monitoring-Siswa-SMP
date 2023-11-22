@@ -180,6 +180,19 @@ $routes->group('siswa', ['filter' => 'auth'], function ($routes) {
     $routes->get('data-pengumuman', 'PengumumanController::index');
 });
 
+$routes->group('orangtua', ['filter' => 'auth'], function ($routes) {
+    $routes->get('dashboard', 'DashboardController::index');
+    $routes->get('keaktifan-siswa', 'KeaktifanSiswaController::index');
+    $routes->get('data-ranking', 'RankingController::index');
+    $routes->get('prestasi-akademik', 'PrestasiAkademikController::index');
+    $routes->get('prestasi-nonakademik', 'PrestasiNonAkademikController::index');
+    $routes->get('ekstrakurikuler', 'EkstrakurikulerController::index');
+    $routes->get('data-pelanggaran', 'PelanggaranController::index');
+    $routes->get('evaluasi-guru', 'EvaluasiGuruController::index');
+    $routes->get('rekap-monitoring', 'RekapMonitoringController::index');
+    $routes->get('data-pengumuman', 'PengumumanController::index');
+});
+
 /*
  * --------------------------------------------------------------------
  * Additional Routing

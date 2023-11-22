@@ -6,11 +6,13 @@ use App\Controllers\BaseController;
 use App\Models\PrestasiAkademikModel;
 use App\Models\SiswaModel;
 use App\Models\KelasModel;
+use App\Models\OrtuModel;
 
 class PrestasiAkademikController extends BaseController
 {
     protected $prestasiAkademikModel;
     protected $siswaModel;
+    protected $ortuModel;
     protected $kelasModel;
 
     public function __construct()
@@ -18,71 +20,106 @@ class PrestasiAkademikController extends BaseController
         $this->prestasiAkademikModel = new PrestasiAkademikModel();
         $this->siswaModel = new SiswaModel();
         $this->kelasModel = new KelasModel();
+        $this->ortuModel = new OrtuModel();
     }
 
     public function index()
     {
         $userRole = session()->get('role');
         $siswa_id = session()->get('siswa_id');
+        $ortu_id = session()->get('ortu_id');
 
         switch ($userRole) {
 
-            // ROLE ADMIN
+                // ROLE ADMIN
             case 'Admin':
-            $prestasi = $this->prestasiAkademikModel->findAll();
-            $siswa = $this->siswaModel->findAll();
-            $kelas = $this->kelasModel->findAll();
-            $kelasSiswa = []; 
-            if (!empty($siswa)) {
-                foreach ($siswa as $item) {
-                    $namaKelas = ''; 
+                $prestasi = $this->prestasiAkademikModel->findAll();
+                $siswa = $this->siswaModel->findAll();
+                $kelas = $this->kelasModel->findAll();
+                $kelasSiswa = [];
+                if (!empty($siswa)) {
+                    foreach ($siswa as $item) {
+                        $namaKelas = '';
+                        foreach ($kelas as $oi) {
+                            if ($oi['id_kelas'] == $item['id_kelas']) {
+                                $namaKelas = $oi['tingkat'] . ' ' . $oi['tipe_kelas'];
+                                $kelasSiswa[$item['id_siswa']] = $namaKelas;
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                $data = [
+                    'title' => 'Prestasi Akademik',
+                    'active' => 'prestasi',
+                    'prestasi' => $prestasi,
+                    'siswa' => $siswa,
+                    'kelasSiswa' => $kelasSiswa,
+                ];
+
+                return view('admin/prestasi/prestasi-akademik', $data);
+                break;
+
+                // ROLE SISWA
+            case 'Siswa':
+                $prestasi = $this->prestasiAkademikModel->where('id_siswa', $siswa_id)->findAll();
+                $siswa = $this->siswaModel->find($siswa_id);
+                $kelas = $this->kelasModel->findAll();
+                $kelasSiswa = [];
+                if (!empty($siswa)) {
+                    $namaKelas = '';
                     foreach ($kelas as $oi) {
-                        if ($oi['id_kelas'] == $item['id_kelas']) {
+                        if ($oi['id_kelas'] == $siswa['id_kelas']) {
                             $namaKelas = $oi['tingkat'] . ' ' . $oi['tipe_kelas'];
-                            $kelasSiswa[$item['id_siswa']] = $namaKelas;
+                            $kelasSiswa[$siswa['id_siswa']] = $namaKelas;
                             break;
                         }
                     }
                 }
-            } 
 
-            $data = [
-                'title' => 'Prestasi Akademik',
-                'active' => 'prestasi',
-                'prestasi' => $prestasi,
-                'siswa' => $siswa,
-                'kelasSiswa' => $kelasSiswa,
-            ];
+                $data = [
+                    'title' => 'Prestasi Akademik',
+                    'active' => 'prestasi',
+                    'prestasi' => $prestasi,
+                    'siswa' => $siswa,
+                    'kelasSiswa' => $kelasSiswa,
+                ];
+                return view('siswa/prestasi/prestasi-akademik', $data);
+                break;
 
-            return view('admin/prestasi/prestasi-akademik', $data);
-            break;
+                //ROLE ORANG TUA
+            case 'Orangtua':
+                $ortu_id = session()->get('ortu_id');
+                $prestasi = $this->prestasiAkademikModel->where('id_siswa', $ortu_id)->findAll();
+                $siswa = $this->siswaModel->find($ortu_id); // Use $ortu_id here
+                $ortu = $this->ortuModel->find($ortu_id); // Corrected: Use $ortu_id to find the parent data
+                $kelas = $this->kelasModel->findAll();
 
-            // ROLE SISWA
-            case 'Siswa':
-            $prestasi = $this->prestasiAkademikModel->where('id_siswa', $siswa_id)->findAll();
-            $siswa = $this->siswaModel->find($siswa_id);
-            $kelas = $this->kelasModel->findAll();
-            $kelasSiswa = []; 
-            if (!empty($siswa)) {
-                $namaKelas = ''; 
-                foreach ($kelas as $oi) {
-                    if ($oi['id_kelas'] == $siswa['id_kelas']) {
-                        $namaKelas = $oi['tingkat'] . ' ' . $oi['tipe_kelas'];
-                        $kelasSiswa[$siswa['id_siswa']] = $namaKelas;
-                        break;
+                $kelasSiswa = [];
+                if (!empty($ortu) && array_key_exists('id_kelas', $ortu)) {
+                    $targetId = $ortu['id_kelas'];
+
+                    foreach ($kelas as $oi) {
+                        if ($oi['id_kelas'] == $targetId) {
+                            $namaKelas = $oi['tingkat'] . ' ' . $oi['tipe_kelas'];
+                            $kelasSiswa[$ortu['id_siswa']] = $namaKelas;
+                            break;
+                        }
                     }
                 }
-            }   
 
-            $data = [
-                'title' => 'Prestasi Akademik',
-                'active' => 'prestasi',
-                'prestasi' => $prestasi,
-                'siswa' => $siswa,
-                'kelasSiswa' => $kelasSiswa,
-            ];
-            return view('siswa/prestasi/prestasi-akademik', $data);
-            break;
+                $data = [
+                    'title' => 'Prestasi Akademik',
+                    'active' => 'prestasi',
+                    'prestasi' => $prestasi,
+                    'siswa' => $siswa,
+                    'ortu' => $ortu,
+                    'kelasSiswa' => $kelasSiswa,
+                ];
+
+                return view('orang-tua/prestasi/prestasi-akademik', $data);
+                break;
         }
     }
 
@@ -151,7 +188,7 @@ class PrestasiAkademikController extends BaseController
     {
         $model = new PrestasiAkademikModel();
         $dataPrestasiAkademik = $model->find($id);
-    // $ketegoriModel = new KategoriModel();
+        // $ketegoriModel = new KategoriModel();
 
         $validationRules = [
             'id_siswa' => 'required|trim',

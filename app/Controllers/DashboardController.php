@@ -30,56 +30,78 @@ class DashboardController extends BaseController
     public function index(): string
     {
         $userRole = session()->get('role');
+        $siswa_id = session()->get('siswa_id');
+        $orangtua_id = session()->get('ortu_id');
+        $user_id = session()->get('id_user');
 
         switch ($userRole) {
             case 'Siswa':
-            $siswa_id = session()->get('siswa_id');
-            $user_id = session()->get('id_user');
 
-            $modelUser = new UserModel();
-            $user = $modelUser->find($user_id);
+                $modelUser = new UserModel();
+                $user = $modelUser->find($user_id);
 
-            $modelPelanggaran = new PelanggaranModel();
-            $countPelanggaran = $modelPelanggaran->where('id_siswa', $siswa_id)->countAllResults();
+                $modelPelanggaran = new PelanggaranModel();
+                $countPelanggaran = $modelPelanggaran->where('id_siswa', $siswa_id)->countAllResults();
 
-            $modelAkademik = new PrestasiAkademikModel();
-            $countAkademik = $modelAkademik->where('id_siswa', $siswa_id)->countAllResults();
+                $modelAkademik = new PrestasiAkademikModel();
+                $countAkademik = $modelAkademik->where('id_siswa', $siswa_id)->countAllResults();
 
-            $data = [
-                'title' => 'Dashboard Siswa',
-                'active' => 'dashboard',
-                'countPelanggaran' => $countPelanggaran,
-                'countAkademik' => $countAkademik,
-                'user' => $user,
-            ];
-            return view('siswa/index', $data);
-            break;
+                $data = [
+                    'title' => 'Dashboard Siswa',
+                    'active' => 'dashboard',
+                    'countPelanggaran' => $countPelanggaran,
+                    'countAkademik' => $countAkademik,
+                    'user' => $user,
+                ];
+                return view('siswa/index', $data);
+                break;
 
             case 'Admin':
-            
-            $model = new UserModel();
-            $modelSiswa = new SiswaModel();
-            $modelOrtu = new OrtuModel();
-            $modelKelas = new KelasModel();
-            $modelGuru = new GuruModel();
 
-            $orangtua = $modelOrtu->findAll();
-            $admin = $model->findAll();
-            $siswa = $modelSiswa->findAll();
-            $kelas = $modelKelas->findAll();
-            $guru = $modelGuru->findAll();
+                $model = new UserModel();
+                $modelSiswa = new SiswaModel();
+                $modelOrtu = new OrtuModel();
+                $modelKelas = new KelasModel();
+                $modelGuru = new GuruModel();
 
-            $data = [
-                'title' => 'Dashboard',
-                'active' => 'dashboard',
-                'user' => $admin,
-                'siswa' => $siswa,
-                'orangtua' => $orangtua,
-                'kelas' => $kelas,
-                'guru' => $guru,
-            ];
-            return view('admin/index', $data);
-            break;
+                $orangtua = $modelOrtu->findAll();
+                $admin = $model->findAll();
+                $siswa = $modelSiswa->findAll();
+                $kelas = $modelKelas->findAll();
+                $guru = $modelGuru->findAll();
+
+                $data = [
+                    'title' => 'Dashboard',
+                    'active' => 'dashboard',
+                    'user' => $admin,
+                    'siswa' => $siswa,
+                    'orangtua' => $orangtua,
+                    'kelas' => $kelas,
+                    'guru' => $guru,
+                ];
+                return view('admin/index', $data);
+                break;
+
+            case 'Orangtua':
+
+                $modelUser = new UserModel();
+                $user = $modelUser->find($user_id);
+
+                $modelPelanggaran = new PelanggaranModel();
+                $countPelanggaran = $modelPelanggaran->where('id_siswa', $orangtua_id)->countAllResults();
+
+                $modelAkademik = new PrestasiAkademikModel();
+                $countAkademik = $modelAkademik->where('id_siswa', $orangtua_id)->countAllResults();
+
+                $data = [
+                    'title' => 'Dashboard Orang Tua',
+                    'active' => 'dashboard',
+                    'countPelanggaran' => $countPelanggaran,
+                    'countAkademik' => $countAkademik,
+                    'user' => $user,
+                ];
+                return view('orang-tua/index', $data);
+                break;
         }
     }
 
@@ -107,5 +129,4 @@ class DashboardController extends BaseController
 
         return view('admin/faq/index', $data);
     }
-
 }

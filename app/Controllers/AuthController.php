@@ -56,12 +56,15 @@ class AuthController extends BaseController
                     return redirect()->to('siswa/dashboard')->with('success', 'Login Berhasil.');
                 }
 
-                if ($user['role'] == 'Orang Tua') {
+                if ($user['role'] == 'Orangtua') {
                     $ortuModel = new OrtuModel();
+                    // $siswaModel = new SiswaModel();
                     $ortuData = $ortuModel->getOrtuByUserId($user['id_user']);
+                    // $siswaData = $siswaModel->getSiswaByUserId($user['id_user']);
                     if ($ortuData) {
                         $session->set('foto_url', base_url('uploads/orangtua/' . $ortuData['foto']));
                         $session->set('ortu_id', $ortuData['id_ortu']);
+                        // $session->set('siswa_id', $siswaData['id_siswa']);
                     }
                     return redirect()->to('orangtua/dashboard')->with('success', 'Login Berhasil.');
                 }
@@ -97,6 +100,4 @@ class AuthController extends BaseController
         session()->destroy();
         return redirect()->to('login');
     }
-
-    
 }

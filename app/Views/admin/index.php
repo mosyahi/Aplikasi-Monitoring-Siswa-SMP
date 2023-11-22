@@ -43,13 +43,13 @@
 						</div>
 					</div>
 				</div>
-				
+
 				<div class="grid grid-cols-12 gap-6 mt-5">
 					<a href="<?= base_url('admin/data-users') ?>" class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
 						<div class="report-box zoom-in">
 							<div class="box p-5">
 								<div class="flex">
-									<i data-lucide="unlock" class="report-box__icon text-primary"></i> 
+									<i data-lucide="unlock" class="report-box__icon text-primary"></i>
 									<div class="ml-auto">
 										<div class="report-box__indicator bg-primary tooltip cursor-pointer" title="<?= count($user) ?> Data User"> <?= count($user) ?> <i class="w-4 h-4 ml-0.5"></i> </div>
 									</div>
@@ -63,7 +63,7 @@
 						<div class="report-box zoom-in">
 							<div class="box p-5">
 								<div class="flex">
-									<i data-lucide="users" class="report-box__icon text-pending"></i> 
+									<i data-lucide="users" class="report-box__icon text-pending"></i>
 									<div class="ml-auto">
 										<div class="report-box__indicator bg-pending tooltip cursor-pointer" title="<?= count($siswa) ?> Data Siswa"> <?= count($siswa) ?> <i class="w-4 h-4 ml-0.5"></i> </div>
 									</div>
@@ -77,7 +77,7 @@
 						<div class="report-box zoom-in">
 							<div class="box p-5">
 								<div class="flex">
-									<i data-lucide="user-plus" class="report-box__icon text-warning"></i> 
+									<i data-lucide="user-plus" class="report-box__icon text-warning"></i>
 									<div class="ml-auto">
 										<div class="report-box__indicator bg-warning tooltip cursor-pointer" title="<?= count($orangtua) ?> Data Orang Tua"> <?= count($orangtua) ?> <i class="w-4 h-4 ml-0.5"></i> </div>
 									</div>
@@ -91,7 +91,7 @@
 						<div class="report-box zoom-in">
 							<div class="box p-5">
 								<div class="flex">
-									<i data-lucide="user" class="report-box__icon text-success"></i> 
+									<i data-lucide="user" class="report-box__icon text-success"></i>
 									<div class="ml-auto">
 										<div class="report-box__indicator bg-success tooltip cursor-pointer" title="<?= count($guru) ?> data guru"> <?= count($guru) ?> <i data-lucide="" class="w-4 h-4 ml-0.5"></i> </div>
 									</div>
@@ -105,7 +105,7 @@
 						<div class="report-box zoom-in">
 							<div class="box p-5">
 								<div class="flex">
-									<i data-lucide="archive" class="report-box__icon text-pending"></i> 
+									<i data-lucide="archive" class="report-box__icon text-pending"></i>
 									<div class="ml-auto">
 										<div class="report-box__indicator bg-pending tooltip cursor-pointer" title="<?= count($kelas) ?> Data Kelas"> <?= count($kelas) ?> <i class="w-4 h-4 ml-0.5"></i> </div>
 									</div>

@@ -24,7 +24,7 @@
 		<div class="w-full sm:w-auto mt-3 sm:mt-0 sm:ml-auto md:ml-0">
 			<div class="w-56 relative text-slate-500">
 				<input type="text" class="form-control w-56 box pr-10" placeholder="Search...">
-				<i class="w-4 h-4 absolute my-auto inset-y-0 mr-3 right-0" data-lucide="search"></i> 
+				<i class="w-4 h-4 absolute my-auto inset-y-0 mr-3 right-0" data-lucide="search"></i>
 			</div>
 		</div>
 	</div>
@@ -48,7 +48,7 @@
 						<td colspan="8" class="text-center whitespace-nowrap">-- Belum ada data --</td>
 					</tr>
 				<?php else : ?>
-					<?php $i =1; ?>
+					<?php $i = 1; ?>
 					<?php foreach ($pelanggaran as $item) : ?>
 						<tr class="intro-x">
 							<td><?= $i++ ?></td>
@@ -64,7 +64,7 @@
 								<?php endforeach ?>
 							</td>
 							<td class="w-30">
-								<?php foreach ($siswa as $s): ?>
+								<?php foreach ($siswa as $s) : ?>
 									<?php if ($s['id_siswa'] == $item['id_siswa']) : ?>
 										<div class="font-medium whitespace-nowrap">
 											<?= $s['nama'] ?>
@@ -85,11 +85,11 @@
 									<a href="javascript:;" data-theme="light" data-tooltip-content="#custom-content-tooltip" data-trigger="click" class="tooltip btn btn-primary-soft w-12 mr-1 btn-sm btn-rounded"><i class="fas fa-eye"></i></a>
 									<div class="tooltip-content">
 										<div id="custom-content-tooltip" class="relative flex items-center py-1">
-											<?php foreach ($siswa as $s): ?>
+											<?php foreach ($siswa as $s) : ?>
 												<?php if ($s['id_siswa'] == $item['id_siswa']) : ?>
-													<div class="w-12 h-12 image-fit"> 
+													<div class="w-12 h-12 image-fit">
 														<div class="w-10 h-10 image-fit zoom-in">
-															<img src="<?= base_url('uploads/siswa/' . $s['foto']) ?>" class="tooltip rounded-full" alt="<?= $s['nama'] ?>" title="Uploaded at <?= $s['created_at'] ?>"> 
+															<img src="<?= base_url('uploads/siswa/' . $s['foto']) ?>" class="tooltip rounded-full" alt="<?= $s['nama'] ?>" title="Uploaded at <?= $s['created_at'] ?>">
 														</div>
 													</div>
 													<div class="ml-4 mr-auto">
@@ -110,12 +110,12 @@
 							</td>
 							<td class="w-30">
 								<div class="flex justify-center items-center">
-									<?php if ($item['surat_peringatan'] !== null): ?>
+									<?php if ($item['surat_peringatan'] !== null) : ?>
 										<a class="btn btn-sm btn-primary-soft w-24 mr-1 mb-2" href="<?= base_url('uploads/sp/' . $item['surat_peringatan']) ?>" download>
-											
+
 											<i data-lucide="file-text" class="w-4 h-4 mr-2 text-primary"></i>Download
 										</a>
-									<?php else: ?>
+									<?php else : ?>
 										<i data-lucide="x-square" class="w-4 h-4 mr-2 text-danger"></i>No File
 									<?php endif; ?>
 								</div>
@@ -124,19 +124,19 @@
 									$jenisSp = $item['jenis_sp'];
 									switch ($jenisSp) {
 										case 'Tidak ada SP':
-										echo '<strong>' . $jenisSp . '</strong>';
-										break;
+											echo '<strong>' . $jenisSp . '</strong>';
+											break;
 										case 'SP 1':
-										echo '<strong class="text-primary">' . $jenisSp . '</strong>';
-										break;
+											echo '<strong class="text-primary">' . $jenisSp . '</strong>';
+											break;
 										case 'SP 2':
-										echo '<strong class="text-warning">' . $jenisSp . '</strong>';
-										break;
+											echo '<strong class="text-warning">' . $jenisSp . '</strong>';
+											break;
 										case 'SP 3':
-										echo '<strong class="text-danger">' . $jenisSp . '</strong>';
-										break;
+											echo '<strong class="text-danger">' . $jenisSp . '</strong>';
+											break;
 										default:
-										echo '<strong>' . $jenisSp . '</strong>';
+											echo '<strong>' . $jenisSp . '</strong>';
 									}
 									?>
 								</div>
@@ -178,23 +178,23 @@
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h2 class="font-medium text-base mr-auto">Add Pelanggaran</h2> 
+				<h2 class="font-medium text-base mr-auto">Add Pelanggaran</h2>
 			</div>
 			<form action="<?= base_url('admin/data-pelanggaran/add') ?>" method="POST" enctype="multipart/form-data">
 				<div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
 					<div class="col-span-12 sm:col-span-12">
-						<label for="modal-form-1" class="form-label">Siswa</label> 
+						<label for="modal-form-1" class="form-label">Siswa</label>
 						<select data-placeholder="Pilih Siswa" name="id_siswa" class="tom-select w-full" required>
 							<option selected disabled>-- Pilih Siswa --</option>
-							<?php foreach ($siswa as $s): ?>
+							<?php foreach ($siswa as $s) : ?>
 								<option value="<?= $s['id_siswa'] ?>">
-									<?= $kelasSiswa[$item['id_siswa']] ?? ''; ?> - <?= $s['nama'] ?>
+									<?= $kelasSiswa[$s['id_siswa']] ?? ''; ?> - <?= $s['nama'] ?>
 								</option>
 							<?php endforeach ?>
 						</select>
 					</div>
 					<div class="col-span-12 sm:col-span-12">
-						<label for="modal-form-1" class="form-label">Jenis Pelanggaran</label> 
+						<label for="modal-form-1" class="form-label">Jenis Pelanggaran</label>
 						<select data-placeholder="Pilih Jenis" name="jenis_pelanggaran" class="tom-select w-full" required>
 							<option selected disabled>-- Pilih Jenis Pelanggaran --</option>
 							<option>Kecil</option>
@@ -203,7 +203,7 @@
 						</select>
 					</div>
 					<div class="col-span-12 sm:col-span-12">
-						<label for="modal-form-1" class="form-label">Jenis SP</label> 
+						<label for="modal-form-1" class="form-label">Jenis SP</label>
 						<select data-placeholder="Pilih Jenis" name="jenis_sp" class="tom-select w-full" required>
 							<option selected disabled>-- Pilih Jenis SP --</option>
 							<option>Tidak ada SP</option>
@@ -213,122 +213,124 @@
 						</select>
 					</div>
 					<div class="col-span-12 sm:col-span-12">
-						<label for="modal-form-1" class="form-label">Panggilan Orangtua</label> 
+						<label for="modal-form-1" class="form-label">Panggilan Orangtua</label>
 						<select data-placeholder="Pilih Panggilan" name="panggilan_ortu" class="tom-select w-full" required>
 							<option selected disabled>-- Pilih Jenis Panggilan --</option>
 							<option>Ya</option>
 							<option>Tidak</option>
 						</select>
 					</div>
-					<div class="col-span-12 sm:col-span-12"> 
-						<label for="modal-form-1" class="form-label">Keterangan Pelanggaran</label> 
+					<div class="col-span-12 sm:col-span-12">
+						<label for="modal-form-1" class="form-label">Keterangan Pelanggaran</label>
 						<textarea rows="3" id="regular-form-1" name="keterangan_pelanggaran" type="text" class="form-control" placeholder="Isi keterangan pelanggaran disini..." required></textarea>
 					</div>
 					<div class="col-span-12 sm:col-span-12">
 						<label for="regular-form-1" class="form-label">Dokumentasi Prestasi</label>
 						<div class="dropzone">
-							<div class="fallback"> 
-								<input name="surat_peringatan" type="file" id="uploadFoto" /></div>
+							<div class="fallback">
+								<input name="surat_peringatan" type="file" id="uploadFoto" />
+							</div>
+							<div class="form-help text-danger">
+								*Kosongkan jika tidak ada
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" data-tw-dismiss="modal" class="btn btn-outline-secondary w-20 mr-1">Cancel</button>
+					<button type="submit" class="btn btn-primary w-20">Simpan</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<!-- END -->
+<?php foreach ($pelanggaran as $key => $item) : ?>
+	<div id="update-<?= $item['id_pelanggaran'] ?>" class="modal" tabindex="-1" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h2 class="font-medium text-base mr-auto">Edit Pelanggaran</h2>
+				</div>
+				<form action="<?= base_url('admin/data-pelanggaran/update/' . $item['id_pelanggaran']) ?>" method="POST" enctype="multipart/form-data">
+					<div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
+						<div class="col-span-12 sm:col-span-12">
+							<label for="modal-form-1" class="form-label">Siswa</label>
+							<select data-placeholder="Pilih Siswa" name="id_siswa" class="tom-select w-full" required>
+								<option selected disabled>-- Pilih Siswa --</option>
+								<?php foreach ($siswa as $value) : ?>
+									<option value="<?= $value['id_siswa'] ?>" <?= ($item['id_siswa'] == $value['id_siswa']) ? 'selected' : '' ?>><?= $kelasSiswa[$item['id_siswa']] ?? ''; ?> - <?= $value['nama'] ?></option>
+								<?php endforeach ?>
+							</select>
+						</div>
+						<div class="col-span-12 sm:col-span-12">
+							<label for="modal-form-1" class="form-label">Jenis Pelanggaran</label>
+							<select data-placeholder="Pilih Jenis" name="jenis_pelanggaran" class="tom-select w-full" required>
+								<option selected disabled>-- Pilih Jenis Pelanggaran --</option>
+								<option value="Kecil" <?= ($item['jenis_pelanggaran'] == 'Kecil') ? 'selected' : '' ?>>Kecil</option>
+								<option value="Sedang" <?= ($item['jenis_pelanggaran'] == 'Sedang') ? 'selected' : '' ?>>Sedang</option>
+								<option value="Berat" <?= ($item['jenis_pelanggaran'] == 'Berat') ? 'selected' : '' ?>>Berat</option>
+							</select>
+						</div>
+						<div class="col-span-12 sm:col-span-12">
+							<label for="modal-form-1" class="form-label">Jenis SP</label>
+							<select data-placeholder="Pilih Jenis" name="jenis_sp" class="tom-select w-full" required>
+								<option selected disabled>-- Pilih Jenis SP --</option>
+								<option value="Tidak ada SP" <?= ($item['jenis_sp'] == 'Tidak ada SP') ? 'selected' : '' ?>>Tidak ada SP</option>
+								<option value="SP 1" <?= ($item['jenis_sp'] == 'SP 1') ? 'selected' : '' ?>>SP 1</option>
+								<option value="SP 2" <?= ($item['jenis_sp'] == 'SP 2') ? 'selected' : '' ?>>SP 2</option>
+								<option value="SP 3" <?= ($item['jenis_sp'] == 'SP 3') ? 'selected' : '' ?>>SP 3</option>
+							</select>
+						</div>
+						<div class="col-span-12 sm:col-span-12">
+							<label for="modal-form-1" class="form-label">Panggilan Orangtua</label>
+							<select data-placeholder="Pilih Panggilan" name="panggilan_ortu" class="tom-select w-full" required>
+								<option selected disabled>-- Pilih Jenis Panggilan --</option>
+								<option value="Ya" <?= ($item['panggilan_ortu'] == 'Ya') ? 'selected' : '' ?>>Ya</option>
+								<option value="Tidak" <?= ($item['panggilan_ortu'] == 'Tidak') ? 'selected' : '' ?>>Tidak</option>
+							</select>
+						</div>
+						<div class="col-span-12 sm:col-span-12">
+							<label for="modal-form-1" class="form-label">Keterangan Pelanggaran</label>
+							<textarea rows="3" id="regular-form-1" name="keterangan_pelanggaran" type="text" class="form-control" placeholder="Isi keterangan pelanggaran disini..." required><?= $item['keterangan_pelanggaran'] ?></textarea>
+						</div>
+						<div class="col-span-12 sm:col-span-12">
+							<label for="regular-form-1" class="form-label">Dokumentasi Prestasi</label>
+							<div class="dropzone">
+								<div class="fallback">
+									<input name="surat_peringatan" type="file" id="uploadFoto" />
+								</div>
 								<div class="form-help text-danger">
 									*Kosongkan jika tidak ada
 								</div>
 							</div>
 						</div>
 					</div>
-					<div class="modal-footer"> 
-						<button type="button" data-tw-dismiss="modal" class="btn btn-outline-secondary w-20 mr-1">Cancel</button> 
-						<button type="submit" class="btn btn-primary w-20">Simpan</button> 
+					<div class="modal-footer">
+						<button type="button" data-tw-dismiss="modal" class="btn btn-outline-secondary w-20 mr-1">Cancel</button>
+						<button type="submit" class="btn btn-primary w-20">Simpan</button>
 					</div>
 				</form>
 			</div>
 		</div>
-	</div> 
-	<!-- END -->
-	<?php foreach ($pelanggaran as $key => $item): ?>
-		<div id="update-<?= $item['id_pelanggaran'] ?>" class="modal" tabindex="-1" aria-hidden="true">
-			<div class="modal-dialog modal-lg">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h2 class="font-medium text-base mr-auto">Edit Pelanggaran</h2> 
+	</div>
+	<!-- MODAL DELETE -->
+	<div id="delete-<?= $item['id_pelanggaran'] ?>" class="modal" tabindex="-1" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content"> <a data-tw-dismiss="modal" href="javascript:;"> <i data-lucide="x" class="w-8 h-8 text-slate-400"></i> </a>
+				<div class="modal-body p-0">
+					<div class="p-5 text-center">
+						<i data-lucide="x-circle" class="w-16 h-16 text-danger mx-auto mt-3"></i>
+						<div class="text-3xl mt-5">Konfirmasi Penghapusan</div>
+						<div class="text-slate-500 mt-2">Apakah anda yakin ingin menghapus data ini? </div>
 					</div>
-					<form action="<?= base_url('admin/data-pelanggaran/update/' . $item['id_pelanggaran']) ?>" method="POST" enctype="multipart/form-data">
-						<div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
-							<div class="col-span-12 sm:col-span-12">
-								<label for="modal-form-1" class="form-label">Siswa</label> 
-								<select data-placeholder="Pilih Siswa" name="id_siswa" class="tom-select w-full" required>
-									<option selected disabled>-- Pilih Siswa --</option>
-									<?php foreach ($siswa as $value): ?>
-										<option value="<?= $value['id_siswa'] ?>" <?= ($item['id_siswa'] == $value['id_siswa']) ? 'selected' : '' ?>><?= $kelasSiswa[$item['id_siswa']] ?? ''; ?> - <?= $value['nama'] ?></option>
-									<?php endforeach ?>
-								</select>
-							</div>
-							<div class="col-span-12 sm:col-span-12">
-								<label for="modal-form-1" class="form-label">Jenis Pelanggaran</label> 
-								<select data-placeholder="Pilih Jenis" name="jenis_pelanggaran" class="tom-select w-full" required>
-									<option selected disabled>-- Pilih Jenis Pelanggaran --</option>
-									<option value="Kecil" <?= ($item['jenis_pelanggaran'] == 'Kecil') ? 'selected' : '' ?>>Kecil</option>
-									<option value="Sedang" <?= ($item['jenis_pelanggaran'] == 'Sedang') ? 'selected' : '' ?>>Sedang</option>
-									<option value="Berat" <?= ($item['jenis_pelanggaran'] == 'Berat') ? 'selected' : '' ?>>Berat</option>
-								</select>
-							</div>
-							<div class="col-span-12 sm:col-span-12">
-								<label for="modal-form-1" class="form-label">Jenis SP</label> 
-								<select data-placeholder="Pilih Jenis" name="jenis_sp" class="tom-select w-full" required>
-									<option selected disabled>-- Pilih Jenis SP --</option>
-									<option value="Tidak ada SP" <?= ($item['jenis_sp'] == 'Tidak ada SP') ? 'selected' : '' ?>>Tidak ada SP</option>
-									<option value="SP 1" <?= ($item['jenis_sp'] == 'SP 1') ? 'selected' : '' ?>>SP 1</option>
-									<option value="SP 2" <?= ($item['jenis_sp'] == 'SP 2') ? 'selected' : '' ?>>SP 2</option>
-									<option value="SP 3" <?= ($item['jenis_sp'] == 'SP 3') ? 'selected' : '' ?>>SP 3</option>
-								</select>
-							</div>
-							<div class="col-span-12 sm:col-span-12">
-								<label for="modal-form-1" class="form-label">Panggilan Orangtua</label> 
-								<select data-placeholder="Pilih Panggilan" name="panggilan_ortu" class="tom-select w-full" required>
-									<option selected disabled>-- Pilih Jenis Panggilan --</option>
-									<option value="Ya" <?= ($item['panggilan_ortu'] == 'Ya') ? 'selected' : '' ?>>Ya</option>
-									<option value="Tidak" <?= ($item['panggilan_ortu'] == 'Tidak') ? 'selected' : '' ?>>Tidak</option>
-								</select>
-							</div>
-							<div class="col-span-12 sm:col-span-12"> 
-								<label for="modal-form-1" class="form-label">Keterangan Pelanggaran</label> 
-								<textarea rows="3" id="regular-form-1" name="keterangan_pelanggaran" type="text" class="form-control" placeholder="Isi keterangan pelanggaran disini..." required><?= $item['keterangan_pelanggaran'] ?></textarea>
-							</div>
-							<div class="col-span-12 sm:col-span-12">
-								<label for="regular-form-1" class="form-label">Dokumentasi Prestasi</label>
-								<div class="dropzone">
-									<div class="fallback"> 
-										<input name="surat_peringatan" type="file" id="uploadFoto" /></div>
-										<div class="form-help text-danger">
-											*Kosongkan jika tidak ada
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="modal-footer"> 
-								<button type="button" data-tw-dismiss="modal" class="btn btn-outline-secondary w-20 mr-1">Cancel</button> 
-								<button type="submit" class="btn btn-primary w-20">Simpan</button> 
-							</div>
-						</form>
-					</div>
-				</div>
-			</div> 
-			<!-- MODAL DELETE -->
-			<div id="delete-<?= $item['id_pelanggaran'] ?>" class="modal" tabindex="-1" aria-hidden="true">
-				<div class="modal-dialog">
-					<div class="modal-content"> <a data-tw-dismiss="modal" href="javascript:;"> <i data-lucide="x" class="w-8 h-8 text-slate-400"></i> </a>
-						<div class="modal-body p-0">
-							<div class="p-5 text-center"> 
-								<i data-lucide="x-circle" class="w-16 h-16 text-danger mx-auto mt-3"></i>
-								<div class="text-3xl mt-5">Konfirmasi Penghapusan</div>
-								<div class="text-slate-500 mt-2">Apakah anda yakin ingin menghapus data ini? </div>
-							</div>
-							<div class="px-5 pb-8 text-center"> 
-								<a type="button" href="<?= base_url('admin/data-pelanggaran/delete/' . $item['id_pelanggaran']) ?>" type="button" data-tw-dismiss="modal" class="btn btn-primary w-24">Hapus</a> 
-							</div>
-						</div>
+					<div class="px-5 pb-8 text-center">
+						<a type="button" href="<?= base_url('admin/data-pelanggaran/delete/' . $item['id_pelanggaran']) ?>" type="button" data-tw-dismiss="modal" class="btn btn-primary w-24">Hapus</a>
 					</div>
 				</div>
 			</div>
-		<?php endforeach ?>
+		</div>
+	</div>
+<?php endforeach ?>
 
-		<?php $this->endSection() ?>
+<?php $this->endSection() ?>
