@@ -61,6 +61,36 @@ class PrestasiAkademikController extends BaseController
                 return view('admin/prestasi/prestasi-akademik', $data);
                 break;
 
+                //Role Guru
+            case 'Guru':
+                $prestasi = $this->prestasiAkademikModel->findAll();
+                $siswa = $this->siswaModel->findAll();
+                $kelas = $this->kelasModel->findAll();
+                $kelasSiswa = [];
+                if (!empty($siswa)) {
+                    foreach ($siswa as $item) {
+                        $namaKelas = '';
+                        foreach ($kelas as $oi) {
+                            if ($oi['id_kelas'] == $item['id_kelas']) {
+                                $namaKelas = $oi['tingkat'] . ' ' . $oi['tipe_kelas'];
+                                $kelasSiswa[$item['id_siswa']] = $namaKelas;
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                $data = [
+                    'title' => 'Prestasi Akademik',
+                    'active' => 'prestasi',
+                    'prestasi' => $prestasi,
+                    'siswa' => $siswa,
+                    'kelasSiswa' => $kelasSiswa,
+                ];
+
+                return view('guru/prestasi/prestasi-akademik', $data);
+                break;
+
                 // ROLE SISWA
             case 'Siswa':
                 $prestasi = $this->prestasiAkademikModel->where('id_siswa', $siswa_id)->findAll();

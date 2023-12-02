@@ -193,6 +193,116 @@ $routes->group('orangtua', ['filter' => 'auth'], function ($routes) {
     $routes->get('data-pengumuman', 'PengumumanController::index');
 });
 
+$routes->group('guru', ['filter' => 'auth'], function ($routes) {
+    $routes->get('dashboard', 'DashboardController::index');
+    $routes->get('profile', 'DashboardController::profile');
+
+    // KELAS DAN SET KELAS
+    $routes->get('data-anggota-kelas', 'SiswaGuruController::anggota');
+    $routes->get('data-kelas', 'KelasGuruController::index');
+    $routes->post('data-kelas/add', 'KelasGuruController::add');
+    $routes->post('data-kelas/update/(:num)', 'KelasGuruController::update/$1');
+    $routes->get('data-kelas/delete/(:num)', 'KelasGuruController::delete/$1');
+    $routes->get('data-jurusan', 'KelasGuruController::indexJurusan');
+    $routes->post('data-jurusan/add', 'KelasGuruController::addJurusan');
+    $routes->post('data-jurusan/update/(:num)', 'KelasGuruController::updateJurusan/$1');
+    $routes->get('data-jurusan/delete/(:num)', 'KelasGuruController::deleteJurusan/$1');
+
+    // REKAP MONITORING
+    $routes->get('rekap-monitoring', 'RekapMonitoringController::index');
+    $routes->get('rekap-monitoring/view/(:num)', 'RekapMonitoringController::view/$1');
+
+    // DATA SISWA
+    $routes->get('data-siswa', 'SiswaController::index');
+    $routes->get('data-siswa/new', 'SiswaController::new');
+    $routes->post('data-siswa/add', 'SiswaController::add');
+    $routes->get('data-siswa/edit/(:num)', 'SiswaController::edit/$1');
+    $routes->post('data-siswa/update/(:num)', 'SiswaController::update/$1');
+    $routes->get('data-siswa/delete/(:num)', 'SiswaController::delete/$1');
+
+    // DATA ORANGTUA
+    $routes->get('data-orangtua', 'OrtuController::index');
+    $routes->get('data-orangtua/new', 'OrtuController::new');
+    $routes->post('data-orangtua/add', 'OrtuController::add');
+    $routes->get('data-orangtua/edit/(:num)', 'OrtuController::edit/$1');
+    $routes->post('data-orangtua/update/(:num)', 'OrtuController::update/$1');
+    $routes->get('data-orangtua/delete/(:num)', 'OrtuController::delete/$1');
+
+    // DATA GURU
+    $routes->get('data-guru', 'GuruController::index');
+    $routes->get('data-guru/new', 'GuruController::new');
+    $routes->post('data-guru/add', 'GuruController::add');
+    $routes->get('data-guru/edit/(:num)', 'GuruController::edit/$1');
+    $routes->post('data-guru/update/(:num)', 'GuruController::update/$1');
+    $routes->get('data-guru/delete/(:num)', 'GuruController::delete/$1');
+
+    // DATA WALIKELAS
+    $routes->get('data-walikelas', 'WaliKelasController::index');
+    $routes->post('data-walikelas/add', 'WaliKelasController::add');
+    $routes->post('data-walikelas/update/(:num)', 'WaliKelasController::update/$1');
+    $routes->get('data-walikelas/delete/(:num)', 'WaliKelasController::delete/$1');
+
+    // DATA WALIKELAS
+    $routes->get('data-pengumuman', 'PengumumanController::index');
+    $routes->post('data-pengumuman/add', 'PengumumanController::add');
+    $routes->post('data-pengumuman/update/(:num)', 'PengumumanController::update/$1');
+    $routes->get('data-pengumuman/delete/(:num)', 'PengumumanController::delete/$1');
+
+    // DATA TAPEL
+    $routes->get('data-tapel', 'TapelController::index');
+    $routes->post('data-tapel/add', 'TapelController::add');
+    $routes->post('data-tapel/update/(:num)', 'TapelController::update/$1');
+    $routes->get('data-tapel/delete/(:num)', 'TapelController::delete/$1');
+
+    // DATA PRESTASI AKADEMIK
+    $routes->get('prestasi-akademik', 'PrestasiAkademikController::index');
+    $routes->post('prestasi-akademik/add', 'PrestasiAkademikController::add');
+    $routes->post('prestasi-akademik/update/(:num)', 'PrestasiAkademikController::update/$1');
+    $routes->get('prestasi-akademik/delete/(:num)', 'PrestasiAkademikController::delete/$1');
+
+    // DATA PRESTASI NON-AKADEMIK
+    $routes->get('prestasi-nonakademik', 'PrestasiNonAkademikController::index');
+    $routes->post('prestasi-nonakademik/add', 'PrestasiNonAkademikController::add');
+    $routes->post('prestasi-nonakademik/update/(:num)', 'PrestasiNonAkademikController::update/$1');
+    $routes->get('prestasi-nonakademik/delete/(:num)', 'PrestasiNonAkademikController::delete/$1');
+
+    // DATA MAPEL
+    $routes->get('data-ranking', 'RankingController::index');
+    $routes->post('data-ranking/add', 'RankingController::add');
+    $routes->post('data-ranking/update/(:num)', 'RankingController::update/$1');
+    $routes->get('data-ranking/delete/(:num)', 'RankingController::delete/$1');
+
+    // DATA KEAKTIFAN
+    $routes->get('keaktifan-siswa', 'KeaktifanSiswaController::index');
+    $routes->post('keaktifan-siswa/add', 'KeaktifanSiswaController::add');
+    $routes->post('keaktifan-siswa/update/(:num)', 'KeaktifanSiswaController::update/$1');
+    $routes->get('keaktifan-siswa/delete/(:num)', 'KeaktifanSiswaController::delete/$1');
+
+    // DATA KEAKTIFAN
+    $routes->get('evaluasi-guru', 'EvaluasiGuruController::index');
+    $routes->post('evaluasi-guru/add', 'EvaluasiGuruController::add');
+    $routes->post('evaluasi-guru/update/(:num)', 'EvaluasiGuruController::update/$1');
+    $routes->get('evaluasi-guru/delete/(:num)', 'EvaluasiGuruController::delete/$1');
+
+    // DATA EKSTRAKURIKULER
+    $routes->get('ekstrakurikuler', 'EkstrakurikulerController::index');
+    $routes->post('ekstrakurikuler/add', 'EkstrakurikulerController::add');
+    $routes->post('ekstrakurikuler/update/(:num)', 'EkstrakurikulerController::update/$1');
+    $routes->get('ekstrakurikuler/delete/(:num)', 'EkstrakurikulerController::delete/$1');
+
+    // DATA PELANGGARAN SISWA
+    $routes->get('data-pelanggaran', 'PelanggaranController::index');
+    $routes->post('data-pelanggaran/add', 'PelanggaranController::add');
+    $routes->post('data-pelanggaran/update/(:num)', 'PelanggaranController::update/$1');
+    $routes->get('data-pelanggaran/delete/(:num)', 'PelanggaranController::delete/$1');
+
+    // ANGGOTA EKSTRAKURIKULER
+    $routes->get('anggota-ekstrakurikuler/view/(:num)', 'EkstrakurikulerController::view/$1');
+    $routes->post('anggota-ekstrakurikuler/add', 'EkstrakurikulerController::addAnggota');
+    $routes->post('anggota-ekstrakurikuler/update/(:num)', 'EkstrakurikulerController::updateAnggota/$1');
+    $routes->get('anggota-ekstrakurikuler/delete/(:num)', 'EkstrakurikulerController::deleteAnggota/$1');
+});
+
 /*
  * --------------------------------------------------------------------
  * Additional Routing

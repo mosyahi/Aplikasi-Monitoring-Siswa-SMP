@@ -5,7 +5,7 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Models\KelasModel;
 
-class KelasController extends BaseController
+class KelasGuruController extends BaseController
 {
     public function index()
     {
@@ -18,7 +18,7 @@ class KelasController extends BaseController
             'kelas' => $kelas
         ];
 
-        return view('admin/data-kelas/kelas', $data);
+        return view('guru/data-kelas/kelas', $data);
     }
 
 

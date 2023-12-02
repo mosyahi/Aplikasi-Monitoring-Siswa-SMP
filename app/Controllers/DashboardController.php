@@ -82,6 +82,32 @@ class DashboardController extends BaseController
                 return view('admin/index', $data);
                 break;
 
+            case 'Guru':
+
+                $model = new UserModel();
+                $modelSiswa = new SiswaModel();
+                $modelOrtu = new OrtuModel();
+                $modelKelas = new KelasModel();
+                $modelGuru = new GuruModel();
+
+                $orangtua = $modelOrtu->findAll();
+                $admin = $model->findAll();
+                $siswa = $modelSiswa->findAll();
+                $kelas = $modelKelas->findAll();
+                $guru = $modelGuru->findAll();
+
+                $data = [
+                    'title' => 'Dashboard',
+                    'active' => 'dashboard',
+                    'user' => $admin,
+                    'siswa' => $siswa,
+                    'orangtua' => $orangtua,
+                    'kelas' => $kelas,
+                    'guru' => $guru,
+                ];
+                return view('guru/index', $data);
+                break;
+
             case 'Orangtua':
 
                 $modelUser = new UserModel();

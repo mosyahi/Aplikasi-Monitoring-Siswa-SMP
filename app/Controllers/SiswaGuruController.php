@@ -7,7 +7,7 @@ use App\Models\SiswaModel;
 use App\Models\KelasModel;
 use App\Models\UserModel;
 
-class SiswaController extends BaseController
+class SiswaGuruController extends BaseController
 {
     public function index()
     {
@@ -38,12 +38,13 @@ class SiswaController extends BaseController
             'kelasSiswa' => $kelasSiswa,
         ];
 
-        return view('admin/data-siswa/index', $data);
+        return view('guru/data-siswa/index', $data);
     }
 
     public function anggota()
     {
         $model = new SiswaModel;
+
         $siswa = $model->findAll();
 
         $modelKelas = new KelasModel;
@@ -71,7 +72,7 @@ class SiswaController extends BaseController
             'kelasSiswa' => $kelasSiswa,
         ];
 
-        return view('admin/data-kelas/anggota', $data);
+        return view('guru/data-kelas/anggota', $data);
     }
 
     public function new()
@@ -84,7 +85,7 @@ class SiswaController extends BaseController
             'active'    => 'siswa',
             'kelas'     => $kelas,
         ];
-        return view('admin/data-siswa/new', $data);
+        return view('guru/data-siswa/new', $data);
     }
 
     public function add()
@@ -171,7 +172,7 @@ class SiswaController extends BaseController
 
             $model->where('nama', $nama)->set(['id_user' => $id_user])->update();
 
-            return redirect()->to('admin/data-siswa')->with('success', 'Data berhasil ditambahkan beserta dengan generate akun.');
+            return redirect()->to('guru/data-siswa')->with('success', 'Data berhasil ditambahkan beserta dengan generate akun.');
         } else {
             return redirect()->back()->with('error', 'Gagal mengunggah foto. Pastikan Anda mengunggah file gambar (JPEG atau PNG).');
         }
@@ -190,7 +191,7 @@ class SiswaController extends BaseController
             'kelas'     => $kelas,
         ];
 
-        return view('admin/data-siswa/edit', $data);
+        return view('guru/data-siswa/edit', $data);
     }
 
     public function update($id)
@@ -201,7 +202,7 @@ class SiswaController extends BaseController
         $siswa = $siswaModel->find($id);
 
         if (!$siswa) {
-            return redirect()->to(site_url('admin/kelola_siswa'))->with('error', 'Data Siswa tidak ditemukan.');
+            return redirect()->to(site_url('guru/kelola_siswa'))->with('error', 'Data Siswa tidak ditemukan.');
         }
 
         $foto = $this->request->getFile('foto');
@@ -271,7 +272,7 @@ class SiswaController extends BaseController
             }
         }
 
-        return redirect()->to(site_url('admin/data-siswa'))->with('success', 'Data siswa berhasil diperbarui.');
+        return redirect()->to(site_url('guru/data-siswa'))->with('success', 'Data siswa berhasil diperbarui.');
     }
 
     public function delete($id)

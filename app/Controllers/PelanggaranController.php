@@ -64,6 +64,39 @@ class PelanggaranController extends BaseController
                 return view('admin/pelanggaran', $data);
                 break;
 
+                //Guru
+            case 'Guru':
+                $pelanggaran = $this->pelanggaranModel->findAll();
+                $siswa = $this->siswaModel->findAll();
+                $ortu = $this->ortuModel->findAll();
+                $kelas = $this->kelasModel->findAll();
+
+                $kelasSiswa = [];
+                if (!empty($siswa)) {
+                    foreach ($siswa as $item) {
+                        $namaKelas = '';
+                        foreach ($kelas as $oi) {
+                            if ($oi['id_kelas'] == $item['id_kelas']) {
+                                $namaKelas = $oi['tingkat'] . ' ' . $oi['tipe_kelas'];
+                                $kelasSiswa[$item['id_siswa']] = $namaKelas;
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                $data = [
+                    'title' => 'Data Pelanggaran',
+                    'active' => 'pelanggaran',
+                    'siswa' => $siswa,
+                    'kelas' => $kelas,
+                    'ortu' => $ortu,
+                    'pelanggaran' => $pelanggaran,
+                    'kelasSiswa' => $kelasSiswa,
+                ];
+                return view('guru/pelanggaran', $data);
+                break;
+
                 // ROLE SISWA
             case 'Siswa':
                 $pelanggaran = $this->pelanggaranModel->where('id_siswa', $siswa_id)->findAll();

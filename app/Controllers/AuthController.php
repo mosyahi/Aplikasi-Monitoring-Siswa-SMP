@@ -93,8 +93,6 @@ class AuthController extends BaseController
         return redirect()->back();
     }
 
-
-
     public function logout()
     {
         session()->destroy();

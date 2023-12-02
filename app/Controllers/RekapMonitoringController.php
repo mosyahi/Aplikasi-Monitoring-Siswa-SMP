@@ -87,6 +87,52 @@ class RekapMonitoringController extends BaseController
                 return view('admin/rekap-monitoring', $data);
                 break;
 
+            case 'Guru':
+                $siswa = $this->siswaModel->findAll();
+                $kelas = $this->kelasModel->findAll();
+                $ortu = $this->ortuModel->findAll();
+                $prestasiAkademik = $this->prestasiAkademikModel->findAll();
+                $pelanggaran = $this->pelanggaranModel->findAll();
+
+                $kelasSiswa = [];
+                if (!empty($siswa)) {
+                    foreach ($siswa as $item) {
+                        $namaKelas = '';
+                        foreach ($kelas as $oi) {
+                            if ($oi['id_kelas'] == $item['id_kelas']) {
+                                $namaKelas = $oi['tingkat'] . ' ' . $oi['tipe_kelas'];
+                                $kelasSiswa[$item['id_siswa']] = $namaKelas;
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                foreach ($siswa as $item) {
+                    $ortuID = $this->ortuModel->where('id_siswa', $item['id_siswa'])->findAll();
+                    $prestasiAkademikID = $this->prestasiAkademikModel->where('id_siswa', $item['id_siswa'])->findAll();
+                    $pelanggaranID = $this->pelanggaranModel->where('id_siswa', $item['id_siswa'])->findAll();
+
+                    $ortuData[$item['id_siswa']] = isset($ortuID) ? $ortuID : [];
+                    $prestasiAkademikData[$item['id_siswa']] = isset($prestasiAkademikID) ? $prestasiAkademikID : [];
+                    $pelanggaranData[$item['id_siswa']] = isset($pelanggaranID) ? $pelanggaranID : [];
+                }
+
+                $data = [
+                    'title' => 'Rekap Monitoring',
+                    'active' => 'rekap',
+                    'kelas' => $kelas,
+                    'siswa' => $siswa,
+                    'kelasSiswa' => $kelasSiswa,
+                    'ortuData' => isset($ortuData) ? $ortuData : [],
+                    'prestasiAkademik' => isset($prestasiAkademikData) ? $prestasiAkademikData : [],
+                    'pelanggaranData' => isset($pelanggaranData) ? $pelanggaranData : [],
+                ];
+
+
+                return view('guru/rekap-monitoring', $data);
+                break;
+
             case 'Siswa':
                 $siswa = $this->siswaModel->find($siswa_id);
                 $kelas = $this->kelasModel->findAll();

@@ -29,7 +29,12 @@
 
 			<?= $this->include('layouts/admin/ortu-sidebar-web'); ?>
 
+		<?php elseif (session()->get('role') === 'Guru') : ?>
+
+			<?= $this->include('layouts/admin/guru-sidebar-web'); ?>
+
 		<?php endif; ?>
+
 		<!-- End Sidebar Web -->
 
 		<!-- Content -->
