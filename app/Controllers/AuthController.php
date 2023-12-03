@@ -5,7 +5,7 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Models\UserModel;
 use App\Models\SiswaModel;
-use App\Models\OrtuModel;
+// use App\Models\OrtuModel;
 use App\Models\GuruModel;
 use App\Models\GoogleModel;
 use Config\OAuth2;
@@ -54,19 +54,6 @@ class AuthController extends BaseController
                         $session->set('siswa_id', $siswaData['id_siswa']);
                     }
                     return redirect()->to('siswa/dashboard')->with('success', 'Login Berhasil.');
-                }
-
-                if ($user['role'] == 'Orangtua') {
-                    $ortuModel = new OrtuModel();
-                    // $siswaModel = new SiswaModel();
-                    $ortuData = $ortuModel->getOrtuByUserId($user['id_user']);
-                    // $siswaData = $siswaModel->getSiswaByUserId($user['id_user']);
-                    if ($ortuData) {
-                        $session->set('foto_url', base_url('uploads/orangtua/' . $ortuData['foto']));
-                        $session->set('ortu_id', $ortuData['id_ortu']);
-                        // $session->set('siswa_id', $siswaData['id_siswa']);
-                    }
-                    return redirect()->to('orangtua/dashboard')->with('success', 'Login Berhasil.');
                 }
 
                 if ($user['role'] == 'Guru') {

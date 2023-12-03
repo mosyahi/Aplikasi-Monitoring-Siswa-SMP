@@ -13,7 +13,7 @@
 			</h2>
 		</div>
 		<div class="hidden md:block mx-auto text-slate-500">
-			<a href="" class="ml-auto flex items-center text-primary"> <i data-lucide="refresh-ccw" class="w-4 h-4 mr-3"></i> Reload Data </a>
+			<a href="<?= current_url() ?>" class="ml-auto flex items-center text-primary"> <i data-lucide="refresh-ccw" class="w-4 h-4 mr-3"></i> Reload Data </a>
 		</div>
 		<div class="w-full sm:w-auto mt-3 sm:mt-0 sm:ml-auto md:ml-0">
 			<div class="w-56 relative text-slate-500">

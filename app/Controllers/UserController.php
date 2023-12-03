@@ -4,7 +4,7 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\UserModel;
-use App\Models\OrtuModel;
+// use App\Models\OrtuModel;
 use App\Models\SiswaModel;
 use App\Models\GuruModel;
 
@@ -16,7 +16,7 @@ class UserController extends BaseController
         $dataUser = $model->findAll();
 
         $siswaModel = new SiswaModel();
-        $ortuModel = new OrtuModel();
+        // $ortuModel = new OrtuModel();
         $guruModel = new GuruModel();
 
         foreach ($dataUser as &$user) {
@@ -24,7 +24,7 @@ class UserController extends BaseController
 
             $siswaData = $siswaModel->getSiswaByUserId($id_user);
 
-            $ortuData = $ortuModel->getOrtuByUserId($id_user);
+            // $ortuData = $ortuModel->getOrtuByUserId($id_user);
 
             $guruData = $guruModel->getGuruByUserId($id_user);
 
@@ -36,11 +36,11 @@ class UserController extends BaseController
                 $gambarUrls['gambar_siswa_url'] = ''; 
             }
 
-            if ($ortuData !== null) {
-                $gambarUrls['gambar_ortu_url'] = base_url('uploads/orangtua/' . $ortuData['foto']);
-            } else {
-                $gambarUrls['gambar_ortu_url'] = ''; 
-            }
+            // if ($ortuData !== null) {
+            //     $gambarUrls['gambar_ortu_url'] = base_url('uploads/orangtua/' . $ortuData['foto']);
+            // } else {
+            //     $gambarUrls['gambar_ortu_url'] = ''; 
+            // }
 
             if ($guruData !== null) {
                 $gambarUrls['gambar_guru_url'] = base_url('uploads/guru/' . $guruData['foto']);
@@ -97,7 +97,7 @@ class UserController extends BaseController
 
         $userModel = new UserModel();
         $siswaModel = new SiswaModel();
-        $ortuModel = new OrtuModel();
+        // $ortuModel = new OrtuModel();
         $guruModel = new GuruModel();
 
         $userData = [
@@ -123,14 +123,14 @@ class UserController extends BaseController
             $siswaModel->update($siswa['id_siswa'], $siswaData);
         }
 
-        $ortu = $ortuModel->where('id_user', $id)->first();
-        if ($ortu) {
-            $ortuData = [
-                'nama' => $nama,
-                'email' => $email,
-            ];
-            $ortuModel->update($ortu['id_ortu'], $ortuData);
-        }
+        // $ortu = $ortuModel->where('id_user', $id)->first();
+        // if ($ortu) {
+        //     $ortuData = [
+        //         'nama' => $nama,
+        //         'email' => $email,
+        //     ];
+        //     $ortuModel->update($ortu['id_ortu'], $ortuData);
+        // }
 
         $guru = $guruModel->where('id_user', $id)->first();
         if ($guru) {
@@ -152,17 +152,17 @@ class UserController extends BaseController
 
         if ($user) {
         // Temukan data ortu yang terkait
-            $ortuModel = new OrtuModel();
-            $ortu = $ortuModel->where('id_user', $id)->first();
+            // $ortuModel = new OrtuModel();
+            // $ortu = $ortuModel->where('id_user', $id)->first();
 
-            if ($ortu) {
-            // Hapus data ortu yang terkait
-                $ortuModel->update($ortu['id_ortu'], [
-                    'email' => null,
-                    'id_user' => null,
-                    'sbg' => null
-                ]);
-            }
+            // if ($ortu) {
+            // // Hapus data ortu yang terkait
+            //     $ortuModel->update($ortu['id_ortu'], [
+            //         'email' => null,
+            //         'id_user' => null,
+            //         'sbg' => null
+            //     ]);
+            // }
 
             // Temukan data siswa yang terkait
             $siswaModel = new SiswaModel();

@@ -114,7 +114,7 @@ class GuruController extends BaseController
     }
 }
 
-public function edit($id)
+public function edit($id, $nama)
 {
     $guru = new GuruModel();
 

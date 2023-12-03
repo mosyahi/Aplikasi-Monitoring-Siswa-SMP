@@ -35,28 +35,28 @@
 				<div class="mb-5">
 					<a href="" class="flex items-center mt-2">
 						<div class="w-8 h-8 image-fit">
-							<img alt="Midone - HTML Admin Template" class="rounded-full" src="<?= base_url() ?>source/dist/images/profile-7.jpg">
+							<img alt="Midone - HTML Admin Template" class="rounded-full" src="<?= base_url() ?>source/dist-css/images/profile-7.jpg">
 						</div>
 						<div class="ml-3">Kevin Spacey</div>
 						<div class="ml-auto w-48 truncate text-slate-500 text-xs text-right">kevinspacey@left4code.com</div>
 					</a>
 					<a href="" class="flex items-center mt-2">
 						<div class="w-8 h-8 image-fit">
-							<img alt="Midone - HTML Admin Template" class="rounded-full" src="<?= base_url() ?>source/dist/images/profile-2.jpg">
+							<img alt="Midone - HTML Admin Template" class="rounded-full" src="<?= base_url() ?>source/dist-css/images/profile-2.jpg">
 						</div>
 						<div class="ml-3">Johnny Depp</div>
 						<div class="ml-auto w-48 truncate text-slate-500 text-xs text-right">johnnydepp@left4code.com</div>
 					</a>
 					<a href="" class="flex items-center mt-2">
 						<div class="w-8 h-8 image-fit">
-							<img alt="Midone - HTML Admin Template" class="rounded-full" src="<?= base_url() ?>source/dist/images/profile-5.jpg">
+							<img alt="Midone - HTML Admin Template" class="rounded-full" src="<?= base_url() ?>source/dist-css/images/profile-5.jpg">
 						</div>
 						<div class="ml-3">Johnny Depp</div>
 						<div class="ml-auto w-48 truncate text-slate-500 text-xs text-right">johnnydepp@left4code.com</div>
 					</a>
 					<a href="" class="flex items-center mt-2">
 						<div class="w-8 h-8 image-fit">
-							<img alt="Midone - HTML Admin Template" class="rounded-full" src="<?= base_url() ?>source/dist/images/profile-9.jpg">
+							<img alt="Midone - HTML Admin Template" class="rounded-full" src="<?= base_url() ?>source/dist-css/images/profile-9.jpg">
 						</div>
 						<div class="ml-3">Morgan Freeman</div>
 						<div class="ml-auto w-48 truncate text-slate-500 text-xs text-right">morganfreeman@left4code.com</div>
@@ -65,28 +65,28 @@
 				<div class="search-result__content__title">Products</div>
 				<a href="" class="flex items-center mt-2">
 					<div class="w-8 h-8 image-fit">
-						<img alt="Midone - HTML Admin Template" class="rounded-full" src="<?= base_url() ?>source/dist/images/preview-9.jpg">
+						<img alt="Midone - HTML Admin Template" class="rounded-full" src="<?= base_url() ?>source/dist-css/images/preview-9.jpg">
 					</div>
 					<div class="ml-3">Oppo Find X2 Pro</div>
 					<div class="ml-auto w-48 truncate text-slate-500 text-xs text-right">Smartphone &amp; Tablet</div>
 				</a>
 				<a href="" class="flex items-center mt-2">
 					<div class="w-8 h-8 image-fit">
-						<img alt="Midone - HTML Admin Template" class="rounded-full" src="<?= base_url() ?>source/dist/images/preview-1.jpg">
+						<img alt="Midone - HTML Admin Template" class="rounded-full" src="<?= base_url() ?>source/dist-css/images/preview-1.jpg">
 					</div>
 					<div class="ml-3">Nikon Z6</div>
 					<div class="ml-auto w-48 truncate text-slate-500 text-xs text-right">Photography</div>
 				</a>
 				<a href="" class="flex items-center mt-2">
 					<div class="w-8 h-8 image-fit">
-						<img alt="Midone - HTML Admin Template" class="rounded-full" src="<?= base_url() ?>source/dist/images/preview-2.jpg">
+						<img alt="Midone - HTML Admin Template" class="rounded-full" src="<?= base_url() ?>source/dist-css/images/preview-2.jpg">
 					</div>
 					<div class="ml-3">Sony Master Series A9G</div>
 					<div class="ml-auto w-48 truncate text-slate-500 text-xs text-right">Electronic</div>
 				</a>
 				<a href="" class="flex items-center mt-2">
 					<div class="w-8 h-8 image-fit">
-						<img alt="Midone - HTML Admin Template" class="rounded-full" src="<?= base_url() ?>source/dist/images/preview-8.jpg">
+						<img alt="Midone - HTML Admin Template" class="rounded-full" src="<?= base_url() ?>source/dist-css/images/preview-8.jpg">
 					</div>
 					<div class="ml-3">Dell XPS 13</div>
 					<div class="ml-auto w-48 truncate text-slate-500 text-xs text-right">PC &amp; Laptop</div>
@@ -100,7 +100,7 @@
 		<div class="dropdown-toggle w-8 h-8 rounded-full overflow-hidden shadow-lg image-fit zoom-in" role="button" aria-expanded="false" data-tw-toggle="dropdown">
 			<?php
 			$fotoUrl = session()->get('foto_url');
-			$fotoDefault = base_url('source/dist/images/profile.png');
+			$fotoDefault = base_url('source/dist-css/images/profile.png');
 			if (!empty($fotoUrl)) {
 				echo '<img alt="Foto" src="' . $fotoUrl . '">';
 			} else {

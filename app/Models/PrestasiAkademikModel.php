@@ -10,6 +10,7 @@ class PrestasiAkademikModel extends Model
     protected $primaryKey = 'id_prestasi';
     protected $allowedFields = [
         'id_siswa', 
+        'created_by_user_id', 
         'kategori_prestasi', 
         'nama_prestasi', 
         'keterangan_prestasi', 

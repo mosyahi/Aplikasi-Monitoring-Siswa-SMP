@@ -13,11 +13,15 @@
 
 <div class="grid grid-cols-12 gap-6 mt-5">
     <div class="intro-y col-span-12 flex flex-wrap sm:flex-nowrap items-center mt-2">
-        <a type="button" href="<?= base_url('admin/data-siswa/new') ?>" class="btn btn-primary shadow-md mr-2">Tambah Anggota Kelas</a>
-        <div class="dropdown">
-            <button class="dropdown-toggle btn px-2 box" aria-expanded="false" data-tw-toggle="dropdown">
-                <span class="w-5 h-5 flex items-center justify-center"> <i class="w-4 h-4" data-lucide="plus"></i> </span>
-            </button>
+        <div class="w-full sm:w-auto mt-3 sm:mt-0 sm:ml-auto md:ml-0">
+            <select data-placeholder="Pilih Kelas" class="tom-select w-full" id="kelasSelect" name="tingkat">
+                <option value="Semua Kelas">-- Semua Kelas --</option>
+                <?php foreach ($kelas as $kelasItem) : ?>
+                    <option value="<?= $kelasItem['tingkat'] ?> <?= $kelasItem['tipe_kelas'] ?>">
+                        <?= $kelasItem['tingkat'] ?> <?= $kelasItem['tipe_kelas'] ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
         </div>
         <div class="hidden md:block mx-auto text-slate-500">
             <a href="" class="ml-auto flex items-center text-primary"> <i data-lucide="refresh-ccw" class="w-4 h-4 mr-3"></i> Reload Data </a>
@@ -41,7 +45,7 @@
                     <th class="text-center whitespace-nowrap">ACTIONS</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="mangBoleh">
              <?php if (empty($siswa)) : ?>
                 <tr>
                     <td colspan="6" class="text-center whitespace-nowrap">-- Belum ada data --</td>
@@ -186,7 +190,7 @@
                 </div>
                 <div class="preview">
                     <label for="regular-form-1" class="form-label mt-3">Foto</label>
-                    <div class="dropzone">
+                    <div>
                         <div class="fallback"> 
                             <div id="fotoPreview" class="mt-3">
                                 <img id="previewImage" src="<?= base_url('uploads/siswa/' . $item['foto']) ?>" alt="Foto Siswa" style="max-width: 120px;">
@@ -202,5 +206,31 @@
     </div>
 
 <?php endforeach ?>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        function filterSiswaByKelas(selectedKelas) {
+            const mangBoleh = document.getElementById('mangBoleh');
+            const rows = mangBoleh.getElementsByTagName('tr');
+
+            for (let i = 0; i < rows.length; i++) {
+                const row = rows[i];
+                const kelasCell = row.cells[3]; 
+
+                if (selectedKelas === 'Semua Kelas' || kelasCell.textContent.includes(selectedKelas)) {
+                    row.style.display = ''; 
+                } else {
+                    row.style.display = 'none'; 
+                }
+            }
+        }
+
+        const kelasSelect = document.getElementById('kelasSelect');
+        kelasSelect.addEventListener('change', function () {
+            const selectedKelas = kelasSelect.value;
+            filterSiswaByKelas(selectedKelas);
+        });
+    });
+</script>
 
 <?= $this->endSection() ?>

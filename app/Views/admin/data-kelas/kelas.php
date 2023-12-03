@@ -47,12 +47,12 @@
                     <?php foreach ($kelas as $item) : ?>
                         <tr class="intro-x">
                             <td><?= $i++ ?></td>
-                            <td class="table-report__action">
-                                <div class="flex items-center justify-center text-pending"> <i class="w-4 h-4 mr-2"></i>
+                            <td>
+                                <div class="flex items-center justify-center text-pending mr-5"> <i class="w-4 h-4 mr-2"></i>
                                     <?= $item['tingkat'] ?> <?= $item['tipe_kelas'] ?>
                                 </div>
                             </td>
-                            <td class="table-report__action w-56">
+                            <td>
                                 <div class="flex justify-center items-center">
                                     <button class="flex items-center mr-3" data-tw-toggle="modal" data-tw-target="#update-<?= $item['id_kelas'] ?>"> <i data-lucide="check-square" class="w-4 h-4 mr-1"></i> Edit </button>
                                     <button class="flex items-center text-danger" href="javascript:;" data-tw-toggle="modal" data-tw-target="#delete-<?= $item['id_kelas'] ?>" data-delete-url="<?= base_url('admin/data-kelas/delete/' . $item['id_kelas']) ?>"> <i data-lucide="trash-2" class="w-4 h-4 mr-1"></i> Delete </button>

@@ -11,57 +11,79 @@
 <body class="py-5">
 
 	<!-- Sidebar Mobile -->
+	<?php if (session()->get('role') === 'Admin') : ?>
+
 	<?= $this->include('layouts/admin/admin-sidebar-mobile'); ?>
+
+	<?php elseif (session()->get('role') === 'Siswa') : ?>
+
+	<?= $this->include('layouts/siswa/siswa-sidebar-mobile'); ?>
+
+	<?php elseif (session()->get('role') === 'Guru') : ?>
+
+	<?= $this->include('layouts/guru/guru-sidebar-mobile'); ?>
+
+	<?php endif; ?>
 	<!-- End Sidebar Mobile -->
 
 	<div class="flex mt-[4.7rem] md:mt-0">
 
-		<!-- Sidebar Web -->
-		<?php if (session()->get('role') === 'Admin') : ?>
+	<!-- Sidebar Web -->
+	<?php if (session()->get('role') === 'Admin') : ?>
 
-			<?= $this->include('layouts/admin/admin-sidebar-web'); ?>
+	<?= $this->include('layouts/admin/admin-sidebar-web'); ?>
 
-		<?php elseif (session()->get('role') === 'Siswa') : ?>
+	<?php elseif (session()->get('role') === 'Siswa') : ?>
 
-			<?= $this->include('layouts/admin/siswa-sidebar-web'); ?>
+	<?= $this->include('layouts/siswa/siswa-sidebar-web'); ?>
 
-		<?php elseif (session()->get('role') === 'Orangtua') : ?>
+	<?php elseif (session()->get('role') === 'Guru') : ?>
 
-			<?= $this->include('layouts/admin/ortu-sidebar-web'); ?>
+	<?= $this->include('layouts/guru/guru-sidebar-web'); ?>
 
-		<?php elseif (session()->get('role') === 'Guru') : ?>
+	<?php endif; ?>
+	<!-- End Sidebar Web -->
 
-			<?= $this->include('layouts/admin/guru-sidebar-web'); ?>
+	<!-- Content -->
+	<div class="content">
 
-		<?php endif; ?>
+	<!-- BEGIN: Top Bar -->
+	<?php if (session()->get('role') === 'Admin') : ?>
 
-		<!-- End Sidebar Web -->
+	<?= $this->include('layouts/admin/admin-top-bar'); ?>
 
-		<!-- Content -->
-		<div class="content">
+	<?php elseif (session()->get('role') === 'Siswa') : ?>
 
-			<!-- BEGIN: Top Bar -->
-			<?= $this->include('layouts/admin/admin-top-bar'); ?>
-			<!-- END: Top Bar -->
+	<?= $this->include('layouts/siswa/siswa-top-bar'); ?>
 
-			<!-- Isi Conten -->
+	<?php elseif (session()->get('role') === 'Guru') : ?>
+
+	<?= $this->include('layouts/guru/guru-top-bar'); ?>
+
+	<?php endif; ?>
+	<!-- END: Top Bar -->
+
+		<!-- Isi Conten -->
 			<?= $this->renderSection('content') ?>
-			<!-- END Isi Content -->
+		<!-- END Isi Content -->
 
-			<div class="intro-y box p-5 mt-12 sm:mt-5">
-				<footer class="text-center text-gray-600">
-					&copy; Template by Midone Tailwind | &copy; 2023 <a class="text-primary" href="https://mosyahizuku.site/blog" target="blank">Webcrafser.</a>
-				</footer>
-			</div>
-
+		<div class="intro-y box p-5 mt-12 sm:mt-5">
+			<footer class="text-center text-gray-600">
+				Copyright &copy; 
+				<script>
+					var CurrentYear = new Date().getFullYear()
+					document.write(CurrentYear)
+				</script>
+				<a class="text-primary" href="#" target="blank">SMPN 2 Sumber.</a>
+			</footer>
 		</div>
-		<!-- END Content -->
 	</div>
+	<!-- END Content -->
+</div>
 
-
-	<!-- script -->
-	<?= $this->include('layouts/admin/admin-script'); ?>
-	<!-- End script -->
+<!-- script -->
+<?= $this->include('layouts/admin/admin-script'); ?>
+<!-- End script -->
 
 </body>
 

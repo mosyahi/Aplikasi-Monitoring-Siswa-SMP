@@ -15,6 +15,8 @@ class SiswaModel extends Model
         'jk',
         'alamat',
         'foto', 
+        'no_hp', 
+        'no_hp_orangtua', 
         'nis', 
         'tgl_lahir',
         'email',

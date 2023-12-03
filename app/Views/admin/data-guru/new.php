@@ -63,7 +63,7 @@
 					</div>
 					<div class="preview">
 						<label for="regular-form-1" class="form-label mt-3">Upload Foto</label>
-						<div class="dropzone">
+						<div>
 							<div class="fallback"> 
 								<input name="foto" type="file" id="uploadFoto" onchange="previewFoto(this);" /></div>
 								<div id="fotoPreview" class="mt-3">

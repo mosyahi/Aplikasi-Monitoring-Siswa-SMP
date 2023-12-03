@@ -10,6 +10,7 @@ class PelanggaranModel extends Model
     protected $primaryKey = 'id_pelanggaran';
     protected $allowedFields = [
         'id_siswa', 
+        'created_by_user_id', 
         'jenis_pelanggaran', 
         'jenis_sp', 
         'panggilan_ortu', 

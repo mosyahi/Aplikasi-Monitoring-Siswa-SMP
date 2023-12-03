@@ -19,7 +19,7 @@
 			</a>
 		</div>
 		<div class="hidden md:block mx-auto text-slate-500">
-			<a href="" class="ml-auto flex items-center text-primary"> <i data-lucide="refresh-ccw" class="w-4 h-4 mr-3"></i> Reload Data </a>
+			<a href="<?= current_url() ?>" class="ml-auto flex items-center text-primary"> <i data-lucide="refresh-ccw" class="w-4 h-4 mr-3"></i> Reload Data </a>
 		</div>
 		<div class="w-full sm:w-auto mt-3 sm:mt-0 sm:ml-auto md:ml-0">
 			<div class="w-56 relative text-slate-500">
@@ -34,6 +34,7 @@
 				<tr>
 					<th class="whitespace-nowrap">NO</th>
 					<th class="whitespace-nowrap">FOTO</th>
+					<th class="text-center whitespace-nowrap">PEMBUAT</th>
 					<th class="text-center whitespace-nowrap">NAMA</th>
 					<th class="text-center whitespace-nowrap">KATEGORI</th>
 					<th class="text-center whitespace-nowrap">PRESTASI</th>
@@ -45,7 +46,7 @@
 			<tbody>
 				<?php if (empty($prestasi)) : ?>
 					<tr>
-						<td colspan="8" class="text-center whitespace-nowrap">-- Belum ada data --</td>
+						<td colspan="9" class="text-center whitespace-nowrap">-- Belum ada data --</td>
 					</tr>
 				<?php else : ?>
 					<?php $i =1; ?>
@@ -60,12 +61,22 @@
 								</div>
 							</td>
 							<td class="w-30">
+								<?php foreach ($user as $us): ?>
+									<?php if ($us['id_user'] == $item['created_by_user_id']): ?>
+										<div class="flex items-center justify-center font-medium whitespace-nowrap">
+											<?= $us['nama'] ?>
+										</div>
+										<div class="flex items-center justify-center text-slate-500 text-xs whitespace-nowrap mt-0.5">Role : <strong>&nbsp; <?= $us['role'] ?></strong></div>
+									<?php endif; ?>
+								<?php endforeach ?>
+							</td>
+							<td class="w-30">
 								<?php foreach ($siswa as $s): ?>
 									<?php if ($s['id_siswa'] == $item['id_siswa']) : ?>
-										<div class="font-medium whitespace-nowrap">
+										<div class="flex items-center justify-center font-medium whitespace-nowrap">
 											<?= $s['nama'] ?>
 										</div>
-										<div class="text-slate-500 text-xs whitespace-nowrap mt-0.5">Kelas : <strong><?= $kelasSiswa[$item['id_siswa']] ?? ''; ?></strong></div>
+										<div class="flex items-center justify-center text-slate-500 text-xs whitespace-nowrap mt-0.5">Kelas : <strong>&nbsp; <?= $kelasSiswa[$item['id_siswa']] ?? ''; ?></strong></div>
 									<?php endif; ?>
 								<?php endforeach ?>
 							</td>
@@ -110,8 +121,7 @@
 							</td>
 							<td class="table-report__action w-56">
 								<div class="flex justify-center items-center">
-									<button class="flex items-center mr-3" data-tw-toggle="modal" data-tw-target="#update-<?= $item['id_prestasi'] ?>"> <i data-lucide="check-square" class="w-4 h-4 mr-1"></i> Edit </button>
-									<button class="flex items-center text-danger" href="javascript:;" data-tw-toggle="modal" data-tw-target="#delete-<?= $item['id_prestasi'] ?>" data-delete-url="<?= base_url('admin/prestasi-akademik/delete/' . $item['id_prestasi']) ?>"> <i data-lucide="trash-2" class="w-4 h-4 mr-1"></i> Delete </button>
+									<button class="flex items-center mr-3 text-primary" data-tw-toggle="modal" data-tw-target="#update-<?= $item['id_prestasi'] ?>"> <i data-lucide="edit" class="w-4 h-4 mr-1"></i> Edit </button>
 								</div>
 							</td>
 						</tr>
@@ -147,14 +157,15 @@
 			<div class="modal-header">
 				<h2 class="font-medium text-base mr-auto">Add Prestasi Akademik</h2> 
 			</div>
-			<form action="<?= base_url('admin/prestasi-akademik/add') ?>" method="POST" enctype="multipart/form-data">
+			<form action="<?= base_url('guru/prestasi-akademik/add') ?>" method="POST" enctype="multipart/form-data">
 				<div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
+					<input type="hidden" name="created_by_user_id" value="<?= session()->get('id_user') ?>">
 					<div class="col-span-12 sm:col-span-12">
 						<label for="modal-form-1" class="form-label">Siswa</label> 
 						<select data-placeholder="Pilih Siswa" name="id_siswa" class="tom-select w-full" required>
 							<option selected disabled>-- Pilih Siswa --</option>
 							<?php foreach ($siswa as $s): ?>
-								<option value="<?= $s['id_siswa'] ?>">
+								<option value="<?= $s['id_siswa'] ?>" <?= (old('id_siswa') == ($s['id_siswa'])) ? 'selected' : '' ?>>
 									<?= $s['nis'] ?> - <?= $s['nama'] ?>
 								</option>
 							<?php endforeach ?>
@@ -164,25 +175,25 @@
 						<label for="modal-form-1" class="form-label">Kategori Prestasi</label> 
 						<select data-placeholder="Pilih Kategori" name="kategori_prestasi" class="tom-select w-full" required>
 							<option selected disabled>-- Pilih Kategori Prestasi --</option>
-							<option>Akademik</option>
-							<option>Non-Akademik</option>
+							<option <?= (old('kategori_prestasi') == 'Akademik') ? 'selected' : '' ?>>Akademik</option>
+							<option <?= (old('kategori_prestasi') == 'Non-Akademik') ? 'selected' : '' ?>>Non-Akademik</option>
 						</select>
 					</div>
 					<div class="col-span-12 sm:col-span-12"> 
 						<label for="modal-form-1" class="form-label">Nama Prestasi</label> 
-						<input id="regular-form-1" name="nama_prestasi" type="text" class="form-control" placeholder="Nama perolehan prestasi siswa" required>
+						<input id="regular-form-1" name="nama_prestasi" type="text" class="form-control" placeholder="Nama perolehan prestasi siswa" value="<?= old('nama_prestasi') ?>" required>
 					</div>
 					<div class="col-span-12 sm:col-span-12"> 
 						<label for="regular-form-1" class="form-label">Tanggal Prestasi</label>
-						<input type="text" name="tgl_prestasi" class="datepicker form-control block mx-auto" data-single-mode="true" required>
+						<input type="text" name="tgl_prestasi" class="datepicker form-control block mx-auto" data-single-mode="true" value="<?= old('tgl_prestasi') ?>" required>
 					</div>
 					<div class="col-span-12 sm:col-span-12"> 
 						<label for="modal-form-1" class="form-label">Keterangan</label> 
-						<textarea rows="3" id="regular-form-1" name="keterangan_prestasi" type="text" class="form-control" placeholder="Catatan Point Keaktifan" required></textarea>
+						<textarea rows="3" id="regular-form-1" name="keterangan_prestasi" type="text" class="form-control" placeholder="Catatan Point Keaktifan" required><?= old('keterangan_prestasi') ?></textarea>
 					</div>
 					<div class="col-span-12 sm:col-span-12">
 						<label for="regular-form-1" class="form-label mt-3">Dokumentasi Prestasi</label>
-						<div class="dropzone">
+						<div>
 							<div class="fallback"> 
 								<input name="foto" type="file" id="uploadFoto" onchange="previewFoto(this);" /></div>
 								<div id="fotoPreview" class="mt-3">
@@ -209,8 +220,9 @@
 					<div class="modal-header">
 						<h2 class="font-medium text-base mr-auto">Edit Prestasi Akademik</h2> 
 					</div>
-					<form action="<?= base_url('admin/prestasi-akademik/update/' . $value['id_prestasi']) ?>" method="POST" enctype="multipart/form-data">
+					<form action="<?= base_url('guru/prestasi-akademik/update/' . $value['id_prestasi']) ?>" method="POST" enctype="multipart/form-data">
 						<div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
+							<input type="hidden" name="created_by_user_id" value="<?= $value['created_by_user_id'] ?>">
 							<div class="col-span-12 sm:col-span-12">
 								<label for="modal-form-1" class="form-label">Siswa</label> 
 								<select data-placeholder="Pilih Siswa" name="id_siswa" class="tom-select w-full" required>
@@ -243,7 +255,7 @@
 							</div>
 							<div class="col-span-12 sm:col-span-12">
 								<label for="regular-form-1" class="form-label mt-3">Dokumentasi Prestasi</label>
-								<div class="dropzone">
+								<div>
 									<div class="fallback"> 
 										<input name="foto" type="file" id="uploadFoto" onchange="previewFotoPrestasi(this);" /></div>
 										<div id="fotoPreviewPrestasi" class="mt-3">
@@ -260,24 +272,6 @@
 					</div>
 				</div>
 			</div> 
-
-			<!-- MODAL HAPUS -->
-			<div id="delete-<?= $value['id_prestasi'] ?>" class="modal" tabindex="-1" aria-hidden="true">
-				<div class="modal-dialog">
-					<div class="modal-content"> <a data-tw-dismiss="modal" href="javascript:;"> <i data-lucide="x" class="w-8 h-8 text-slate-400"></i> </a>
-						<div class="modal-body p-0">
-							<div class="p-5 text-center"> 
-								<i data-lucide="x-circle" class="w-16 h-16 text-danger mx-auto mt-3"></i>
-								<div class="text-3xl mt-5">Konfirmasi Penghapusan</div>
-								<div class="text-slate-500 mt-2">Apakah anda yakin ingin menghapus data ini? </div>
-							</div>
-							<div class="px-5 pb-8 text-center"> 
-								<a type="button" href="<?= base_url('admin/prestasi-akademik/delete/' . $item['id_prestasi']) ?>" type="button" data-tw-dismiss="modal" class="btn btn-primary w-24">Hapus</a> 
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
 		<?php endforeach ?>
 		<script>
 			function previewFoto(input) {

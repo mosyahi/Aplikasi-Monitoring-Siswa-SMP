@@ -15,6 +15,11 @@ class CreateTblPelanggaran extends Migration
                 'unsigned' => true,
                 'auto_increment' => true,
             ],
+            'created_by_user_id' => [
+                'type' => 'INT',
+                'constraint' => 5,
+                'unsigned' => true,
+            ],
             'id_siswa' => [
                 'type' => 'INT',
                 'constraint' => 5,

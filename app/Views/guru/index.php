@@ -11,7 +11,7 @@
                     <h2 class="text-lg font-medium truncate mr-5">
                         General Report
                     </h2>
-                    <a href="" class="ml-auto flex items-center text-primary"> <i data-lucide="refresh-ccw" class="w-4 h-4 mr-3"></i> Reload Data </a>
+                    <a href="<?= current_url() ?>" class="ml-auto flex items-center text-primary"> <i data-lucide="refresh-ccw" class="w-4 h-4 mr-3"></i> Reload Data </a>
                 </div>
 
                 <div class="intro-y box px-5 pt-5 mt-5">
@@ -45,21 +45,7 @@
                 </div>
 
                 <div class="grid grid-cols-12 gap-6 mt-5">
-                    <a href="<?= base_url('admin/data-users') ?>" class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
-                        <div class="report-box zoom-in">
-                            <div class="box p-5">
-                                <div class="flex">
-                                    <i data-lucide="unlock" class="report-box__icon text-primary"></i>
-                                    <div class="ml-auto">
-                                        <div class="report-box__indicator bg-primary tooltip cursor-pointer" title="<?= count($user) ?> Data User"> <?= count($user) ?> <i class="w-4 h-4 ml-0.5"></i> </div>
-                                    </div>
-                                </div>
-                                <div class="text-3xl font-medium leading-8 mt-6"><?= count($user) ?></div>
-                                <div class="text-base text-slate-500 mt-1">Data Users</div>
-                            </div>
-                        </div>
-                    </a>
-                    <a href="<?= base_url('admin/data-siswa') ?>" class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
+                    <a href="<?= base_url('guru/data-siswa') ?>" class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
                         <div class="report-box zoom-in">
                             <div class="box p-5">
                                 <div class="flex">
@@ -73,45 +59,32 @@
                             </div>
                         </div>
                     </a>
-                    <a href="<?= base_url('admin/data-orangtua') ?>" class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
+
+                    <a href="<?= base_url('guru/prestasi-akademik') ?>" class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
                         <div class="report-box zoom-in">
                             <div class="box p-5">
                                 <div class="flex">
-                                    <i data-lucide="user-plus" class="report-box__icon text-warning"></i>
+                                    <i data-lucide="archive" class="report-box__icon text-primary"></i>
                                     <div class="ml-auto">
-                                        <div class="report-box__indicator bg-warning tooltip cursor-pointer" title="<?= count($orangtua) ?> Data Orang Tua"> <?= count($orangtua) ?> <i class="w-4 h-4 ml-0.5"></i> </div>
+                                        <div class="report-box__indicator bg-primary tooltip cursor-pointer" title="<?= count($prestasi) ?> Data Prestasi"> <?= count($prestasi) ?> <i class="w-4 h-4 ml-0.5"></i> </div>
                                     </div>
                                 </div>
-                                <div class="text-3xl font-medium leading-8 mt-6"><?= count($orangtua) ?></div>
-                                <div class="text-base text-slate-500 mt-1">Data Orang Tua</div>
+                                <div class="text-3xl font-medium leading-8 mt-6"><?= count($prestasi) ?></div>
+                                <div class="text-base text-slate-500 mt-1">Data Prestasi</div>
                             </div>
                         </div>
                     </a>
-                    <a href="<?= base_url('admin/data-guru') ?>" class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
+                    <a href="<?= base_url('guru/data-pelanggaran') ?>" class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
                         <div class="report-box zoom-in">
                             <div class="box p-5">
                                 <div class="flex">
-                                    <i data-lucide="user" class="report-box__icon text-success"></i>
+                                    <i data-lucide="archive" class="report-box__icon text-success"></i>
                                     <div class="ml-auto">
-                                        <div class="report-box__indicator bg-success tooltip cursor-pointer" title="<?= count($guru) ?> data guru"> <?= count($guru) ?> <i data-lucide="" class="w-4 h-4 ml-0.5"></i> </div>
+                                        <div class="report-box__indicator bg-success tooltip cursor-pointer" title="<?= count($pelanggaran) ?> Data Pelanggaran"> <?= count($pelanggaran) ?> <i class="w-4 h-4 ml-0.5"></i> </div>
                                     </div>
                                 </div>
-                                <div class="text-3xl font-medium leading-8 mt-6"><?= count($guru) ?></div>
-                                <div class="text-base text-slate-500 mt-1">Data Guru</div>
-                            </div>
-                        </div>
-                    </a>
-                    <a href="<?= base_url('admin/data-kelas') ?>" class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
-                        <div class="report-box zoom-in">
-                            <div class="box p-5">
-                                <div class="flex">
-                                    <i data-lucide="archive" class="report-box__icon text-pending"></i>
-                                    <div class="ml-auto">
-                                        <div class="report-box__indicator bg-pending tooltip cursor-pointer" title="<?= count($kelas) ?> Data Kelas"> <?= count($kelas) ?> <i class="w-4 h-4 ml-0.5"></i> </div>
-                                    </div>
-                                </div>
-                                <div class="text-3xl font-medium leading-8 mt-6"><?= count($kelas) ?></div>
-                                <div class="text-base text-slate-500 mt-1">Data Kelas</div>
+                                <div class="text-3xl font-medium leading-8 mt-6"><?= count($pelanggaran) ?></div>
+                                <div class="text-base text-slate-500 mt-1">Data Pelangaran</div>
                             </div>
                         </div>
                     </a>

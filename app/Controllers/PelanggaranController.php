@@ -5,20 +5,20 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Models\PelanggaranModel;
 use App\Models\SiswaModel;
-use App\Models\OrtuModel;
+use App\Models\UserModel;
 use App\Models\KelasModel;
 
 class PelanggaranController extends BaseController
 {
     protected $pelanggaranModel;
-    protected $ortuModel;
+    protected $userModel;
     protected $siswaModel;
     protected $kelasModel;
 
     public function __construct()
     {
         $this->pelanggaranModel = new PelanggaranModel();
-        $this->ortuModel = new OrtuModel();
+        $this->userModel = new UserModel();
         $this->siswaModel = new SiswaModel();
         $this->kelasModel = new KelasModel();
     }
@@ -27,142 +27,106 @@ class PelanggaranController extends BaseController
     {
         $userRole = session()->get('role');
         $siswa_id = session()->get('siswa_id');
-        $ortu_id = session()->get('ortu_id');
+        $user_id = session()->get('id_user');
 
         switch ($userRole) {
 
-                // ROLE ADMIN
+            // ROLE ADMIN
             case 'Admin':
-                $pelanggaran = $this->pelanggaranModel->findAll();
-                $siswa = $this->siswaModel->findAll();
-                $ortu = $this->ortuModel->findAll();
-                $kelas = $this->kelasModel->findAll();
+            $pelanggaran = $this->pelanggaranModel->findAll();
+            $siswa = $this->siswaModel->findAll();
+            $user = $this->userModel->findAll();
+            $kelas = $this->kelasModel->findAll();
 
-                $kelasSiswa = [];
-                if (!empty($siswa)) {
-                    foreach ($siswa as $item) {
-                        $namaKelas = '';
-                        foreach ($kelas as $oi) {
-                            if ($oi['id_kelas'] == $item['id_kelas']) {
-                                $namaKelas = $oi['tingkat'] . ' ' . $oi['tipe_kelas'];
-                                $kelasSiswa[$item['id_siswa']] = $namaKelas;
-                                break;
-                            }
-                        }
-                    }
-                }
-
-                $data = [
-                    'title' => 'Data Pelanggaran',
-                    'active' => 'pelanggaran',
-                    'siswa' => $siswa,
-                    'kelas' => $kelas,
-                    'ortu' => $ortu,
-                    'pelanggaran' => $pelanggaran,
-                    'kelasSiswa' => $kelasSiswa,
-                ];
-                return view('admin/pelanggaran', $data);
-                break;
-
-                //Guru
-            case 'Guru':
-                $pelanggaran = $this->pelanggaranModel->findAll();
-                $siswa = $this->siswaModel->findAll();
-                $ortu = $this->ortuModel->findAll();
-                $kelas = $this->kelasModel->findAll();
-
-                $kelasSiswa = [];
-                if (!empty($siswa)) {
-                    foreach ($siswa as $item) {
-                        $namaKelas = '';
-                        foreach ($kelas as $oi) {
-                            if ($oi['id_kelas'] == $item['id_kelas']) {
-                                $namaKelas = $oi['tingkat'] . ' ' . $oi['tipe_kelas'];
-                                $kelasSiswa[$item['id_siswa']] = $namaKelas;
-                                break;
-                            }
-                        }
-                    }
-                }
-
-                $data = [
-                    'title' => 'Data Pelanggaran',
-                    'active' => 'pelanggaran',
-                    'siswa' => $siswa,
-                    'kelas' => $kelas,
-                    'ortu' => $ortu,
-                    'pelanggaran' => $pelanggaran,
-                    'kelasSiswa' => $kelasSiswa,
-                ];
-                return view('guru/pelanggaran', $data);
-                break;
-
-                // ROLE SISWA
-            case 'Siswa':
-                $pelanggaran = $this->pelanggaranModel->where('id_siswa', $siswa_id)->findAll();
-                $siswa = $this->siswaModel->find($siswa_id);
-                $ortu = $this->ortuModel->findAll();
-                $kelas = $this->kelasModel->findAll();
-
-                $kelasSiswa = [];
-                if (!empty($siswa)) {
+            $kelasSiswa = [];
+            if (!empty($siswa)) {
+                foreach ($siswa as $item) {
                     $namaKelas = '';
                     foreach ($kelas as $oi) {
-                        if ($oi['id_kelas'] == $siswa['id_kelas']) {
+                        if ($oi['id_kelas'] == $item['id_kelas']) {
                             $namaKelas = $oi['tingkat'] . ' ' . $oi['tipe_kelas'];
-                            $kelasSiswa[$siswa['id_siswa']] = $namaKelas;
+                            $kelasSiswa[$item['id_siswa']] = $namaKelas;
                             break;
                         }
                     }
                 }
+            }
 
-                $data = [
-                    'title' => 'Data Pelanggaran',
-                    'active' => 'pelanggaran',
-                    'siswa' => $siswa,
-                    'kelas' => $kelas,
-                    'ortu' => $ortu,
-                    'pelanggaran' => $pelanggaran,
-                    'kelasSiswa' => $kelasSiswa,
-                ];
-                return view('siswa/pelanggaran', $data);
-                break;
+            $data = [
+                'title' => 'Data Pelanggaran',
+                'active' => 'pelanggaran',
+                'siswa' => $siswa,
+                'kelas' => $kelas,
+                'user' => $user,
+                'pelanggaran' => $pelanggaran,
+                'kelasSiswa' => $kelasSiswa,
+            ];
+            return view('admin/pelanggaran', $data);
+            break;
 
-                //ROLE ORANG TUA
-            case 'Orangtua':
-                $pelanggaran = $this->pelanggaranModel->where('id_siswa', $ortu_id)->findAll();
-                $ortu = $this->ortuModel->find($ortu_id);
+            //Guru
+            case 'Guru':
+            $pelanggaran = $this->pelanggaranModel->where('created_by_user_id', $user_id)->findAll();
+            $siswa = $this->siswaModel->findAll();
+            $user = $this->userModel->findAll();
+            $kelas = $this->kelasModel->findAll();
 
-                // Fetch the corresponding student data based on the parent's data
-                $siswa = $this->siswaModel->find($ortu['id_siswa'] ?? null);
-
-                $kelas = $this->kelasModel->findAll();
-
-                $kelasSiswa = [];
-                if (!empty($ortu) && !empty($siswa)) {
-                    $targetId = $siswa['id_kelas'];
-
+            $kelasSiswa = [];
+            if (!empty($siswa)) {
+                foreach ($siswa as $item) {
+                    $namaKelas = '';
                     foreach ($kelas as $oi) {
-                        if ($oi['id_kelas'] == $targetId) {
+                        if ($oi['id_kelas'] == $item['id_kelas']) {
                             $namaKelas = $oi['tingkat'] . ' ' . $oi['tipe_kelas'];
-                            $kelasSiswa[$siswa['id_siswa']] = $namaKelas;
+                            $kelasSiswa[$item['id_siswa']] = $namaKelas;
                             break;
                         }
                     }
                 }
+            }
 
-                $data = [
-                    'title' => 'Data Pelanggaran',
-                    'active' => 'pelanggaran',
-                    'siswa' => $siswa,
-                    'kelas' => $kelas,
-                    'ortu' => $ortu,
-                    'pelanggaran' => $pelanggaran,
-                    'kelasSiswa' => $kelasSiswa,
-                ];
+            $data = [
+                'title' => 'Data Pelanggaran',
+                'active' => 'pelanggaran',
+                'siswa' => $siswa,
+                'kelas' => $kelas,
+                'user' => $user,
+                'pelanggaran' => $pelanggaran,
+                'kelasSiswa' => $kelasSiswa,
+            ];
+            return view('guru/pelanggaran', $data);
+            break;
 
-                return view('orang-tua/pelanggaran', $data);
-                break;
+            // ROLE SISWA
+            case 'Siswa':
+            $pelanggaran = $this->pelanggaranModel->where('id_siswa', $siswa_id)->findAll();
+            $siswa = $this->siswaModel->find($siswa_id);
+            // $ortu = $this->ortuModel->findAll();
+            $kelas = $this->kelasModel->findAll();
+
+            $kelasSiswa = [];
+            if (!empty($siswa)) {
+                $namaKelas = '';
+                foreach ($kelas as $oi) {
+                    if ($oi['id_kelas'] == $siswa['id_kelas']) {
+                        $namaKelas = $oi['tingkat'] . ' ' . $oi['tipe_kelas'];
+                        $kelasSiswa[$siswa['id_siswa']] = $namaKelas;
+                        break;
+                    }
+                }
+            }
+
+            $data = [
+                'title' => 'Data Pelanggaran',
+                'active' => 'pelanggaran',
+                'siswa' => $siswa,
+                'kelas' => $kelas,
+                // 'ortu' => $ortu,
+                'pelanggaran' => $pelanggaran,
+                'kelasSiswa' => $kelasSiswa,
+            ];
+            return view('siswa/pelanggaran', $data);
+            break;
         }
     }
 
@@ -176,6 +140,7 @@ class PelanggaranController extends BaseController
         $jenis_sp = $this->request->getPost('jenis_sp');
         $panggilan_ortu = $this->request->getPost('panggilan_ortu');
         $keterangan_pelanggaran = $this->request->getPost('keterangan_pelanggaran');
+        $created_by_user_id = $this->request->getPost('created_by_user_id');
 
         $siswaModel = new SiswaModel();
         $namaSiswaID = $siswaModel->find($id_siswa);
@@ -216,6 +181,7 @@ class PelanggaranController extends BaseController
 
         $userData = [
             'id_siswa' => $id_siswa,
+            'created_by_user_id' => $created_by_user_id,
             'jenis_pelanggaran' => $jenis_pelanggaran,
             'jenis_sp' => $jenis_sp,
             'panggilan_ortu' => $panggilan_ortu,
@@ -229,7 +195,7 @@ class PelanggaranController extends BaseController
     }
 
 
-    public function update($id)
+    public function update($id, $nama)
     {
         $model = new PelanggaranModel();
         $dataPelanggaran = $model->find($id);
@@ -251,6 +217,7 @@ class PelanggaranController extends BaseController
         $jenis_sp = $this->request->getPost('jenis_sp');
         $panggilan_ortu = $this->request->getPost('panggilan_ortu');
         $keterangan_pelanggaran = $this->request->getPost('keterangan_pelanggaran');
+        $created_by_user_id = $this->request->getPost('created_by_user_id');
 
         $siswaModel = new SiswaModel();
         $namaSiswaID = $siswaModel->find($id_siswa);
@@ -269,6 +236,7 @@ class PelanggaranController extends BaseController
 
             $data = [
                 'id_siswa' => $id_siswa,
+                'created_by_user_id' => $created_by_user_id,
                 'jenis_pelanggaran' => $jenis_pelanggaran,
                 'jenis_sp' => $jenis_sp,
                 'panggilan_ortu' => $panggilan_ortu,
@@ -278,6 +246,7 @@ class PelanggaranController extends BaseController
         } else {
             $data = [
                 'id_siswa' => $id_siswa,
+                'created_by_user_id' => $created_by_user_id,
                 'jenis_pelanggaran' => $jenis_pelanggaran,
                 'jenis_sp' => $jenis_sp,
                 'panggilan_ortu' => $panggilan_ortu,
@@ -287,7 +256,7 @@ class PelanggaranController extends BaseController
 
         $model->update($id, $data);
 
-        return redirect()->to('admin/data-pelanggaran')->with('success', 'Data berhasil diperbaharui.');
+        return redirect()->back()->with('success', 'Data berhasil diperbaharui.');
     }
 
 

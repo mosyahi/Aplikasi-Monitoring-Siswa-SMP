@@ -37,7 +37,7 @@
                     <th class="whitespace-nowrap">NO</th>
                     <th class="whitespace-nowrap">FOTO</th>
                     <th class="text-center whitespace-nowrap">NAMA</th>
-                    <th class="text-center whitespace-nowrap">NIS</th>
+                    <th class="text-center whitespace-nowrap">HP ORANGTUA</th>
                     <th class="text-center whitespace-nowrap">KELAS</th>
                     <th class="text-center whitespace-nowrap">ACTIONS</th>
                 </tr>
@@ -60,16 +60,13 @@
                             </div>
                         </td>
                         <td class="table-report__action">
-                            <div class="flex justify-center items-center">
-                                <div class="font-medium whitespace-nowrap">
-                                    <?= $item['nama'] ?>
-                                </div>
-                            </div>
+                            <div class="font-medium whitespace-nowrap flex items-center justify-center"><?= $item['nama'] ?></div>                      
+                            <div class="text-slate-500 text-xs whitespace-nowrap mt-0.5 flex items-center justify-center"><?= $item['nis'] ?></div>
                         </td>
                         <td class="table-report__action">
                             <div class="flex justify-center items-center">
                                 <div class="font-medium whitespace-nowrap">
-                                    <?= $item['nis'] ?>
+                                    <?= $item['no_hp_orangtua'] ?>
                                 </div>
                             </div>
                         </td>
@@ -87,7 +84,7 @@
                         <td class="table-report__action w-56">
                             <div class="flex justify-center items-center">
                                 <a href="javascript:;" type="button" data-tw-toggle="modal" data-tw-target="#view-<?= $item['id_siswa'] ?>" class="flex items-center mr-3 text-primary"> <i data-lucide="toggle-right" class="w-4 h-4 mr-1"></i> View </a>
-                                <a class="flex items-center mr-3" href="<?= base_url('admin/data-siswa/edit/' . $item['id_siswa']) ?>"> <i data-lucide="check-square" class="w-4 h-4 mr-1"></i> Edit </a>
+                                <a class="flex items-center mr-3" href="<?= base_url('admin/data-siswa/edit/' . $item['id_siswa'] . '/' . str_replace(' ', '-', urldecode($item['nama']))) ?>"> <i data-lucide="check-square" class="w-4 h-4 mr-1"></i> Edit </a>
                                 <a class="flex items-center text-danger" href="javascript:;" data-tw-toggle="modal" data-tw-target="#delete-<?= $item['id_siswa'] ?>" data-delete-url="<?= base_url('admin/data-siswa/delete/' . $item['id_siswa']) ?>"> <i data-lucide="trash-2" class="w-4 h-4 mr-1"></i> Delete </a>
                             </div>
                         </td>
@@ -193,7 +190,7 @@
                 </div>
                 <div class="preview">
                     <label for="regular-form-1" class="form-label mt-3">Foto</label>
-                    <div class="dropzone">
+                    <div>
                         <div class="fallback"> 
                             <div id="fotoPreview" class="mt-3">
                                 <img id="previewImage" src="<?= base_url('uploads/siswa/' . $item['foto']) ?>" alt="Foto Siswa" style="max-width: 120px;">

@@ -71,7 +71,12 @@ class SiswaController extends BaseController
             'kelasSiswa' => $kelasSiswa,
         ];
 
-        return view('admin/data-kelas/anggota', $data);
+        $session = \Config\Services::session();
+        if ($session->get('role') == 'Admin') {
+            return view('admin/data-kelas/anggota', $data);
+        } elseif ($session->get('role') == 'Guru') {
+            return view('guru/data-kelas/anggota', $data);
+        }
     }
 
     public function new()
@@ -85,6 +90,16 @@ class SiswaController extends BaseController
             'kelas'     => $kelas,
         ];
         return view('admin/data-siswa/new', $data);
+    }
+
+    private function ubahNomorTelepon($nomor) {
+        if (substr($nomor, 0, 2) === '08') {
+            $nomor = '628' . substr($nomor, 2);
+        } elseif (substr($nomor, 0, 3) === '+62') {
+            $nomor = '62' . substr($nomor, 3);
+        }
+
+        return $nomor;
     }
 
     public function add()
@@ -101,6 +116,8 @@ class SiswaController extends BaseController
             'foto' => 'uploaded[foto]|mime_in[foto,image/jpeg,image/png]',
             'nis' => 'required',
             'tgl_lahir' => 'required',
+            'no_hp' => 'required',
+            'no_hp_orangtua' => 'required',
         ];
 
         $validationMessages = [
@@ -115,6 +132,8 @@ class SiswaController extends BaseController
             'nis.required' => 'Pekerjaan harus diisi.',
             'tgl_lahir.required' => 'Tanggal Lahir harus diisi.',
             'nis.required' => 'Nis harus diisi.',
+            'no_hp.required' => 'Nomor HP harus diisi.',
+            'no_hp_orangtua.required' => 'No Hp Orangtua harus diisi.',
         ];
 
         if (!$this->validate($validationRules, $validationMessages)) {
@@ -128,11 +147,17 @@ class SiswaController extends BaseController
         $email = $this->request->getPost('email');
         $nis = $this->request->getPost('nis');
         $tgl_lahir = $this->request->getPost('tgl_lahir');
+        $no_hp = $this->request->getPost('no_hp');
+        $no_hp_orangtua = $this->request->getPost('no_hp_orangtua');
         $foto = $this->request->getFile('foto');
+
+        // Generate Edit Whatsapp otomatis yaa..
+        $no_hp = $this->ubahNomorTelepon($no_hp);
+        $no_hp_orangtua = $this->ubahNomorTelepon($no_hp_orangtua);
 
         if ($foto->isValid() && !$foto->hasMoved()) {
 
-            // Nama File Gambar Pake Nama Sendiri Anjing
+            // Nama File Gambare Pake Nama Sendiri
             $extension = $foto->getClientExtension();
             $namaPengguna = $this->request->getPost('nama');
             $newName = $namaPengguna . '_' . date('dmYHis') . '.' . $extension;
@@ -148,6 +173,8 @@ class SiswaController extends BaseController
                 'foto' => $newName,
                 'nis' => $nis,
                 'tgl_lahir' => $tgl_lahir,
+                'no_hp' => $no_hp,
+                'no_hp_orangtua' => $no_hp_orangtua,
             ];
 
             $model->insert($data);
@@ -177,7 +204,7 @@ class SiswaController extends BaseController
         }
     }
 
-    public function edit($id)
+    public function edit($id, $nama)
     {
         $siswaModel = new SiswaModel();
         $model = new KelasModel;
@@ -225,6 +252,8 @@ class SiswaController extends BaseController
         $data['tgl_lahir'] = $this->request->getPost('tgl_lahir');
         $data['nis'] = $this->request->getPost('nis');
         $data['email'] = $this->request->getPost('email');
+        $data['no_hp'] = $this->ubahNomorTelepon($this->request->getPost('no_hp'));
+        $data['no_hp_orangtua'] = $this->ubahNomorTelepon($this->request->getPost('no_hp_orangtua'));
 
         $existingSchool = $siswaModel->where('nama', $data['nama'])->where('id_siswa !=', $id)->first();
         if ($existingSchool) {
@@ -277,19 +306,26 @@ class SiswaController extends BaseController
     public function delete($id)
     {
         $siswaModel = new SiswaModel();
-        $siswa = $siswaModel->find($id);
+        $dataSiswa = $siswaModel->find($id);
 
-        if (!$siswa) {
-            return redirect()->back()->with('error', 'Data siswa tidak ditemukan.');
+        if ($dataSiswa) {
+            $id_user = $dataSiswa['id_user'];
+
+            $siswaModel->delete($id);
+
+            if (!empty($id_user)) {
+                $userModel = new UserModel();
+                $userModel->delete($id_user);
+            }
+
+            $fotoPath = 'uploads/siswa/' . $dataSiswa['foto'];
+            if (file_exists($fotoPath)) {
+                unlink($fotoPath);
+            }
+
+            session()->setFlashdata('success', 'Data berhasil dihapus.');
         }
 
-        $fotoPath = 'uploads/siswa/' . $siswa['foto'];
-        if (file_exists($fotoPath)) {
-            unlink($fotoPath);
-        }
-
-        $siswaModel->delete($id);
-
-        return redirect()->back()->with('success', 'Data siswa berhasil dihapus.');
+        return redirect()->back();
     }
 }

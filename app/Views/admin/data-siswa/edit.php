@@ -34,6 +34,24 @@
 					</div>
 					<div class="preview">
 						<div class="mt-3">
+							<label for="regular-form-1" class="form-label">No Hp Siswa</label>
+							<input id="regular-form-1" name="no_hp" type="number" class="form-control" placeholder="Cth: 628988738xxxx" value="<?= $siswa['no_hp'] ?>" required>
+							<div class="form-help text-danger">
+								*Nomor Whatsapp Aktif!
+							</div>
+						</div>
+					</div>
+					<div class="preview">
+						<div class="mt-3">
+							<label for="regular-form-1" class="form-label">No Hp Orangtua/Wali</label>
+							<input id="regular-form-1" name="no_hp_orangtua" type="number" class="form-control" value="<?= $siswa['no_hp_orangtua'] ?>" placeholder="Cth: 628988738xxxx" required>
+							<div class="form-help text-danger">
+								*Nomor Whatsapp Aktif!
+							</div>
+						</div>
+					</div>
+					<div class="preview">
+						<div class="mt-3">
 							<label for="regular-form-1" class="form-label">Nis</label>
 							<input type="text" name="nis" class="form-control block mx-auto" value="<?= $siswa['nis'] ?>" required>
 						</div>
@@ -75,7 +93,7 @@
 					</div>
 					<div class="preview">
 						<label for="regular-form-1" class="form-label mt-3">Upload Foto</label>
-						<div class="dropzone">
+						<div>
 							<div class="fallback"> 
 								<input name="foto" type="file" id="uploadFoto" onchange="previewFoto(this);" /></div>
 								<div id="fotoPreview" class="mt-3">

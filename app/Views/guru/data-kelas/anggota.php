@@ -13,11 +13,15 @@
 
 <div class="grid grid-cols-12 gap-6 mt-5">
     <div class="intro-y col-span-12 flex flex-wrap sm:flex-nowrap items-center mt-2">
-        <a type="button" href="<?= base_url('guru/data-siswa/new') ?>" class="btn btn-primary shadow-md mr-2">Tambah Anggota Kelas</a>
-        <div class="dropdown">
-            <button class="dropdown-toggle btn px-2 box" aria-expanded="false" data-tw-toggle="dropdown">
-                <span class="w-5 h-5 flex items-center justify-center"> <i class="w-4 h-4" data-lucide="plus"></i> </span>
-            </button>
+        <div class="w-full sm:w-auto mt-3 sm:mt-0 sm:ml-auto md:ml-0">
+            <select data-placeholder="Pilih Kelas" class="tom-select w-full" id="kelasSelect" name="tingkat">
+                <option value="Semua Kelas">-- Semua Kelas --</option>
+                <?php foreach ($kelas as $kelasItem) : ?>
+                    <option value="<?= $kelasItem['tingkat'] ?> <?= $kelasItem['tipe_kelas'] ?>">
+                        <?= $kelasItem['tingkat'] ?> <?= $kelasItem['tipe_kelas'] ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
         </div>
         <div class="hidden md:block mx-auto text-slate-500">
             <a href="" class="ml-auto flex items-center text-primary"> <i data-lucide="refresh-ccw" class="w-4 h-4 mr-3"></i> Reload Data </a>
@@ -41,7 +45,7 @@
                     <th class="text-center whitespace-nowrap">ACTIONS</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="siswaTableBody">
                 <?php if (empty($siswa)) : ?>
                     <tr>
                         <td colspan="6" class="text-center whitespace-nowrap">-- Belum ada data --</td>
@@ -79,8 +83,6 @@
                             <td class="table-report__action w-56">
                                 <div class="flex justify-center items-center">
                                     <a href="javascript:;" type="button" data-tw-toggle="modal" data-tw-target="#view-<?= $item['id_siswa'] ?>" class="flex items-center mr-3 text-primary"> <i data-lucide="toggle-right" class="w-4 h-4 mr-1"></i> View </a>
-                                    <a class="flex items-center mr-3" href="<?= base_url('guru/data-siswa/edit/' . $item['id_siswa']) ?>"> <i data-lucide="check-square" class="w-4 h-4 mr-1"></i> Edit </a>
-                                    <a class="flex items-center text-danger" href="javascript:;" data-tw-toggle="modal" data-tw-target="#delete-<?= $item['id_siswa'] ?>" data-delete-url="<?= base_url('guru/data-siswa/delete/' . $item['id_siswa']) ?>"> <i data-lucide="trash-2" class="w-4 h-4 mr-1"></i> Delete </a>
                                 </div>
                             </td>
                         </tr>
@@ -111,30 +113,7 @@
 </div>
 
 <?php foreach ($siswa as $key => $item) : ?>
-    <!-- BEGIN: Delete Confirmation Modal -->
-    <div id="delete-<?= $item['id_siswa'] ?>" class="modal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-body p-0">
-                    <div class="p-5 text-center">
-                        <i data-lucide="x-circle" class="w-16 h-16 text-danger mx-auto mt-3"></i>
-                        <div class="text-3xl mt-5">Konfirmasi Penghapusan</div>
-                        <div class="text-slate-500 mt-2">
-                            Apakah anda yakin ingin menghapus siswa ( <?= $item['nama'] ?>)
-                            <br>
-                            Penghapusan ini bersifat permanen beserta dengan biodata keseluruhan.
-                        </div>
-                    </div>
-                    <div class="px-5 pb-8 text-center">
-                        <button type="button" data-tw-dismiss="modal" class="btn btn-outline-secondary w-24 mr-1">Cancel</button>
-                        <a type="button" href="<?= base_url('guru/data-siswa/delete/' . $item['id_siswa']) ?>" class="btn btn-danger w-24">Hapus</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
     <!-- END: Delete Confirmation Modal -->
-
     <div id="view-<?= $item['id_siswa'] ?>" class="modal modal-slide-over" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -186,7 +165,7 @@
                     </div>
                     <div class="preview">
                         <label for="regular-form-1" class="form-label mt-3">Foto</label>
-                        <div class="dropzone">
+                        <div>
                             <div class="fallback">
                                 <div id="fotoPreview" class="mt-3">
                                     <img id="previewImage" src="<?= base_url('uploads/siswa/' . $item['foto']) ?>" alt="Foto Siswa" style="max-width: 120px;">
@@ -202,5 +181,31 @@
         </div>
 
     <?php endforeach ?>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            function filterSiswaByKelas(selectedKelas) {
+                const siswaTableBody = document.getElementById('siswaTableBody');
+                const rows = siswaTableBody.getElementsByTagName('tr');
+
+                for (let i = 0; i < rows.length; i++) {
+                    const row = rows[i];
+                    const kelasCell = row.cells[3]; 
+
+                    if (selectedKelas === 'Semua Kelas' || kelasCell.textContent.includes(selectedKelas)) {
+                        row.style.display = ''; 
+                    } else {
+                        row.style.display = 'none'; 
+                    }
+                }
+            }
+
+            const kelasSelect = document.getElementById('kelasSelect');
+            kelasSelect.addEventListener('change', function () {
+                const selectedKelas = kelasSelect.value;
+                filterSiswaByKelas(selectedKelas);
+            });
+        });
+    </script>
 
     <?= $this->endSection() ?>

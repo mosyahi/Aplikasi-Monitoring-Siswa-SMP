@@ -20,7 +20,7 @@
 							<div class="w-20 h-20 sm:w-24 sm:h-24 flex-none lg:w-32 lg:h-32 image-fit relative">
 								<?php
 								$fotoUrl = session()->get('foto_url');
-								$fotoDefault = base_url('source/dist/images/profile.png');
+								$fotoDefault = base_url('source/dist-css/images/profile.png');
 								if (!empty($fotoUrl)) {
 									echo '<img alt="Foto" data-action="zoom" class="rounded-full" src="' . $fotoUrl . '">';
 								} else {
@@ -73,20 +73,6 @@
 							</div>
 						</div>
 					</a>
-					<a href="<?= base_url('admin/data-orangtua') ?>" class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
-						<div class="report-box zoom-in">
-							<div class="box p-5">
-								<div class="flex">
-									<i data-lucide="user-plus" class="report-box__icon text-warning"></i>
-									<div class="ml-auto">
-										<div class="report-box__indicator bg-warning tooltip cursor-pointer" title="<?= count($orangtua) ?> Data Orang Tua"> <?= count($orangtua) ?> <i class="w-4 h-4 ml-0.5"></i> </div>
-									</div>
-								</div>
-								<div class="text-3xl font-medium leading-8 mt-6"><?= count($orangtua) ?></div>
-								<div class="text-base text-slate-500 mt-1">Data Orang Tua</div>
-							</div>
-						</div>
-					</a>
 					<a href="<?= base_url('admin/data-guru') ?>" class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
 						<div class="report-box zoom-in">
 							<div class="box p-5">
@@ -105,13 +91,41 @@
 						<div class="report-box zoom-in">
 							<div class="box p-5">
 								<div class="flex">
-									<i data-lucide="archive" class="report-box__icon text-pending"></i>
+									<i data-lucide="archive" class="report-box__icon text-warning"></i>
 									<div class="ml-auto">
-										<div class="report-box__indicator bg-pending tooltip cursor-pointer" title="<?= count($kelas) ?> Data Kelas"> <?= count($kelas) ?> <i class="w-4 h-4 ml-0.5"></i> </div>
+										<div class="report-box__indicator bg-warning tooltip cursor-pointer" title="<?= count($kelas) ?> Data Kelas"> <?= count($kelas) ?> <i class="w-4 h-4 ml-0.5"></i> </div>
 									</div>
 								</div>
 								<div class="text-3xl font-medium leading-8 mt-6"><?= count($kelas) ?></div>
 								<div class="text-base text-slate-500 mt-1">Data Kelas</div>
+							</div>
+						</div>
+					</a>
+					<a href="<?= base_url('admin/prestasi-akademik') ?>" class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
+						<div class="report-box zoom-in">
+							<div class="box p-5">
+								<div class="flex">
+									<i data-lucide="archive" class="report-box__icon text-danger"></i>
+									<div class="ml-auto">
+										<div class="report-box__indicator bg-danger tooltip cursor-pointer" title="<?= count($prestasi) ?> Data Prestasi"> <?= count($prestasi) ?> <i class="w-4 h-4 ml-0.5"></i> </div>
+									</div>
+								</div>
+								<div class="text-3xl font-medium leading-8 mt-6"><?= count($prestasi) ?></div>
+								<div class="text-base text-slate-500 mt-1">Data Prestasi</div>
+							</div>
+						</div>
+					</a>
+					<a href="<?= base_url('admin/data-pelanggaran') ?>" class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
+						<div class="report-box zoom-in">
+							<div class="box p-5">
+								<div class="flex">
+									<i data-lucide="archive" class="report-box__icon text-pending"></i>
+									<div class="ml-auto">
+										<div class="report-box__indicator bg-pending tooltip cursor-pointer" title="<?= count($pelanggaran) ?> Data Pelanggaran"> <?= count($pelanggaran) ?> <i class="w-4 h-4 ml-0.5"></i> </div>
+									</div>
+								</div>
+								<div class="text-3xl font-medium leading-8 mt-6"><?= count($pelanggaran) ?></div>
+								<div class="text-base text-slate-500 mt-1">Data Pelangaran</div>
 							</div>
 						</div>
 					</a>

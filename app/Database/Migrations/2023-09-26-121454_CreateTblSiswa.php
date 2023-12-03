@@ -33,6 +33,14 @@ class CreateTblSiswa extends Migration
                 'type' => 'VARCHAR',
                 'constraint' => 150,
             ],
+            'no_hp' => [
+                'type' => 'VARCHAR',
+                'constraint' => 20,
+            ],
+            'no_hp_orangtua' => [
+                'type' => 'VARCHAR',
+                'constraint' => 20,
+            ],
             'nis' => [
                 'type' => 'VARCHAR',
                 'constraint' => 20,

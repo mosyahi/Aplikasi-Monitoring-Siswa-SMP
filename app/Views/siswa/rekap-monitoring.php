@@ -16,8 +16,8 @@
 	</div>
 	<div class="intro-y col-span-12 overflow-auto 2xl:overflow-visible">
 		<div id="faq-accordion-2" class="accordion accordion-boxed">
-			<div class="accordion-item">
-				<div id="faq-accordion-content-5" class="accordion-header"> <button class="accordion-button collapsed" type="button" data-tw-toggle="collapse" data-tw-target="#faq-accordion-collapse-5" aria-expanded="true" aria-controls="faq-accordion-collapse-5"> Rekap Biodata </button> </div>
+			<div class="accordion-item bg-white">
+				<div id="faq-accordion-content-5" class="accordion-header"> <button class="accordion-button collapsed" type="button" data-tw-toggle="collapse" data-tw-target="#faq-accordion-collapse-5" aria-expanded="true" aria-controls="faq-accordion-collapse-5"> Rekap Biodata <i data-lucide="chevron-down" style="float: right;"></i> </button> </div>
 				<div id="faq-accordion-collapse-5" class="accordion-collapse collapse" aria-labelledby="faq-accordion-content-5" data-tw-parent="#faq-accordion-2">
 					<div class="accordion-body text-slate-600 dark:text-slate-500 leading-relaxed">
 						<div class="intro-y col-span-12 overflow-auto 2xl:overflow-visible">
@@ -33,6 +33,14 @@
 									<tr class="intro-x">
 										<th>Email</th>
 										<td><?= $siswa['email'] ?></td>
+									</tr>
+									<tr class="intro-x">
+										<th>No HP</th>
+										<td><?= $siswa['no_hp'] ?></td>
+									</tr>
+									<tr class="intro-x">
+										<th>No HP Orangtua</th>
+										<td><?= $siswa['no_hp_orangtua'] ?></td>
 									</tr>
 									<tr class="intro-x">
 										<th>Nis</th>
@@ -52,45 +60,14 @@
 										<th>Alamat</th>
 										<td><?= $siswa['alamat'] ?></td>
 									</tr>
-									<tr class="intro-x">
-										<th class="text-center" colspan="2">Orang Tua</th>
-									</tr>
-									<?php if (empty($ortuData)) : ?>
-										<tr>
-											<td colspan="2" class="text-center whitespace-nowrap">-- Belum ada data --</td>
-										</tr>
-									<?php else : ?>
-										<?php foreach ($ortuData as $ortu) : ?>
-											<tr class="intro-x">
-												<th>Nama</th>
-												<td><?= $ortu['nama'] ?></td>
-											</tr>	
-											<tr class="intro-x">
-												<th>Email</th>
-												<td><?= $ortu['email'] ?></td>
-											</tr>
-											<tr class="intro-x">
-												<th>Posisi</th>
-												<td><?= $ortu['sbg'] ?></td>
-											</tr>
-											<tr class="intro-x">
-												<th>Pekerjaan</th>
-												<td><?= $ortu['pekerjaan'] ?></td>
-											</tr>
-											<tr class="intro-x">
-												<th>Alamat</th>
-												<td><?= $ortu['alamat'] ?></td>
-											</tr>
-										<?php endforeach ?>
-									<?php endif; ?>
 								</tbody>
 							</table>
 						</div>
 					</div>
 				</div>
 			</div>
-			<div class="accordion-item">
-				<div id="faq-accordion-content-9" class="accordion-header"> <button class="accordion-button collapsed" type="button" data-tw-toggle="collapse" data-tw-target="#faq-accordion-collapse-9" aria-expanded="false" aria-controls="faq-accordion-collapse-9"> Rekap Prestasi Akademik</button> </div>
+			<div class="accordion-item bg-white">
+				<div id="faq-accordion-content-9" class="accordion-header"> <button class="accordion-button collapsed" type="button" data-tw-toggle="collapse" data-tw-target="#faq-accordion-collapse-9" aria-expanded="false" aria-controls="faq-accordion-collapse-9"> Rekap Prestasi Akademik <i data-lucide="chevron-down" style="float: right;"></i></button> </div>
 				<div id="faq-accordion-collapse-9" class="accordion-collapse collapse" aria-labelledby="faq-accordion-content-9" data-tw-parent="#faq-accordion-2">
 					<div class="accordion-body text-slate-600 dark:text-slate-500 leading-relaxed">
 						<div class="intro-y col-span-12 overflow-auto 2xl:overflow-visible">
@@ -143,8 +120,8 @@
 					</div>
 				</div>
 			</div>
-			<div class="accordion-item">
-				<div id="faq-accordion-content-10" class="accordion-header"> <button class="accordion-button collapsed" type="button" data-tw-toggle="collapse" data-tw-target="#faq-accordion-collapse-10" aria-expanded="false" aria-controls="faq-accordion-collapse-10"> Rekap Pelanggaran </button> </div>
+			<div class="accordion-item bg-white">
+				<div id="faq-accordion-content-10" class="accordion-header"> <button class="accordion-button collapsed" type="button" data-tw-toggle="collapse" data-tw-target="#faq-accordion-collapse-10" aria-expanded="false" aria-controls="faq-accordion-collapse-10"> Rekap Pelanggaran <i data-lucide="chevron-down" style="float: right;"></i></button> </div>
 				<div spark v id="faq-accordion-collapse-10" class="accordion-collapse collapse" aria-labelledby="faq-accordion-content-10" data-tw-parent="#faq-accordion-2">
 					<div class="accordion-body text-slate-600 dark:text-slate-500 leading-relaxed">
 						<div class="intro-y col-span-12 overflow-auto 2xl:overflow-visible">

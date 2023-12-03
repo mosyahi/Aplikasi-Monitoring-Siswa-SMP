@@ -23,19 +23,37 @@
 					<div class="preview">
 						<div>
 							<label for="regular-form-1" class="form-label">Nama</label>
-							<input id="regular-form-1" name="nama" type="text" class="form-control" placeholder="Nama Lengkap Siswa" required>
+							<input id="regular-form-1" name="nama" type="text" class="form-control" placeholder="Nama Lengkap Siswa" value="<?= old('nama') ?>" required>
 						</div>
 					</div>
 					<div class="preview">
 						<div class="mt-3">
 							<label for="regular-form-1" class="form-label">Email</label>
-							<input id="regular-form-1" name="email" type="email" class="form-control" placeholder="Email Aktif" required>
+							<input id="regular-form-1" name="email" type="email" class="form-control" placeholder="Email Aktif" value="<?= old('email') ?>" required>
+						</div>
+					</div>
+					<div class="preview">
+						<div class="mt-3">
+							<label for="regular-form-1" class="form-label">No Hp Siswa</label>
+							<input id="regular-form-1" name="no_hp" type="number" class="form-control" placeholder="Cth: 6289887xxxxxx" value="<?= old('no_hp') ?>" required>
+							<div class="form-help text-danger">
+								*Nomor Whatsapp Aktif!
+							</div>
+						</div>
+					</div>
+					<div class="preview">
+						<div class="mt-3">
+							<label for="regular-form-1" class="form-label">No Hp Orangtua/Wali</label>
+							<input id="regular-form-1" name="no_hp_orangtua" type="number" class="form-control" placeholder="Cth: 6289887xxxxxx" value="<?= old('no_hp_orangtua') ?>" required>
+							<div class="form-help text-danger">
+								*Nomor Whatsapp Aktif!
+							</div>
 						</div>
 					</div>
 					<div class="preview">
 						<div class="mt-3">
 							<label for="regular-form-1" class="form-label">Nis</label>
-							<input id="regular-form-1" name="nis" type="number" class="form-control" placeholder="Nomor Induk Siswa" minlength="10" required>
+							<input id="regular-form-1" name="nis" type="number" class="form-control" placeholder="Nomor Induk Siswa" minlength="10" value="<?= old('nis') ?>" required>
 						</div>
 					</div>
 					<div class="preview">
@@ -64,18 +82,18 @@
 					<div class="preview">
 						<div class="mt-3">
 							<label for="regular-form-1" class="form-label">Tanggal Lahir</label>
-							<input type="text" name="tgl_lahir" class="datepicker form-control block mx-auto" data-single-mode="true" required>
+							<input type="text" name="tgl_lahir" class="datepicker form-control block mx-auto" data-single-mode="true" value="<?= old('tgl_lahir') ?>" required>
 						</div>
 					</div>
 					<div class="preview">
 						<div class="mt-3">
 							<label for="regular-form-1" class="form-label">Alamat</label>
-							<textarea id="regular-form-1" rows="2" name="alamat" type="text" class="form-control" placeholder="Isi alamat lengkap disini..." minlength="10" required></textarea>
+							<textarea id="regular-form-1" rows="2" name="alamat" type="text" class="form-control" placeholder="Isi alamat lengkap disini..." minlength="10" required><?= old('alamat') ?></textarea>
 						</div>
 					</div>
 					<div class="preview">
 						<label for="regular-form-1" class="form-label mt-3">Upload Foto</label>
-						<div class="dropzone">
+						<div>
 							<div class="fallback"> 
 								<input name="foto" type="file" id="uploadFoto" onchange="previewFoto(this);" /></div>
 								<div id="fotoPreview" class="mt-3">

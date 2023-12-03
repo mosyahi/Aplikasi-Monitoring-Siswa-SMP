@@ -34,18 +34,18 @@
 				<tr>
 					<th class="whitespace-nowrap">NO</th>
 					<th class="whitespace-nowrap">FOTO</th>
-					<th class="text-center whitespace-nowrap">NAMA</th>
+					<th class="text-center whitespace-nowrap">PEMBUAT</th>
+					<th class="text-center whitespace-nowrap">NAMA SISWA</th>
 					<th class="text-center whitespace-nowrap">KATEGORI</th>
 					<th class="text-center whitespace-nowrap">PRESTASI</th>
 					<th class="text-center whitespace-nowrap">KETERANGAN</th>
-					<th class="text-center whitespace-nowrap">TANGGAL</th>
 					<th class="text-center whitespace-nowrap">AKSI</th>
 				</tr>
 			</thead>
 			<tbody>
 				<?php if (empty($prestasi)) : ?>
 					<tr>
-						<td colspan="8" class="text-center whitespace-nowrap">-- Belum ada data --</td>
+						<td colspan="7" class="text-center whitespace-nowrap">-- Belum ada data --</td>
 					</tr>
 				<?php else : ?>
 					<?php $i =1; ?>
@@ -60,12 +60,22 @@
 								</div>
 							</td>
 							<td class="w-30">
+								<?php foreach ($user as $us): ?>
+									<?php if ($us['id_user'] == $item['created_by_user_id']): ?>
+										<div class="flex items-center justify-center font-medium whitespace-nowrap">
+											<?= $us['nama'] ?>
+										</div>
+										<div class="flex items-center justify-center text-slate-500 text-xs whitespace-nowrap mt-0.5">Role : <strong> <?= $us['role'] ?></strong></div>
+									<?php endif; ?>
+								<?php endforeach ?>
+							</td>
+							<td class="w-30">
 								<?php foreach ($siswa as $s): ?>
 									<?php if ($s['id_siswa'] == $item['id_siswa']) : ?>
-										<div class="font-medium whitespace-nowrap">
+										<div class="font-medium whitespace-nowrap flex items-center justify-center">
 											<?= $s['nama'] ?>
 										</div>
-										<div class="text-slate-500 text-xs whitespace-nowrap mt-0.5">Kelas : <strong><?= $kelasSiswa[$item['id_siswa']] ?? ''; ?></strong></div>
+										<div class="text-slate-500 text-xs whitespace-nowrap mt-0.5 flex items-center justify-center">Kelas : <strong><?= $kelasSiswa[$item['id_siswa']] ?? ''; ?></strong></div>
 									<?php endif; ?>
 								<?php endforeach ?>
 							</td>
@@ -75,9 +85,8 @@
 								</div>
 							</td>
 							<td>
-								<div class="flex items-center justify-center">
-									<?= $item['nama_prestasi'] ?>
-								</div>
+								<div class="font-medium whitespace-nowrap flex items-center justify-center"><?= $item['nama_prestasi'] ?></div>                      
+								<div class="text-slate-500 text-xs whitespace-nowrap mt-0.5 flex items-center justify-center">Tgl : <?= $item['tgl_prestasi'] ?></div>
 							</td>
 							<td>
 								<div class="flex justify-center items-center">
@@ -98,13 +107,6 @@
 												<?php endif ?>
 											<?php endforeach ?>
 										</div>
-									</div>
-								</div>
-							</td>
-							<td class="table-report__action">
-								<div class="flex justify-center items-center">
-									<div class="font-medium whitespace-nowrap">
-										<?= $item['tgl_prestasi'] ?>
 									</div>
 								</div>
 							</td>
@@ -149,12 +151,13 @@
 			</div>
 			<form action="<?= base_url('admin/prestasi-akademik/add') ?>" method="POST" enctype="multipart/form-data">
 				<div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
+					<input type="hidden" name="created_by_user_id" value="<?= session()->get('id_user') ?>">
 					<div class="col-span-12 sm:col-span-12">
 						<label for="modal-form-1" class="form-label">Siswa</label> 
 						<select data-placeholder="Pilih Siswa" name="id_siswa" class="tom-select w-full" required>
 							<option selected disabled>-- Pilih Siswa --</option>
 							<?php foreach ($siswa as $s): ?>
-								<option value="<?= $s['id_siswa'] ?>">
+								<option value="<?= $s['id_siswa'] ?>" <?= (old('id_siswa') == ($s['id_siswa'])) ? 'selected' : '' ?>>
 									<?= $s['nis'] ?> - <?= $s['nama'] ?>
 								</option>
 							<?php endforeach ?>
@@ -164,25 +167,25 @@
 						<label for="modal-form-1" class="form-label">Kategori Prestasi</label> 
 						<select data-placeholder="Pilih Kategori" name="kategori_prestasi" class="tom-select w-full" required>
 							<option selected disabled>-- Pilih Kategori Prestasi --</option>
-							<option>Akademik</option>
-							<option>Non-Akademik</option>
+							<option <?= (old('kategori_prestasi') == 'Akademik') ? 'selected' : '' ?>>Akademik</option>
+							<option <?= (old('kategori_prestasi') == 'Non-Akademik') ? 'selected' : '' ?>>Non-Akademik</option>
 						</select>
 					</div>
 					<div class="col-span-12 sm:col-span-12"> 
 						<label for="modal-form-1" class="form-label">Nama Prestasi</label> 
-						<input id="regular-form-1" name="nama_prestasi" type="text" class="form-control" placeholder="Nama perolehan prestasi siswa" required>
+						<input id="regular-form-1" name="nama_prestasi" type="text" class="form-control" placeholder="Nama perolehan prestasi siswa" value="<?= old('nama_prestasi') ?>" required>
 					</div>
 					<div class="col-span-12 sm:col-span-12"> 
 						<label for="regular-form-1" class="form-label">Tanggal Prestasi</label>
-						<input type="text" name="tgl_prestasi" class="datepicker form-control block mx-auto" data-single-mode="true" required>
+						<input type="text" name="tgl_prestasi" class="datepicker form-control block mx-auto" data-single-mode="true" value="<?= old('tgl_prestasi') ?>" required>
 					</div>
 					<div class="col-span-12 sm:col-span-12"> 
 						<label for="modal-form-1" class="form-label">Keterangan</label> 
-						<textarea rows="3" id="regular-form-1" name="keterangan_prestasi" type="text" class="form-control" placeholder="Catatan Point Keaktifan" required></textarea>
+						<textarea rows="3" id="regular-form-1" name="keterangan_prestasi" type="text" class="form-control" placeholder="Catatan Point Keaktifan" required><?= old('keterangan_prestasi') ?></textarea>
 					</div>
 					<div class="col-span-12 sm:col-span-12">
 						<label for="regular-form-1" class="form-label mt-3">Dokumentasi Prestasi</label>
-						<div class="dropzone">
+						<div>
 							<div class="fallback"> 
 								<input name="foto" type="file" id="uploadFoto" onchange="previewFoto(this);" /></div>
 								<div id="fotoPreview" class="mt-3">
@@ -211,6 +214,7 @@
 					</div>
 					<form action="<?= base_url('admin/prestasi-akademik/update/' . $value['id_prestasi']) ?>" method="POST" enctype="multipart/form-data">
 						<div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
+							<input type="hidden" name="created_by_user_id" value="<?= $value['created_by_user_id'] ?>">
 							<div class="col-span-12 sm:col-span-12">
 								<label for="modal-form-1" class="form-label">Siswa</label> 
 								<select data-placeholder="Pilih Siswa" name="id_siswa" class="tom-select w-full" required>
@@ -243,7 +247,7 @@
 							</div>
 							<div class="col-span-12 sm:col-span-12">
 								<label for="regular-form-1" class="form-label mt-3">Dokumentasi Prestasi</label>
-								<div class="dropzone">
+								<div>
 									<div class="fallback"> 
 										<input name="foto" type="file" id="uploadFoto" onchange="previewFotoPrestasi(this);" /></div>
 										<div id="fotoPreviewPrestasi" class="mt-3">
