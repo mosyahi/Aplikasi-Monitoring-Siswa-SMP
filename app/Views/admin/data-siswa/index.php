@@ -61,7 +61,7 @@
                         </td>
                         <td class="table-report__action">
                             <div class="font-medium whitespace-nowrap flex items-center justify-center"><?= $item['nama'] ?></div>                      
-                            <div class="text-slate-500 text-xs whitespace-nowrap mt-0.5 flex items-center justify-center"><?= $item['nis'] ?></div>
+                            <div class="text-slate-500 text-xs whitespace-nowrap mt-0.5 flex items-center justify-center">NIS:&nbsp;<?= $item['nis'] ?></div>
                         </td>
                         <td class="table-report__action">
                             <div class="flex justify-center items-center">

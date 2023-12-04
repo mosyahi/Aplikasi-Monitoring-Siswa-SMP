@@ -32,6 +32,12 @@
 		</li>
 		<li class="side-nav__devider my-6"></li>
 		<li>
+			<a href="<?= base_url('siswa/profile') ?>" class="side-menu <?= ($active == 'profile') ? 'side-menu--active' : '' ?>">
+				<div class="side-menu__icon"> <i data-lucide="lock"></i> </div>
+				<div class="side-menu__title"> Profile </div>
+			</a>
+		</li>
+		<li>
 			<a href="<?= base_url('logout') ?>" class="side-menu">
 				<div class="side-menu__icon"> <i data-lucide="log-out"></i> </div>
 				<div class="side-menu__title"> Logout </div>

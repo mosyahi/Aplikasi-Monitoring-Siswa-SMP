@@ -54,6 +54,9 @@
 						<div class="mt-3">
 							<label for="regular-form-1" class="form-label">Nis</label>
 							<input id="regular-form-1" name="nis" type="number" class="form-control" placeholder="Nomor Induk Siswa" minlength="10" value="<?= old('nis') ?>" required>
+							<div class="form-help text-danger">
+								*Generate password memakai NIS!
+							</div>
 						</div>
 					</div>
 					<div class="preview">

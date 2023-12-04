@@ -160,7 +160,7 @@ class PelanggaranController extends BaseController
             'jenis_pelanggaran' => 'required',
             'jenis_sp' => 'required',
             'panggilan_ortu' => 'required',
-            'keterangan_pelanggaran' => 'required|trim',
+            'keterangan_pelanggaran' => 'required|trim|max_length[255]',
             // 'surat_peringatan' => 'uploaded[surat_peringatan]|ext_in[surat_peringatan,pdf]|max_size[surat_peringatan,1024]',
         ]);
 
@@ -205,7 +205,7 @@ class PelanggaranController extends BaseController
             'jenis_pelanggaran' => 'required',
             'jenis_sp' => 'required',
             'panggilan_ortu' => 'required',
-            'keterangan_pelanggaran' => 'required|trim',
+            'keterangan_pelanggaran' => 'required|trim|max_length[255]',
         ];
 
         if (!$this->validate($validation)) {

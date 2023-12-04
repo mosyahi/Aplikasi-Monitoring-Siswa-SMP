@@ -133,19 +133,19 @@ class PrestasiAkademikController extends BaseController
             'id_siswa' => 'required|trim',
             'kategori_prestasi' => 'required|trim',
             'nama_prestasi' => 'required|trim',
-            'keterangan_prestasi' => 'required|trim',
+            'keterangan_prestasi' => 'required|trim|max_length[255]',
             'tgl_prestasi' => 'required|trim',
             'foto' => 'uploaded[foto]|mime_in[foto,image/jpeg,image/png,image/jpg]',
         ];
 
         $validationMessages = [
-            'id_siswa.required' => 'Siswa Harus Diisi.',
-            'kategori_prestasi.required' => 'Kategori prestasi harus diisi.',
-            'nama_prestasi.required' => 'Nama prestasi harus diisi.',
-            'keterangan_prestasi.required' => 'Keterangan harus diisi.',
-            'tgl_prestasi.required' => 'Tanggal harus diisi.',
-            'foto.uploaded' => 'Foto harus diunggah.',
-            'foto.mime_in' => 'Format foto harus JPEG atau PNG.',
+            'id_siswa.required' => '',
+            'kategori_prestasi.required' => '',
+            'nama_prestasi.required' => '',
+            'keterangan_prestasi.required' => '',
+            'tgl_prestasi.required' => '',
+            'foto.uploaded' => '',
+            'foto.mime_in' => '',
         ];
 
         if (!$this->validate($validationRules, $validationMessages)) {

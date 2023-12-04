@@ -33,7 +33,7 @@
 			<thead>
 				<tr>
 					<th class="whitespace-nowrap">NO</th>
-					<th class="whitespace-nowrap">FOTO</th>
+					<th class="text-center whitespace-nowrap">FOTO PRESTASI</th>
 					<th class="text-center whitespace-nowrap">PEMBUAT</th>
 					<th class="text-center whitespace-nowrap">NAMA SISWA</th>
 					<th class="text-center whitespace-nowrap">KATEGORI</th>
@@ -53,7 +53,7 @@
 						<tr class="intro-x">
 							<td><?= $i++ ?></td>
 							<td class="w-40">
-								<div class="flex">
+								<div class="flex items-center justify-center">
 									<div class="w-10 h-10 image-fit zoom-in">
 										<img src="<?= base_url('uploads/prestasi-akademik/' . $item['foto']) ?>" data-action="zoom" class="tooltip rounded-full" alt="<?= $item['nama_prestasi'] ?>" title="Uploaded at <?= $item['created_at'] ?>">
 									</div>

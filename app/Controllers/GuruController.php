@@ -37,29 +37,44 @@ class GuruController extends BaseController
         $userModel = new UserModel();
 
         $validationRules = [
-            'nama' => 'required',
+            'nama' => 'required|max_length[155]',
             'email' => 'required|valid_email',
             'foto' => 'uploaded[foto]|mime_in[foto,image/jpeg,image/png]',
-            'nip' => 'required',
+            'nip' => 'required|min_length[10]|max_length[10]',
             'tanggal_lahir' => 'required',
-            'tempat_lahir' => 'required',
+            'tempat_lahir' => 'required|max_length[50]',
             'jk' => 'required',
         ];
 
         $validationMessages = [
-            'nama.required' => 'Nama harus diisi.',
-            'email.required' => 'Email harus diisi.',
-            'email.valid_email' => 'Email tidak valid.',
-            'foto.uploaded' => 'Foto harus diunggah.',
-            'foto.mime_in' => 'Format foto harus JPEG atau PNG.',
-            'nip.required' => 'NIP harus diisi.',
-            'tanggal_lahir.required' => 'Tanggal Lahir harus diisi.',
-            'tempat_lahir.required' => 'Tempat Lahir harus diisi.',
-            'jk.required' => 'Jenis kelamin harus diisi.',
+            'nama.required' => '',
+            'email.required' => '',
+            'email.valid_email' => '',
+            'foto.uploaded' => '',
+            'foto.mime_in' => '',
+            'nip.required' => '',
+            'tanggal_lahir.required' => '',
+            'tempat_lahir.required' => '',
+            'jk.required' => '',
         ];
 
         if (!$this->validate($validationRules, $validationMessages)) {
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+        }
+
+        $pengecekanData = $guruModel->where('nama', $data['nama'])->where('id_guru !=')->first();
+        if ($pengecekanData) {
+            return redirect()->back()->with('error', 'Nama guru sudah ada dalam database.');
+        }
+
+        $pengecekanNIP = $guruModel->where('nip', $data['nip'])->where('id_guru !=')->first();
+        if ($pengecekanNIP) {
+            return redirect()->back()->with('error', 'NIP guru sudah ada dalam database.');
+        }
+
+        $pengecekanEmail = $guruModel->where('email', $data['email'])->where('id_guru !=')->first();
+        if ($pengecekanEmail) {
+            return redirect()->back()->with('error', 'Email guru sudah ada dalam database.');
         }
 
         $nama = $this->request->getPost('nama');
@@ -73,13 +88,13 @@ class GuruController extends BaseController
         if ($foto->isValid() && !$foto->hasMoved()) {
 
         // Nama File Gambar Pake Nama Sendiri
-           $extension = $foto->getClientExtension();
-           $namaPengguna = $this->request->getPost('nama');
-           $newName = $namaPengguna . '_' . date('dmYHis') . '.' . $extension;
+         $extension = $foto->getClientExtension();
+         $namaPengguna = $this->request->getPost('nama');
+         $newName = $namaPengguna . '_' . date('dmYHis') . '.' . $extension;
 
-           $foto->move('uploads/guru/', $newName);
+         $foto->move('uploads/guru/', $newName);
 
-           $data = [
+         $data = [
             'nama' => $nama,
             'email' => $email,
             'foto' => $newName,
@@ -138,6 +153,32 @@ public function update($id)
         return redirect()->to(site_url('admin/data-guru'))->with('error', 'Data guru tidak ditemukan.');
     }
 
+    $validationRules = [
+        'nama' => 'required|max_length[155]',
+        'email' => 'required|valid_email',
+        // 'foto' => 'uploaded[foto]|mime_in[foto,image/jpeg,image/png]',
+        'nip' => 'required|min_length[10]|max_length[10]',
+        'tanggal_lahir' => 'required',
+        'tempat_lahir' => 'required|max_length[50]',
+        'jk' => 'required',
+    ];
+
+    $validationMessages = [
+        'nama.required' => '',
+        'email.required' => '',
+        'email.valid_email' => '',
+        // 'foto.uploaded' => '',
+        // 'foto.mime_in' => '',
+        'nip.required' => '',
+        'tanggal_lahir.required' => '',
+        'tempat_lahir.required' => '',
+        'jk.required' => '',
+    ];
+
+    if (!$this->validate($validationRules, $validationMessages)) {
+        return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+    }
+
     $foto = $this->request->getFile('foto');
     if ($foto->isValid() && !$foto->hasMoved() && in_array($foto->getClientMimeType(), ['image/jpeg', 'image/png'])) {
         if (!empty($guru['foto'])) {
@@ -163,20 +204,30 @@ public function update($id)
         return redirect()->back()->with('error', 'Nama guru sudah ada dalam database.');
     }
 
+    $pengecekanNIP = $guruModel->where('nip', $data['nip'])->where('id_guru !=', $id)->first();
+    if ($pengecekanNIP) {
+        return redirect()->back()->with('error', 'NIP guru sudah ada dalam database.');
+    }
+
+    $pengecekanEmail = $guruModel->where('email', $data['email'])->where('id_guru !=', $id)->first();
+    if ($pengecekanEmail) {
+        return redirect()->back()->with('error', 'Email guru sudah ada dalam database.');
+    }
+
     $guruModel->update($id, $data);
 
     $nama = $this->request->getPost('nama');
     $id_user = $guru['id_user'];
-    if (!empty($data['email']) || !empty($data['nip'])) {
+    if (!empty($data['email'])) {
         if ($id_user === null || $id_user == 0) {
             $email = $data['email'];
-            $nip = $data['nip'];
-            $password = $nip;
-            $passwordHash = password_hash($password, PASSWORD_DEFAULT);
+            // $nip = $data['nip'];
+            // $password = $nip;
+            // $passwordHash = password_hash($password, PASSWORD_DEFAULT);
 
             $userData = [
                 'email' => $email,
-                'password' => $passwordHash,
+                // 'password' => $passwordHash,
                 'nama' => $data['nama'],
                 'role' => 'Guru',
                 'status' => 'Active',
@@ -187,13 +238,13 @@ public function update($id)
             $guruModel->where('nama', $nama)->set(['id_user' => $id_user])->update();
         } else {
             $email = $data['email'];
-            $nip = $data['nip'];
-            $password = $nip;
-            $passwordHash = password_hash($password, PASSWORD_DEFAULT);
+            // $nip = $data['nip'];
+            // $password = $nip;
+            // $passwordHash = password_hash($password, PASSWORD_DEFAULT);
 
             $userData = [
                 'email' => $email,
-                'password' => $passwordHash,
+                // 'password' => $passwordHash,
                 'nama' => $data['nama'],
                 'role' => 'Guru',
                 'status' => 'Active',

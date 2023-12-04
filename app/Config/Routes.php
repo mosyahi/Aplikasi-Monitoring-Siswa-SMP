@@ -40,7 +40,7 @@ $routes->get('logout', 'AuthController::logout');
 // DASHBOARD ADMIN FILTERS
 $routes->group('admin', ['filter' => 'auth'], function ($routes) {
     $routes->get('dashboard', 'DashboardController::index');
-    $routes->get('profile', 'DashboardController::profile');
+    $routes->get('profile', 'ProfileController::profile');
 
     // ADMINISTRATOR
     $routes->get('data-users', 'UserController::index');
@@ -90,7 +90,9 @@ $routes->group('admin', ['filter' => 'auth'], function ($routes) {
 
 $routes->group('siswa', ['filter' => 'auth'], function ($routes) {
     $routes->get('dashboard', 'DashboardController::index');
-    $routes->get('profile', 'DashboardController::profile');
+    $routes->get('profile', 'ProfileController::profile');
+    $routes->post('profile/update/(:num)', 'ProfileController::updateProfile/$1');
+    $routes->post('profile/ganti-password/(:num)', 'ProfileController::password/$1');
     $routes->get('prestasi-akademik', 'PrestasiAkademikController::index');
     $routes->get('data-pelanggaran', 'PelanggaranController::index');
     $routes->get('rekap-monitoring', 'RekapMonitoringController::index');
@@ -98,8 +100,9 @@ $routes->group('siswa', ['filter' => 'auth'], function ($routes) {
 
 $routes->group('guru', ['filter' => 'auth'], function ($routes) {
     $routes->get('dashboard', 'DashboardController::index');
-    $routes->get('profile', 'DashboardController::profile');
-    $routes->post('profile/update/(:num)', 'DashboardController::updateProfile/$1');
+    $routes->get('profile', 'ProfileController::profile');
+    $routes->post('profile/update/(:num)', 'ProfileController::updateProfile/$1');
+    $routes->post('profile/ganti-password/(:num)', 'ProfileController::password/$1');
 
     // KELAS DAN SET KELAS
     $routes->get('data-anggota-kelas', 'SiswaController::anggota');

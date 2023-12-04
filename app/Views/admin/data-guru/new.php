@@ -37,6 +37,9 @@
 						<div class="mt-3">
 							<label for="regular-form-1" class="form-label">NIP</label>
 							<input id="regular-form-1" name="nip" type="number" class="form-control" placeholder="Nomor Induk" minlength="10" required>
+							<div class="form-help text-danger">
+								*Generate password memakai NIP!
+							</div>
 						</div>
 					</div>
 					<div class="preview">

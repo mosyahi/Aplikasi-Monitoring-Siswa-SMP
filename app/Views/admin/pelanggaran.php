@@ -57,14 +57,15 @@
 					<?php foreach ($pelanggaran as $item) : ?>
 						<tr class="intro-x">
 							<td><?= $i++ ?></td>
-							<td>
-								<div class="flex items-center justify-center">
-									<?php foreach ($user as $us): ?>
-										<?php if ($us['id_user'] == $item['created_by_user_id']): ?>
+							<td class="w-30">
+								<?php foreach ($user as $us): ?>
+									<?php if ($us['id_user'] == $item['created_by_user_id']): ?>
+										<div class="flex items-center justify-center font-medium whitespace-nowrap">
 											<?= $us['nama'] ?>
-										<?php endif ?>
-									<?php endforeach ?>
-								</div>
+										</div>
+										<div class="flex items-center justify-center text-slate-500 text-xs whitespace-nowrap mt-0.5">Role : <strong>&nbsp; <?= $us['role'] ?></strong></div>
+									<?php endif; ?>
+								<?php endforeach ?>
 							</td>
 							<td class="w-30">
 								<?php foreach ($siswa as $s) : ?>
