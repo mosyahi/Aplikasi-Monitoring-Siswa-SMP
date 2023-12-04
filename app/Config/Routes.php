@@ -80,6 +80,7 @@ $routes->group('admin', ['filter' => 'auth'], function ($routes) {
     $routes->post('prestasi-akademik/add', 'PrestasiAkademikController::add');
     $routes->post('prestasi-akademik/update/(:num)', 'PrestasiAkademikController::update/$1');
     $routes->get('prestasi-akademik/delete/(:num)', 'PrestasiAkademikController::delete/$1');
+    $routes->get('prestasi-akademik/cetak/(:num)', 'CetakController::laporanPrestasi/$1');
 
     // DATA PELANGGARAN SISWA
     $routes->get('data-pelanggaran', 'PelanggaranController::index');
