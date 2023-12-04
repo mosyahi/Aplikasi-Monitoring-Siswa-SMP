@@ -1,6 +1,6 @@
 <head>
 	<meta charset="utf-8">
-	<link href="<?= base_url() ?>source/dist-css/images/logo.svg" rel="shortcut icon">
+	<link href="<?= base_url() ?>source/dist-css/images/smpn2sumber.png" rel="shortcut icon">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="Midone admin is super flexible, powerful, clean & modern responsive tailwind admin template with unlimited possibilities.">
 	<meta name="keywords" content="admin template, Midone Admin Template, dashboard template, flat admin template, responsive admin template, web app">

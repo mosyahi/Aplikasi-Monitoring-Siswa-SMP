@@ -10,11 +10,11 @@
         <div class="block xl:grid grid-cols-2 gap-4">
             <div class="hidden xl:flex flex-col min-h-screen">
                 <a href="" class="-intro-x flex items-center pt-5">
-                    <img alt="Midone - HTML Admin Template" class="w-6" src="<?= base_url() ?>source/dist-css/images/logo.svg">
+                    <img alt="Midone - HTML Admin Template" class="w-6" src="<?= base_url() ?>source/dist-css/images/smpn2sumber.png">
                     <span class="text-white text-lg ml-3"> Monitoring SMPN 2 Sumber </span> 
                 </a>
                 <div class="my-auto">
-                    <img alt="Midone - HTML Admin Template" class="-intro-x w-1/2 -mt-16" src="<?= base_url() ?>source/dist-css/images/illustration.svg">
+                    <img alt="Midone - HTML Admin Template" class="-intro-x w-1/2 -mt-16" src="<?= base_url() ?>source/dist-css/images/smpn2sumber.png" style="width: 250px; height: 230px;">
                     <div class="-intro-x text-white font-medium text-4xl leading-tight mt-10">
                         Welcome To Monitoring<br>SMPN 2 Sumber
                     </div>

@@ -1,6 +1,6 @@
 <nav class="side-nav">
 	<a href="" class="intro-x flex items-center pl-5 pt-4">
-		<img alt="Midone - HTML Admin Template" class="w-6" src="<?= base_url() ?>source/dist-css/images/logo.svg">
+		<img alt="Midone - HTML Admin Template" class="w-6" src="<?= base_url() ?>source/dist-css/images/smpn2sumber.png">
 		<span class="hidden xl:block text-white text-lg ml-3"> SMPN 2 Sumber </span> 
 	</a>
 	<li class="side-nav__devider my-6"></li>

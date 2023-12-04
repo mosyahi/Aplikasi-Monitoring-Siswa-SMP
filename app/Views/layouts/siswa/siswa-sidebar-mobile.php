@@ -2,7 +2,7 @@
 <div class="mobile-menu md:hidden">
 	<div class="mobile-menu-bar">
 		<a href="" class="flex mr-auto">
-			<img alt="Logo" class="w-6" src="<?= base_url() ?>source/dist-css/images/logo.svg">
+			<img alt="Logo" class="w-6" src="<?= base_url() ?>source/dist-css/images/smpn2sumber.png">
 		</a>
 		<a href="javascript:;" class="mobile-menu-toggler"> <i data-lucide="bar-chart-2" class="w-8 h-8 text-white transform -rotate-90"></i> </a>
 	</div>
