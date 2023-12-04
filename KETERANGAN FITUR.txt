@@ -1,0 +1,159 @@
+ROLE : Admin, Guru, Siswa
+
+# FITUR ADMIN
+	- Dashboard
+	- Kelola Data User
+	  	> Disini admin hanya bisa menambahkan role admin, tidak bisa menambahkan role selain itu
+	  	> Jika status akun ACTIVE maka akun bisa dipakai untuk login, jika status Non-Active maka akun tidak bisa digunakan sampai admin mengaktifkan kembali
+
+	- Kelola Data Kelas
+	  	> Validasi Tingkat dan tipe kelas tidak bsia sama
+
+	- Kelola Biodata
+		> Biodata Guru
+			* Email Unique, validasi harus format email
+			* Nama Unique, Max 155 Karakter
+			* NIP Unique, Minimal 10 karakter dan maksimal 10 karakter
+			* Foto tersimpan di pubic/uploads/guru
+			* Validasi foto hanya bisa PNG, JPG dan JPEG max size 2mb
+			* Foto jika diupdate maka foto lama akan otomatis dihapus dan diganti yang baru,
+			* Format nama foto [Moch Syarif Hidayat_datestamp]
+			* Saat berhasil menambahkan data guru, maka otomatis juga dibuatkan akun login user, dengan email sesuai yang diinputkan, password memakai NIP, Role otomatis menjadi GURU, dan status otomatis menjadi Active.
+			* Untuk Merubah Role (Tidak bisa), Untuk merubah status (Active/Non-Active) bisa di bagian kelola user
+	
+		> Biodata Siswa
+			* Email Unique, validasi harus format email
+			* Nama Unique, Max 155 Karakter
+			* No HP Unique, Max 13 Karakter, Min 10 Karakter
+			* No HP Orangtua Unique, Max 13 Karakter, Min 10 Karakter
+			* No HP otomatis dijadikan 628 walaupun penginputannya seperti : (+62 atau 08)
+			* NIS Unique, Minimal 10 karakter dan maksimal 10 karakter
+			* Foto tersimpan di pubic/uploads/siswa
+			* Validasi foto hanya bisa PNG, JPG dan JPEG max size 2mb
+			* Foto jika diupdate maka foto lama akan otomatis dihapus dan diganti yang baru,
+			* Format nama foto [Moch Syarif Hidayat_datestamp]
+			* Saat berhasil menambahkan data siswa, maka otomatis juga dibuatkan akun login user, dengan email sesuai yang diinputkan, password memakai NIS, Role otomatis menjadi SISWA, dan status otomatis menjadi Active.
+			* Untuk Merubah Role (Tidak bisa), Untuk merubah status (Active/Non-Active) bisa di bagian kelola user
+			* Sudah difilter berdasarkan kelas
+
+		> PRESTASI SISWA
+			* Field tidak ada yang Unique
+			* Foto wajib di upload
+			* Foto tersimpan di pubic/uploads/prestasi
+			* Validasi foto hanya bisa PNG, JPG dan JPEG max size 2mb
+			* Foto jika diupdate maka foto lama akan otomatis dihapus dan diganti yang baru,
+			* Mencangkup prestasi Akademik/Non-Akademik
+			* Sudah difilter berdasarkan kelas
+			* Terdapat button whatsapp setelah data berhasil diinputan, (Untuk mengirim Whatsapp otomatis ke siswa & orangtua tujuan) {Whatsapp Gateway}
+
+		> PELANGGARAN SISWA	
+			* Field tidak ada yang Unique
+			* Nama pembuat otomatis terisi dengan membaca session login untuk mengambil data id_user
+			* SP (Surat Peringatan) boleh bernilai Null
+			* SP (Surat Peringatan) hanya bole diinputkan dalam bentuk pdf/png
+			* SP (Surat Peringatan) disimpan di public/uploads/sp dengan max size 3mb
+			* Keterangan pelanggaran hanya boleh diisi dengan max 255 karakter
+			* SP yang sudah ter-upload dapat di download (tersedia button download jika file SP ada)
+			* Sudah difilter berdasarkan kelas
+			* Terdapat button whatsapp setelah data berhasil diinputan, (Untuk mengirim Whatsapp otomatis ke siswa & orangtua tujuan) {Whatsapp Gateway}
+
+		> REKAP MONITORING
+			* Semua data siswa akan muncul disini dan akan dimunculkan data rekap monitoring terkait biodata, prestasi dan pelanggaran
+			* Rekap monitoring dapat di unduh secara individual ataupun keseluruhan dalam bentuk pdf
+			* Sudah difilter berdasarkan kelas
+			* Terdapat button whatsapp setelah data berhasil diinputan, (Untuk mengirim Whatsapp otomatis ke siswa & orangtua tujuan) {Whatsapp Gateway}
+
+		> Profile
+			* Menampilkan data Admin tanpa bisa melakukan CRUD
+
+		> LOGOUT
+
+# GURU
+		> DATA SISWA
+			* Guru dapat melihat data siswa berdasarkan kelas tanpa bisa merubah. menghapus ataupun menambahkan data.
+
+		> PRESTASI SISWA
+			* Data prestasi yang dimunculkan di role guru hanya data prestasi siswa yang diinputan oleh guru itu sendiri, jika ada data prestasi yang diinputkan oleh guru lain maka datanya tidak dimunculkan karena sudah sesuai ID_GURU (Data muncul berdasarkan ID)
+			* Field tidak ada yang Unique
+			* Foto wajib di upload
+			* Foto tersimpan di pubic/uploads/prestasi
+			* Validasi foto hanya bisa PNG, JPG dan JPEG max size 2mb
+			* Foto jika diupdate maka foto lama akan otomatis dihapus dan diganti yang baru,
+			* Mencangkup prestasi Akademik/Non-Akademik
+			* Sudah difilter berdasarkan kelas
+			* Terdapat button whatsapp setelah data berhasil diinputan, (Untuk mengirim Whatsapp otomatis ke siswa & orangtua tujuan) {Whatsapp Gateway}
+
+		> PELANGGARAN SISWA	
+			* Data pelanggaran yang dimunculkan di role guru hanya data pelanggaran siswa yang diinputan oleh guru itu sendiri, jika ada data pelanggaran yang diinputkan oleh guru lain maka datanya tidak dimunculkan karena sudah sesuai ID_GURU (Data muncul berdasarkan ID)
+			* Field tidak ada yang Unique
+			* Nama pembuat otomatis terisi dengan membaca session login untuk mengambil data id_user
+			* SP (Surat Peringatan) boleh bernilai Null
+			* SP (Surat Peringatan) hanya bole diinputkan dalam bentuk pdf/png
+			* SP (Surat Peringatan) disimpan di public/uploads/sp dengan max size 3mb
+			* Keterangan pelanggaran hanya boleh diisi dengan max 255 karakter
+			* SP yang sudah ter-upload dapat di download (tersedia button download jika file SP ada)
+			* Sudah difilter berdasarkan kelas
+			* Terdapat button whatsapp setelah data berhasil diinputan, (Untuk mengirim Whatsapp otomatis ke siswa & orangtua tujuan) {Whatsapp Gateway}
+
+		> REKAP MONITORING
+			* Semua data siswa akan muncul disini dan akan dimunculkan data rekap monitoring terkait biodata, prestasi dan pelanggaran
+			* Rekap monitoring dapat di unduh secara individual ataupun keseluruhan dalam bentuk pdf
+			* Sudah difilter berdasarkan kelas
+			* Terdapat button whatsapp setelah data berhasil diinputan, (Untuk mengirim Whatsapp otomatis ke siswa & orangtua tujuan) {Whatsapp Gateway}
+
+		> PROFILE
+			* Disini akan dimunculkan biodata user dengan membaca session login (id_user)
+			* Guru dapat melakukan update data dengan ketentuan :
+				- Email Unique, validasi harus format email
+				- Nama Unique, Max 155 Karakter
+				- NIP Unique, Minimal 10 karakter dan maksimal 10 karakter
+				- Foto tersimpan di pubic/uploads/guru
+				- Validasi foto hanya bisa PNG, JPG dan JPEG max size 2mb
+				- Foto jika diupdate maka foto lama akan otomatis dihapus dan diganti yang baru,
+				- Format nama foto [Moch Syarif Hidayat_datestamp]
+				- Saat berhasil menambahkan data guru, maka otomatis juga dibuatkan akun 
+			* Terdapat button reset password untuk guru jika ingin merubah password akun
+			* Validasi password, minimal 8 karakter dengan kombinasi huruf besar, huruf kecil dan angka
+			* Validasi Password lama harus benar
+			* Validasi Password lama dan password baru dan konfirmasi password harus sama
+
+		> LOGOUT
+
+
+# ROLE SISWA
+		> PRESTASI
+			* Siswa hanya bisa melihat riwayat data prestasinya sendiri tanpa bisa melihat data prestasi orang lain (Termasuk melihat siapa yang menginputkan data prestasi tersebut)
+			* Siswa akan mendapatkan whatsapp mengenai laporan prestasi yang ia raih
+
+		> PELANGGARAN
+			* Siswa hanya bisa melihat riwayat data pelangagrannya sendiri tanpa bisa melihat data pelanggaran orang lain (Termasuk melihat siapa yang menginputkan data pelanggaran tersebut)
+			* Siswa dapat mengunduh surat peringatan (SP) jika ada
+			* Siswa akan mendapatkan whatsapp berupa pelanggaran yang ia lakukan dan informasi lebih lanjut apakah diharuskan dipanggil orangtuanya atau tidak
+
+		> REKAP MONITORING
+			* Siswa hanya bisa melihat riwayat rekap monitoringnya sendiri tanpa bisa melihat rekap monitoring orang lain (Termasuk melihat siapa yang menginputkan rekap monitoring tersebut)
+			* Siswa dapat mengunduh laporan rekap monitoring dalam bentuk PDF
+			* Siswa akan mendapatkan laporan rekap monitoring via whatsapp per-bulan
+
+		> PROFILE
+			* Disini akan dimunculkan biodata user dengan membaca session login (id_user)
+			* Siswa dapat melakukan update data dengan ketentuan :
+				- Email Unique, validasi harus format email
+				- Nama Unique, Max 155 Karakter
+				- NIS Unique, Minimal 10 karakter dan maksimal 10 karakter
+				- Foto tersimpan di pubic/uploads/siswa
+				- Validasi foto hanya bisa PNG, JPG dan JPEG max size 2mb
+				- Foto jika diupdate maka foto lama akan otomatis dihapus dan diganti yang baru,
+				- Format nama foto [Moch Syarif Hidayat_datestamp]
+				- Saat berhasil menambahkan data siswa, maka otomatis juga dibuatkan akun 
+			* Terdapat button reset password untuk siswa jika ingin merubah password akun
+			* Validasi password, minimal 8 karakter dengan kombinasi huruf besar, huruf kecil dan angka
+			* Validasi Password lama harus benar
+			* Validasi Password lama dan password baru dan konfirmasi password harus sama
+
+		> LOGOUT
+
+
+
+
+
