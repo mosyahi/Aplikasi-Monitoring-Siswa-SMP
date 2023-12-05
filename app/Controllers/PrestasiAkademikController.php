@@ -187,7 +187,7 @@ class PrestasiAkademikController extends BaseController
     }
 
 
-    public function update($id, $nama)
+    public function update($id)
     {
         $model = new PrestasiAkademikModel();
         $dataPrestasiAkademik = $model->find($id);

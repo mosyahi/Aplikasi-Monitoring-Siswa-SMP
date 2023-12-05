@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Laporan Prestasi Siswa</title>
+    <title>Laporan Pelanggaran Siswa</title>
     <style type="text/css">
         body {
             font-family: 'Times New Roman', Times, serif;
@@ -168,7 +168,7 @@
             <hr class="garis">
         </div>
         <div class="header-content">
-            <h3>Data Prestasi Siswa</h3>
+            <h3>Data Rekap Monitoring Siswa</h3>
         </div>
         <div class="table-container">
             <table class="table-bawah" style="border: 0px; font-size: 12px; width: 620px; margin: auto;">
@@ -200,6 +200,9 @@
             <table class="table-bawah" style="margin-top: 10px;">
                 <thead>
                     <tr>
+                        <th colspan="6">Data Prestasi</th>
+                    </tr>
+                    <tr style="background-color: #f0f2f0;">
                         <th>No</th>
                         <th>Pembuat</th>
                         <th>Kategori</th>
@@ -228,6 +231,40 @@
                     <?php endif; ?>
                 </tbody>
             </table>
+            <table class="table-bawah" style="margin-top: 20px;">
+                <thead>
+                    <tr>
+                        <th colspan="6">Data Pelanggaran</th>
+                    </tr>
+                    <tr>
+                        <th>No</th>
+                        <th>Pembuat</th>
+                        <th>Kategori</th>
+                        <th>SP</th>
+                        <th>Panggilan Orangtua</th>
+                        <th>Deskripsi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php if (empty($laporanPelanggaran)) : ?>
+                    <tr>
+                        <td colspan="6" align="center" class="td-bawah-second">-- Belum ada data pelanggaran--</td>
+                    </tr>
+                    <?php else : ?>
+                    <?php $i = 1; ?>
+                    <?php foreach ($laporanPelanggaran as $value): ?>
+                    <tr>
+                        <td class="td-bawah-second" align="center"><?= $i++ ?></td>
+                        <td class="td-bawah-second"><?= $value['nama_pembuat'] ?></td>
+                        <td class="td-bawah-second" align="center">Pelanggaran <?= $value['jenis_pelanggaran'] ?></td>
+                        <td class="td-bawah-second" align="center"><?= $value['jenis_sp'] ?></td>
+                        <td class="td-bawah-second" align="center"><?= $value['panggilan_ortu'] ?></td>
+                        <td class="td-bawah-second" align="center"><?= $value['keterangan_pelanggaran'] ?></td>
+                    </tr>
+                    <?php endforeach; ?>
+                    <?php endif; ?>
+                </tbody>
+            </table>
         </div>
         <div class="additional-info">
             <p>Cirebon, <?= date('d M Y') ?></p>
@@ -238,7 +275,7 @@
             <label>NIP: 20152676762</label>
         </div>
         <div class="keterangan-kiri">SMP Negeri 2 Sumber Cirebon</div>
-        <div class="nomor-halaman">Record Prestasi Siswa</div>
+        <div class="nomor-halaman">Rekap Monitoring Siswa</div>
     </div>
 </body>
 

@@ -147,6 +147,7 @@
 							</td>
 							<td class="table-report__action w-56">
 								<div class="flex justify-center items-center">
+									<a type="button" href="<?= base_url('admin/data-pelanggaran/cetak/' . $item['id_pelanggaran']) ?>" class="flex items-center mr-3"> <i data-lucide="sunset" class="w-4 h-4 mr-1"></i> Unduh </a>
 									<button class="flex items-center mr-3" data-tw-toggle="modal" data-tw-target="#update-<?= $item['id_pelanggaran'] ?>"> <i data-lucide="check-square" class="w-4 h-4 mr-1"></i> Edit </button>
 									<button class="flex items-center text-danger" href="javascript:;" data-tw-toggle="modal" data-tw-target="#delete-<?= $item['id_pelanggaran'] ?>" data-delete-url="<?= base_url('admin/data-pelanggaran/delete/' . $item['id_pelanggaran']) ?>"> <i data-lucide="trash-2" class="w-4 h-4 mr-1"></i> Delete </button>
 								</div>

@@ -97,12 +97,13 @@
 		<div class="modal-dialog modal-xl">
 			<div class="modal-content">
 				<div class="modal-header p-5">
-					<h2 class="font-medium text-base mr-auto">Data Rekap <?= $row['nama'] ?></h2> <button class="btn btn-outline-secondary"> <i data-lucide="file" class="w-4 h-4 mr-2"></i> Download Rekap </button>
+					<h2 class="font-medium text-base mr-auto">Data Rekap <?= $row['nama'] ?></h2>
+					<a type="button" href="<?= base_url('admin/rekap-monitoring/cetak/' . $row['id_siswa']) ?>" class="btn btn-outline-secondary"> <i data-lucide="file" class="w-4 h-4 mr-2"></i> Download Rekap </a>
 				</div>
 				<div class="modal-body">
 					<div id="faq-accordion-2" class="accordion accordion-boxed">
 						<div class="accordion-item">
-							<div id="faq-accordion-content-5" class="accordion-header"> <button class="accordion-button collapsed" type="button" data-tw-toggle="collapse" data-tw-target="#faq-accordion-collapse-5" aria-expanded="true" aria-controls="faq-accordion-collapse-5"> Rekap Biodata  <i data-lucide="chevron-down" style="float: right;"></i></button> </div>
+							<div id="faq-accordion-content-5" class="accordion-header"> <button class="accordion-button collapsed" type="button" data-tw-toggle="collapse" data-tw-target="#faq-accordion-collapse-5" aria-expanded="true" aria-controls="faq-accordion-collapse-5"> Rekap Biodata </button> </div>
 							<div id="faq-accordion-collapse-5" class="accordion-collapse collapse" aria-labelledby="faq-accordion-content-5" data-tw-parent="#faq-accordion-2">
 								<div class="accordion-body text-slate-600 dark:text-slate-500 leading-relaxed">
 									<div class="intro-y col-span-12 overflow-auto 2xl:overflow-visible">
@@ -152,7 +153,7 @@
 							</div>
 						</div>
 						<div class="accordion-item">
-							<div id="faq-accordion-content-9" class="accordion-header"> <button class="accordion-button collapsed" type="button" data-tw-toggle="collapse" data-tw-target="#faq-accordion-collapse-9" aria-expanded="false" aria-controls="faq-accordion-collapse-9"> Rekap Prestasi Akademik <i data-lucide="chevron-down" style="float: right;"></i></button> </div>
+							<div id="faq-accordion-content-9" class="accordion-header"> <button class="accordion-button collapsed" type="button" data-tw-toggle="collapse" data-tw-target="#faq-accordion-collapse-9" aria-expanded="false" aria-controls="faq-accordion-collapse-9"> Rekap Prestasi Akademik</button> </div>
 							<div id="faq-accordion-collapse-9" class="accordion-collapse collapse" aria-labelledby="faq-accordion-content-9" data-tw-parent="#faq-accordion-2">
 								<div class="accordion-body text-slate-600 dark:text-slate-500 leading-relaxed">
 									<div class="intro-y col-span-12 overflow-auto 2xl:overflow-visible">
@@ -206,7 +207,7 @@
 							</div>
 						</div>
 						<div class="accordion-item">
-							<div id="faq-accordion-content-10" class="accordion-header"> <button class="accordion-button collapsed" type="button" data-tw-toggle="collapse" data-tw-target="#faq-accordion-collapse-10" aria-expanded="false" aria-controls="faq-accordion-collapse-10"> Rekap Pelanggaran  <i data-lucide="chevron-down" style="float: right;"></i></button> </div>
+							<div id="faq-accordion-content-10" class="accordion-header"> <button class="accordion-button collapsed" type="button" data-tw-toggle="collapse" data-tw-target="#faq-accordion-collapse-10" aria-expanded="false" aria-controls="faq-accordion-collapse-10"> Rekap Pelanggaran </button> </div>
 							<div spark v id="faq-accordion-collapse-10" class="accordion-collapse collapse" aria-labelledby="faq-accordion-content-10" data-tw-parent="#faq-accordion-2">
 								<div class="accordion-body text-slate-600 dark:text-slate-500 leading-relaxed">
 									<div class="intro-y col-span-12 overflow-auto 2xl:overflow-visible">

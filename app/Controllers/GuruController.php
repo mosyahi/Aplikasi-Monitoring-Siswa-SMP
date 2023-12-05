@@ -62,21 +62,6 @@ class GuruController extends BaseController
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
 
-        $pengecekanData = $guruModel->where('nama', $data['nama'])->where('id_guru !=')->first();
-        if ($pengecekanData) {
-            return redirect()->back()->with('error', 'Nama guru sudah ada dalam database.');
-        }
-
-        $pengecekanNIP = $guruModel->where('nip', $data['nip'])->where('id_guru !=')->first();
-        if ($pengecekanNIP) {
-            return redirect()->back()->with('error', 'NIP guru sudah ada dalam database.');
-        }
-
-        $pengecekanEmail = $guruModel->where('email', $data['email'])->where('id_guru !=')->first();
-        if ($pengecekanEmail) {
-            return redirect()->back()->with('error', 'Email guru sudah ada dalam database.');
-        }
-
         $nama = $this->request->getPost('nama');
         $email = $this->request->getPost('email');
         $nip = $this->request->getPost('nip');
@@ -88,13 +73,13 @@ class GuruController extends BaseController
         if ($foto->isValid() && !$foto->hasMoved()) {
 
         // Nama File Gambar Pake Nama Sendiri
-         $extension = $foto->getClientExtension();
-         $namaPengguna = $this->request->getPost('nama');
-         $newName = $namaPengguna . '_' . date('dmYHis') . '.' . $extension;
+           $extension = $foto->getClientExtension();
+           $namaPengguna = $this->request->getPost('nama');
+           $newName = $namaPengguna . '_' . date('dmYHis') . '.' . $extension;
 
-         $foto->move('uploads/guru/', $newName);
+           $foto->move('uploads/guru/', $newName);
 
-         $data = [
+           $data = [
             'nama' => $nama,
             'email' => $email,
             'foto' => $newName,
@@ -103,6 +88,21 @@ class GuruController extends BaseController
             'tempat_lahir' => $tempat_lahir,
             'jk' => $jk,
         ];
+
+        $pengecekanData = $model->where('nama', $data['nama'])->where('id_guru !=')->first();
+        if ($pengecekanData) {
+            return redirect()->back()->with('error', 'Nama guru sudah ada dalam database.');
+        }
+
+        $pengecekanNIP = $model->where('nip', $data['nip'])->where('id_guru !=')->first();
+        if ($pengecekanNIP) {
+            return redirect()->back()->with('error', 'NIP guru sudah ada dalam database.');
+        }
+
+        $pengecekanEmail = $model->where('email', $data['email'])->where('id_guru !=')->first();
+        if ($pengecekanEmail) {
+            return redirect()->back()->with('error', 'Email guru sudah ada dalam database.');
+        }
 
         $model->insert($data);
 

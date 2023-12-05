@@ -112,9 +112,9 @@
 							</td>
 							<td class="table-report__action w-56">
 								<div class="flex justify-center items-center">
-									<a type="button" href="<?= base_url('admin/prestasi-akademik/cetak/' . $item['id_prestasi']) ?>" class="flex items-center mr-3"> <i data-lucide="check-square" class="w-4 h-4 mr-1"></i> Unduh </a>
-									<a class="flex items-center mr-3" data-tw-toggle="modal" data-tw-target="#update-<?= $item['id_prestasi'] ?>"> <i data-lucide="check-square" class="w-4 h-4 mr-1"></i> Edit </button>
-										<button class="flex items-center text-danger" href="javascript:;" data-tw-toggle="modal" data-tw-target="#delete-<?= $item['id_prestasi'] ?>" data-delete-url="<?= base_url('admin/prestasi-akademik/delete/' . $item['id_prestasi']) ?>"> <i data-lucide="trash-2" class="w-4 h-4 mr-1"></i> Delete </button>
+									<a type="button" href="<?= base_url('admin/prestasi-akademik/cetak/' . $item['id_prestasi']) ?>" class="flex items-center mr-3"> <i data-lucide="sunset" class="w-4 h-4 mr-1"></i> Unduh </a>
+									<a class="flex items-center mr-3" data-tw-toggle="modal" data-tw-target="#update-<?= $item['id_prestasi'] ?>"> <i data-lucide="edit" class="w-4 h-4 mr-1"></i> Edit </button>
+										<button class="flex items-center text-danger ml-3" href="javascript:;" data-tw-toggle="modal" data-tw-target="#delete-<?= $item['id_prestasi'] ?>" data-delete-url="<?= base_url('admin/prestasi-akademik/delete/' . $item['id_prestasi']) ?>"> <i data-lucide="trash-2" class="w-4 h-4 mr-1"></i> Delete </button>
 									</div>
 								</td>
 							</tr>

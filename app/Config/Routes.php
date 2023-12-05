@@ -58,6 +58,7 @@ $routes->group('admin', ['filter' => 'auth'], function ($routes) {
     // REKAP MONITORING
     $routes->get('rekap-monitoring', 'RekapMonitoringController::index');
     $routes->get('rekap-monitoring/view/(:num)', 'RekapMonitoringController::view/$1');
+    $routes->get('rekap-monitoring/cetak/(:num)', 'CetakController::laporanRekapMonitoring/$1');
 
     // DATA SISWA
     $routes->get('data-siswa', 'SiswaController::index');
@@ -87,6 +88,7 @@ $routes->group('admin', ['filter' => 'auth'], function ($routes) {
     $routes->post('data-pelanggaran/add', 'PelanggaranController::add');
     $routes->post('data-pelanggaran/update/(:num)', 'PelanggaranController::update/$1');
     $routes->get('data-pelanggaran/delete/(:num)', 'PelanggaranController::delete/$1');
+    $routes->get('data-pelanggaran/cetak/(:num)', 'CetakController::laporanPelanggaran/$1');
 });
 
 $routes->group('siswa', ['filter' => 'auth'], function ($routes) {

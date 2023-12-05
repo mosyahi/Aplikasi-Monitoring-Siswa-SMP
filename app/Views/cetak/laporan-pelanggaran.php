@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Laporan Prestasi Siswa</title>
+    <title>Laporan Pelanggaran Siswa</title>
     <style type="text/css">
         body {
             font-family: 'Times New Roman', Times, serif;
@@ -168,13 +168,13 @@
             <hr class="garis">
         </div>
         <div class="header-content">
-            <h3>Data Prestasi Siswa</h3>
+            <h3>Data Pelanggaran Siswa</h3>
         </div>
         <div class="table-container">
             <table class="table-bawah" style="border: 0px; font-size: 12px; width: 620px; margin: auto;">
                 <tbody>
                     <?php $isFirstSiswa = true; ?>
-                    <?php foreach ($laporanPrestasi as $item): ?>
+                    <?php foreach ($laporanPelanggaran as $item): ?>
                     <?php if ($isFirstSiswa): ?>
                     <tr>
                         <td class="data-label">Nama</td>
@@ -203,26 +203,26 @@
                         <th>No</th>
                         <th>Pembuat</th>
                         <th>Kategori</th>
-                        <th>Prestasi</th>
-                        <th>Tanggal</th>
+                        <th>SP</th>
+                        <th>Panggilan Orangtua</th>
                         <th>Deskripsi</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php if (empty($laporanPrestasi)) : ?>
+                    <?php if (empty($laporanPelanggaran)) : ?>
                     <tr>
                         <td colspan="6" align="center" class="td-bawah-second">-- Belum ada data prestasi--</td>
                     </tr>
                     <?php else : ?>
                     <?php $i = 1; ?>
-                    <?php foreach ($laporanPrestasi as $row): ?>
+                    <?php foreach ($laporanPelanggaran as $row): ?>
                     <tr>
                         <td class="td-bawah-second" align="center"><?= $i++ ?></td>
                         <td class="td-bawah-second"><?= $row['nama_pembuat'] ?></td>
-                        <td class="td-bawah-second" align="center"><?= $row['kategori_prestasi'] ?></td>
-                        <td class="td-bawah-second" align="center"><?= $row['nama_prestasi'] ?></td>
-                        <td class="td-bawah-second" align="center"><?= date('d-m-Y', strtotime($row['tgl_prestasi'])) ?></td>
-                        <td class="td-bawah-second" align="center"><?= $row['keterangan_prestasi'] ?></td>
+                        <td class="td-bawah-second" align="center">Pelanggaran <?= $row['jenis_pelanggaran'] ?></td>
+                        <td class="td-bawah-second" align="center"><?= $row['jenis_sp'] ?></td>
+                        <td class="td-bawah-second" align="center"><?= $row['panggilan_ortu'] ?></td>
+                        <td class="td-bawah-second" align="center"><?= $row['keterangan_pelanggaran'] ?></td>
                     </tr>
                     <?php endforeach; ?>
                     <?php endif; ?>
@@ -238,7 +238,7 @@
             <label>NIP: 20152676762</label>
         </div>
         <div class="keterangan-kiri">SMP Negeri 2 Sumber Cirebon</div>
-        <div class="nomor-halaman">Record Prestasi Siswa</div>
+        <div class="nomor-halaman">Record Pelanggaran Siswa</div>
     </div>
 </body>
 
