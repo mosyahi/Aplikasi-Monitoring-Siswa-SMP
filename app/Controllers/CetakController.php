@@ -46,42 +46,38 @@ class CetakController extends BaseController
             ->where('tbl_prestasi_akademik.id_siswa', $idSiswa)
             ->findAll();
 
-            if ($laporanPrestasi) {
-                $nomorSurat = $this->isiNomorSurat();
+            $nomorSurat = $this->isiNomorSurat();
 
-                $view = view('cetak/laporan-prestasi', ['laporanPrestasi' => $laporanPrestasi, 'nomorSurat' => $nomorSurat]);
+            $view = view('cetak/laporan-prestasi', ['laporanPrestasi' => $laporanPrestasi, 'nomorSurat' => $nomorSurat]);
 
-                $dompdf = new Dompdf();
-                $options = new \Dompdf\Options();
-                $options->set('isPhpEnabled', true); 
-                $options->set('isHtml5ParserEnabled', true); 
-                $options->set('isRemoteEnabled', true); 
-                $dompdf->setOptions($options);
-                setlocale(LC_TIME, 'id_ID');
+            $dompdf = new Dompdf();
+            $options = new \Dompdf\Options();
+            $options->set('isPhpEnabled', true); 
+            $options->set('isHtml5ParserEnabled', true); 
+            $options->set('isRemoteEnabled', true); 
+            $dompdf->setOptions($options);
+            setlocale(LC_TIME, 'id_ID');
 
-                $dompdf->loadHtml($view);
+            $dompdf->loadHtml($view);
 
-                $dompdf->setPaper('F4', 'landscape');
+            $dompdf->setPaper('F4', 'landscape');
 
-                $dompdf->render();
+            $dompdf->render();
 
-                $pdfContent = $dompdf->output();
+            $pdfContent = $dompdf->output();
 
-                $filename = 'Laporan-Prestasi_' . date('d-m-Y_H-i-s') . '.pdf';
+            $filename = 'Laporan-Prestasi_' . date('d-m-Y_H-i-s') . '.pdf';
 
-                $response = service('response');
+            $response = service('response');
 
-                $response->setContentType('application/pdf');
-                $response->setHeader('Content-Disposition', 'attachment; filename="' . $filename . '"');
+            $response->setContentType('application/pdf');
+            $response->setHeader('Content-Disposition', 'attachment; filename="' . $filename . '"');
 
-                $response->setBody($pdfContent);
+            $response->setBody($pdfContent);
 
-                return $response;
-            } else {
-                return "Tidak ada prestasi akademik yang ditemukan untuk siswa ini.";
-            }
+            return $response;
         } else {
-            return "Prestasi akademik tidak ditemukan.";
+            return redirect()->back()->with('error', 'Data tidak ditemukan.');
         }
     }
 
@@ -101,42 +97,38 @@ class CetakController extends BaseController
             ->where('tbl_pelanggaran.id_siswa', $idSiswa)
             ->findAll();
 
-            if ($laporanPelanggaran) {
-                $nomorSurat = $this->isiNomorSuratPelanggaran();
+            $nomorSurat = $this->isiNomorSuratPelanggaran();
 
-                $view = view('cetak/laporan-pelanggaran', ['laporanPelanggaran' => $laporanPelanggaran, 'nomorSurat' => $nomorSurat]);
+            $view = view('cetak/laporan-pelanggaran', ['laporanPelanggaran' => $laporanPelanggaran, 'nomorSurat' => $nomorSurat]);
 
-                $dompdf = new Dompdf();
-                $options = new \Dompdf\Options();
-                $options->set('isPhpEnabled', true); 
-                $options->set('isHtml5ParserEnabled', true); 
-                $options->set('isRemoteEnabled', true); 
-                $dompdf->setOptions($options);
-                setlocale(LC_TIME, 'id_ID');
+            $dompdf = new Dompdf();
+            $options = new \Dompdf\Options();
+            $options->set('isPhpEnabled', true); 
+            $options->set('isHtml5ParserEnabled', true); 
+            $options->set('isRemoteEnabled', true); 
+            $dompdf->setOptions($options);
+            setlocale(LC_TIME, 'id_ID');
 
-                $dompdf->loadHtml($view);
+            $dompdf->loadHtml($view);
 
-                $dompdf->setPaper('F4', 'landscape');
+            $dompdf->setPaper('F4', 'landscape');
 
-                $dompdf->render();
+            $dompdf->render();
 
-                $pdfContent = $dompdf->output();
+            $pdfContent = $dompdf->output();
 
-                $filename = 'Laporan-Pelanggaran_' . date('d-m-Y_H-i-s') . '.pdf';
+            $filename = 'Laporan-Pelanggaran_' . date('d-m-Y_H-i-s') . '.pdf';
 
-                $response = service('response');
+            $response = service('response');
 
-                $response->setContentType('application/pdf');
-                $response->setHeader('Content-Disposition', 'attachment; filename="' . $filename . '"');
+            $response->setContentType('application/pdf');
+            $response->setHeader('Content-Disposition', 'attachment; filename="' . $filename . '"');
 
-                $response->setBody($pdfContent);
+            $response->setBody($pdfContent);
 
-                return $response;
-            } else {
-                return "Tidak ada Pelanggaran yang ditemukan untuk siswa ini.";
-            }
+            return $response;
         } else {
-            return "Pelanggaran tidak ditemukan.";
+            return redirect()->back()->with('error', 'Data tidak ditemukan.');
         }
     }
 
@@ -150,6 +142,11 @@ class CetakController extends BaseController
 
         if ($siswa) {
             $idSiswa = $siswa['id_siswa'];
+
+            $biodata = $siswaModel->select('tbl_siswa.*, tbl_siswa.nama, tbl_siswa.id_kelas, tbl_siswa.email, tbl_siswa.no_hp, tbl_siswa.no_hp_orangtua, tbl_siswa.nis, tbl_kelas.tingkat, tbl_kelas.tipe_kelas')
+            ->join('tbl_kelas', 'tbl_kelas.id_kelas = tbl_siswa.id_kelas', 'inner')
+            ->where('tbl_siswa.id_siswa', $idSiswa)
+            ->findAll();
 
             $laporanPelanggaran = $pelanggaranModel->select('tbl_pelanggaran.*, tbl_user.nama as nama_pembuat, tbl_siswa.nama, tbl_siswa.id_kelas, tbl_siswa.email, tbl_siswa.no_hp, tbl_siswa.no_hp_orangtua, tbl_siswa.alamat, tbl_siswa.nis, tbl_kelas.tingkat, tbl_kelas.tipe_kelas')
             ->join('tbl_siswa', 'tbl_siswa.id_siswa = tbl_pelanggaran.id_siswa', 'left')
@@ -165,42 +162,38 @@ class CetakController extends BaseController
             ->where('tbl_prestasi_akademik.id_siswa', $idSiswa)
             ->findAll();
 
-            if ($laporanPelanggaran || $laporanPrestasi) {
-                $nomorSurat = $this->isiNomorSuratRekap();
+            $nomorSurat = $this->isiNomorSuratRekap();
 
-                $view = view('cetak/laporan-rekap-monitoring', ['laporanPelanggaran' => $laporanPelanggaran, 'laporanPrestasi' => $laporanPrestasi, 'nomorSurat' => $nomorSurat]);
+            $view = view('cetak/laporan-rekap-monitoring', ['laporanPelanggaran' => $laporanPelanggaran, 'laporanPrestasi' => $laporanPrestasi, 'nomorSurat' => $nomorSurat, 'biodata' => $biodata]);
 
-                $dompdf = new Dompdf();
-                $options = new \Dompdf\Options();
-                $options->set('isPhpEnabled', true); 
-                $options->set('isHtml5ParserEnabled', true); 
-                $options->set('isRemoteEnabled', true); 
-                $dompdf->setOptions($options);
-                setlocale(LC_TIME, 'id_ID');
+            $dompdf = new Dompdf();
+            $options = new \Dompdf\Options();
+            $options->set('isPhpEnabled', true); 
+            $options->set('isHtml5ParserEnabled', true); 
+            $options->set('isRemoteEnabled', true); 
+            $dompdf->setOptions($options);
+            setlocale(LC_TIME, 'id_ID');
 
-                $dompdf->loadHtml($view);
+            $dompdf->loadHtml($view);
 
-                $dompdf->setPaper('F4', 'landscape');
+            $dompdf->setPaper('F4', 'landscape');
 
-                $dompdf->render();
+            $dompdf->render();
 
-                $pdfContent = $dompdf->output();
+            $pdfContent = $dompdf->output();
 
-                $filename = 'Rekap-Monitoring_' . date('d-m-Y_H-i-s') . '.pdf';
+            $filename = 'Rekap-Monitoring_' . date('d-m-Y_H-i-s') . '.pdf';
 
-                $response = service('response');
+            $response = service('response');
 
-                $response->setContentType('application/pdf');
-                $response->setHeader('Content-Disposition', 'attachment; filename="' . $filename . '"');
+            $response->setContentType('application/pdf');
+            $response->setHeader('Content-Disposition', 'attachment; filename="' . $filename . '"');
 
-                $response->setBody($pdfContent);
+            $response->setBody($pdfContent);
 
-                return $response;
-            } else {
-                return "Tidak ada Data yang ditemukan untuk siswa ini.";
-            }
+            return $response;
         } else {
-            return "Data tidak ditemukan.";
+            return redirect()->back()->with('error', 'Data tidak ditemukan.');
         }
     }
 

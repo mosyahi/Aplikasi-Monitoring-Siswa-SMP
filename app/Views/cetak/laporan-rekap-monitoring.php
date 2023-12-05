@@ -174,7 +174,7 @@
             <table class="table-bawah" style="border: 0px; font-size: 12px; width: 620px; margin: auto;">
                 <tbody>
                     <?php $isFirstSiswa = true; ?>
-                    <?php foreach ($laporanPrestasi as $item): ?>
+                    <?php foreach ($biodata as $item): ?>
                     <?php if ($isFirstSiswa): ?>
                     <tr>
                         <td class="data-label">Nama</td>

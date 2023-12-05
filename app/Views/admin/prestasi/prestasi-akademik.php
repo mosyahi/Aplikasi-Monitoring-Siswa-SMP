@@ -117,7 +117,7 @@
 										<div class="dropdown-content">
 											<a type="button" href="<?= base_url('admin/prestasi-akademik/cetak/' . $item['id_prestasi']) ?>" class="flex items-center dropdown-item"> <i data-lucide="sunset" class="w-4 h-4 mr-1"></i> Unduh </a>
 											<a type="button" href="javascript:;" class="flex items-center dropdown-item text-primary" data-tw-toggle="modal" data-tw-target="#update-<?= $item['id_prestasi'] ?>"> <i data-lucide="edit" class="w-4 h-4 mr-1"></i> Edit </a>
-											<a type="button" class="flex items-center dropdown-item text-danger" href="javascript:;" data-tw-toggle="modal" data-tw-target="#delete-<?= $item['id_prestasi'] ?>"> <i data-lucide="trash-2" class="w-4 h-4 mr-1"></i> Delete </a>
+											<a type="button" class="flex items-center dropdown-item text-danger" href="javascript:;" data-tw-toggle="modal" data-tw-target="#delete-<?= $item['id_prestasi'] ?>" data-delete-url="<?= base_url('admin/prestasi-akademik/delete/' . $item['id_prestasi']) ?>"> <i data-lucide="trash-2" class="w-4 h-4 mr-1"></i> Delete </a>
 										</div>
 									</div>
 								</div>
@@ -211,21 +211,21 @@
 	<!-- END -->
 
 	<!-- MODAL EDIT -->
-	<?php foreach ($prestasi as $key => $value): ?>
-		<div id="update-<?= $value['id_prestasi'] ?>" class="modal" tabindex="-1" aria-hidden="true">
+	<?php foreach ($prestasi as $item): ?>
+		<div id="update-<?= $item['id_prestasi'] ?>" class="modal" tabindex="-1" aria-hidden="true">
 			<div class="modal-dialog modal-xl">
 				<div class="modal-content">
 					<div class="modal-header">
 						<h2 class="font-medium text-base mr-auto">Edit Prestasi Akademik</h2> 
 					</div>
-					<form action="<?= base_url('admin/prestasi-akademik/update/' . $value['id_prestasi']) ?>" method="POST" enctype="multipart/form-data">
+					<form action="<?= base_url('admin/prestasi-akademik/update/' . $item['id_prestasi']) ?>" method="POST" enctype="multipart/form-data">
 						<div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
-							<input type="hidden" name="created_by_user_id" value="<?= $value['created_by_user_id'] ?>">
+							<input type="hidden" name="created_by_user_id" value="<?= $item['created_by_user_id'] ?>">
 							<div class="col-span-12 sm:col-span-12">
 								<label for="modal-form-1" class="form-label">Siswa</label> 
 								<select data-placeholder="Pilih Siswa" name="id_siswa" class="tom-select w-full" required>
 									<?php foreach ($siswa as $s): ?>
-										<option value="<?= $s['id_siswa'] ?>" <?= ($s['id_siswa'] == $value['id_siswa']) ? 'selected' : ''; ?>>
+										<option value="<?= $s['id_siswa'] ?>" <?= ($s['id_siswa'] == $item['id_siswa']) ? 'selected' : ''; ?>>
 											<?= $s['nis'] ?> - <?= $s['nama'] ?>
 										</option>
 									<?php endforeach ?>
@@ -235,21 +235,21 @@
 								<label for="modal-form-1" class="form-label">Kategori Prestasi</label> 
 								<select data-placeholder="Pilih Kategori" name="kategori_prestasi" class="tom-select w-full" required>
 									<option disabled>-- Pilih Kategori Prestasi --</option>
-									<option <?= ($value['kategori_prestasi'] == 'Akademik') ? 'selected' : '' ?>>Akademik</option>
-									<option <?= ($value['kategori_prestasi'] == 'Non-Akademik') ? 'selected' : '' ?>>Non-Akademik</option>
+									<option <?= ($item['kategori_prestasi'] == 'Akademik') ? 'selected' : '' ?>>Akademik</option>
+									<option <?= ($item['kategori_prestasi'] == 'Non-Akademik') ? 'selected' : '' ?>>Non-Akademik</option>
 								</select>
 							</div> 
 							<div class="col-span-12 sm:col-span-12"> 
 								<label for="modal-form-1" class="form-label">Nama Prestasi</label> 
-								<input id="regular-form-1" name="nama_prestasi" type="text" class="form-control" placeholder="Nama perolehan prestasi siswa" value="<?= $value['nama_prestasi'] ?>" required>
+								<input id="regular-form-1" name="nama_prestasi" type="text" class="form-control" placeholder="Nama perolehan prestasi siswa" value="<?= $item['nama_prestasi'] ?>" required>
 							</div>
 							<div class="col-span-12 sm:col-span-12"> 
 								<label for="regular-form-1" class="form-label">Tanggal Prestasi</label>
-								<input type="text" name="tgl_prestasi" class="datepicker form-control block mx-auto" value="<?= $value['tgl_prestasi'] ?>" data-single-mode="true" required>
+								<input type="text" name="tgl_prestasi" class="datepicker form-control block mx-auto" value="<?= $item['tgl_prestasi'] ?>" data-single-mode="true" required>
 							</div>
 							<div class="col-span-12 sm:col-span-12"> 
 								<label for="modal-form-1" class="form-label">Keterangan</label> 
-								<textarea rows="3" id="regular-form-1" name="keterangan_prestasi" type="text" class="form-control" placeholder="Catatan Point Keaktifan" required><?= $value['keterangan_prestasi'] ?></textarea>
+								<textarea rows="3" id="regular-form-1" name="keterangan_prestasi" type="text" class="form-control" placeholder="Catatan Point Keaktifan" required><?= $item['keterangan_prestasi'] ?></textarea>
 							</div>
 							<div class="col-span-12 sm:col-span-12">
 								<label for="regular-form-1" class="form-label mt-3">Dokumentasi Prestasi</label>
@@ -257,7 +257,7 @@
 									<div class="fallback"> 
 										<input name="foto" type="file" id="uploadFoto" onchange="previewFotoPrestasi(this);" /></div>
 										<div id="fotoPreviewPrestasi" class="mt-3">
-											<img id="previewImagePrestasi" src="<?= base_url('uploads/prestasi-akademik/' . $value['foto']) ?>" alt="Foto Prestasi" style="max-width: 250px;">
+											<img id="previewImagePrestasi" src="<?= base_url('uploads/prestasi-akademik/' . $item['foto']) ?>" alt="Foto Prestasi" style="max-width: 250px;">
 										</div>
 									</div>
 								</div>
@@ -272,7 +272,7 @@
 			</div> 
 
 			<!-- MODAL HAPUS -->
-			<div id="delete-<?= $value['id_prestasi'] ?>" class="modal" tabindex="-1" aria-hidden="true">
+			<div id="delete-<?= $item['id_prestasi'] ?>" class="modal" tabindex="-1" aria-hidden="true">
 				<div class="modal-dialog">
 					<div class="modal-content"> <a data-tw-dismiss="modal" href="javascript:;"> <i data-lucide="x" class="w-8 h-8 text-slate-400"></i> </a>
 						<div class="modal-body p-0">

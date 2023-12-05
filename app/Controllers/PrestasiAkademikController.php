@@ -261,22 +261,20 @@ class PrestasiAkademikController extends BaseController
 
     public function delete($id)
     {
-        $model = $this->prestasiAkademikModel;
+        $model = new PrestasiAkademikModel();
         $prestasi = $model->find($id);
 
-        if ($prestasi) {
-            $fotoPath = 'uploads/prestasi-akademik/' . $prestasi['foto'];
-
-            if (file_exists($fotoPath)) {
-                unlink($fotoPath);
-            }
-
-            $model->delete($id);
-
-            return redirect()->back()->with('success', 'Data prestasi berhasil dihapus.');
-        } else {
+        if (!$prestasi) {
             return redirect()->back()->with('error', 'Data prestasi tidak ditemukan.');
         }
-    }
 
+        $fotoPath = 'uploads/prestasi-akademik/' . $prestasi['foto'];
+        if (file_exists($fotoPath)) {
+            unlink($fotoPath);
+        }
+
+        $model->delete($id);
+
+        return redirect()->back()->with('success', 'Data prestasi berhasil dihapus.');
+    }
 }
