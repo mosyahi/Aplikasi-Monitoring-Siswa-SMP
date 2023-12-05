@@ -47,6 +47,7 @@ $routes->group('admin', ['filter' => 'auth'], function ($routes) {
     $routes->post('data-users/add', 'UserController::add');
     $routes->post('data-users/update/(:num)', 'UserController::update/$1');
     $routes->get('data-users/delete/(:num)', 'UserController::delete/$1');
+    $routes->post('data-user/ganti-password/(:num)', 'UserController::password/$1');
 
     // KELAS DAN SET KELAS
     $routes->get('data-anggota-kelas', 'SiswaController::anggota');
@@ -58,7 +59,7 @@ $routes->group('admin', ['filter' => 'auth'], function ($routes) {
     // REKAP MONITORING
     $routes->get('rekap-monitoring', 'RekapMonitoringController::index');
     $routes->get('rekap-monitoring/view/(:num)', 'RekapMonitoringController::view/$1');
-    $routes->get('rekap-monitoring/cetak/(:num)', 'CetakController::laporanRekapMonitoring/$1');
+    $routes->get('rekap-monitoring/cetak/(:num)/(:any)', 'CetakController::laporanRekapMonitoring/$1/$2');
 
     // DATA SISWA
     $routes->get('data-siswa', 'SiswaController::index');
@@ -99,6 +100,7 @@ $routes->group('siswa', ['filter' => 'auth'], function ($routes) {
     $routes->get('prestasi-akademik', 'PrestasiAkademikController::index');
     $routes->get('data-pelanggaran', 'PelanggaranController::index');
     $routes->get('rekap-monitoring', 'RekapMonitoringController::index');
+    $routes->get('rekap-monitoring/cetak/(:num)/(:any)', 'CetakController::laporanRekapMonitoring/$1/$2');
 });
 
 $routes->group('guru', ['filter' => 'auth'], function ($routes) {
@@ -113,6 +115,7 @@ $routes->group('guru', ['filter' => 'auth'], function ($routes) {
     // REKAP MONITORING
     $routes->get('rekap-monitoring', 'RekapMonitoringController::index');
     $routes->get('rekap-monitoring/view/(:num)', 'RekapMonitoringController::view/$1');
+    $routes->get('rekap-monitoring/cetak/(:num)/(:any)', 'CetakController::laporanRekapMonitoring/$1/$2');
 
     // DATA SISWA
     $routes->get('data-siswa', 'SiswaController::index');

@@ -199,5 +199,35 @@ class UserController extends BaseController
         return redirect()->back();
     }
 
+    public function password($id_user)
+    {
+        $passwordBaru = $this->request->getPost('password_baru');
+        $konfirmasiPassword = $this->request->getPost('konfirmasi_password');
+
+        $validationRules = [
+            'password_baru' => 'required|min_length[8]|regex_match[/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/]',
+            'konfirmasi_password' => 'required|matches[password_baru]'
+        ];
+
+        $validationMessages = [
+            'password_baru.regex_match' => ''
+        ];
+
+        if (!$this->validate($validationRules, $validationMessages)) {
+            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+        }
+
+        $model = new \App\Models\UserModel(); 
+        $userData = $model->find($id_user);
+
+        if ($passwordBaru !== $konfirmasiPassword) {
+            return redirect()->back()->with('error', 'Konfirmasi password tidak cocok');
+        }
+
+        $model->update($id_user, ['password' => password_hash($passwordBaru, PASSWORD_DEFAULT)]);
+
+        return redirect()->back()->with('success', 'Password berhasil diubah');
+    }
+
 
 }

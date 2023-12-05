@@ -140,7 +140,7 @@ class CetakController extends BaseController
         }
     }
 
-    public function laporanRekapMonitoring($id)
+    public function laporanRekapMonitoring($id, $nama)
     {
         $pelanggaranModel = new PelanggaranModel();
         $prestasiModel = new PrestasiAkademikModel();
@@ -197,10 +197,10 @@ class CetakController extends BaseController
 
                 return $response;
             } else {
-                return "Tidak ada Pelanggaran yang ditemukan untuk siswa ini.";
+                return "Tidak ada Data yang ditemukan untuk siswa ini.";
             }
         } else {
-            return "Pelanggaran tidak ditemukan.";
+            return "Data tidak ditemukan.";
         }
     }
 

@@ -18,11 +18,10 @@ CI_ENVIRONMENT = development
 
 #--------------------------------------------------------------------
 # APP
-#----------------------------------
-----------------------------------
+#--------------------------------------------------------------------
 
 app.baseURL = 'http://127.0.0.1/Joki/monitoring-siswa/public/'
-app.name = 'SMPN 2 Sumber |'
+app.name = '- SMPN 2 Sumber'
 # If you have trouble with `.`, you could also use `_`.
 # app_baseURL = ''
 # app.forceGlobalSecureRequests = false

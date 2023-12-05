@@ -293,8 +293,11 @@ class SiswaController extends BaseController
 
         if ($foto->isValid() && !$foto->hasMoved() && in_array($foto->getClientMimeType(), ['image/jpeg', 'image/png'])) {
             if (!empty($siswa['foto'])) {
-                unlink('uploads/siswa/' . $siswa['foto']);
-            }
+                    $gandos = 'uploads/siswa/' . $siswa['foto'];
+                    if (file_exists($gandos)) {
+                        unlink($gandos);
+                    }
+                }
 
             $extension = $foto->getClientExtension();
             $namaPengguna = $this->request->getPost('nama');

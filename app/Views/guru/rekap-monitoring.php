@@ -97,7 +97,7 @@
 		<div class="modal-dialog modal-xl">
 			<div class="modal-content">
 				<div class="modal-header p-5">
-					<h2 class="font-medium text-base mr-auto">Data Rekap <?= $row['nama'] ?></h2> <button class="btn btn-outline-secondary"> <i data-lucide="file" class="w-4 h-4 mr-2"></i> Download Rekap </button>
+					<h2 class="font-medium text-base mr-auto">Data Rekap <?= $row['nama'] ?></h2> <a type="button" href="<?= base_url('guru/rekap-monitoring/cetak/' . $row['id_siswa'] . '/' . str_replace(' ', '-', urldecode($row['nama']))) ?>" class="btn btn-outline-secondary"> <i data-lucide="file" class="w-4 h-4 mr-2"></i> Download Rekap </a>
 				</div>
 				<div class="modal-body">
 					<div id="faq-accordion-2" class="accordion accordion-boxed">

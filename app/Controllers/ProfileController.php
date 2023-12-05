@@ -73,7 +73,10 @@ class ProfileController extends BaseController
             $foto = $this->request->getFile('foto');
             if ($foto->isValid() && !$foto->hasMoved() && in_array($foto->getClientMimeType(), ['image/jpeg', 'image/png'])) {
                 if (!empty($guru['foto'])) {
-                    unlink('uploads/guru/' . $guru['foto']);
+                    $gandos = 'uploads/guru/' . $guru['foto'];
+                    if (file_exists($gandos)) {
+                        unlink($gandos);
+                    }
                 }
 
                 $extension = $foto->getClientExtension();
@@ -182,7 +185,10 @@ class ProfileController extends BaseController
 
             if ($foto->isValid() && !$foto->hasMoved() && in_array($foto->getClientMimeType(), ['image/jpeg', 'image/png'])) {
                 if (!empty($siswa['foto'])) {
-                    unlink('uploads/siswa/' . $siswa['foto']);
+                    $gandos = 'uploads/siswa/' . $siswa['foto'];
+                    if (file_exists($gandos)) {
+                        unlink($gandos);
+                    }
                 }
 
                 $extension = $foto->getClientExtension();

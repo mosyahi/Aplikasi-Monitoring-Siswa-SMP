@@ -146,10 +146,15 @@
 								</div>
 							</td>
 							<td class="table-report__action w-56">
-								<div class="flex justify-center items-center">
-									<a type="button" href="<?= base_url('admin/data-pelanggaran/cetak/' . $item['id_pelanggaran']) ?>" class="flex items-center mr-3"> <i data-lucide="sunset" class="w-4 h-4 mr-1"></i> Unduh </a>
-									<button class="flex items-center mr-3" data-tw-toggle="modal" data-tw-target="#update-<?= $item['id_pelanggaran'] ?>"> <i data-lucide="edit" class="w-4 h-4 mr-1"></i> Edit </button>
-									<button class="flex items-center text-danger" href="javascript:;" data-tw-toggle="modal" data-tw-target="#delete-<?= $item['id_pelanggaran'] ?>" data-delete-url="<?= base_url('admin/data-pelanggaran/delete/' . $item['id_pelanggaran']) ?>"> <i data-lucide="trash-2" class="w-4 h-4 mr-1"></i> Delete </button>
+								<div class="flex justify-center items-center dropdown">
+									<a class="dropdown-toggle w-5 h-5 block" href="javascript:;" aria-expanded="false" data-tw-toggle="dropdown"> <i data-lucide="settings" class="w-5 text-slate-500"></i> </a>
+									<div class="dropdown-menu w-40">
+										<div class="dropdown-content">
+											<a type="button" href="<?= base_url('admin/data-pelanggaran/cetak/' . $item['id_pelanggaran']) ?>" class="flex items-center dropdown-item"> <i data-lucide="sunset" class="w-4 h-4 mr-1"></i> Unduh </a>
+											<a type="button" href="javascript:;" class="flex items-center dropdown-item text-primary" data-tw-toggle="modal" data-tw-target="#update-<?= $item['id_pelanggaran'] ?>"> <i data-lucide="edit" class="w-4 h-4 mr-1"></i> Edit </a>
+											<a type="button" class="flex items-center dropdown-item text-danger" href="javascript:;" data-tw-toggle="modal" data-tw-target="#delete-<?= $item['id_pelanggaran'] ?>"> <i data-lucide="trash-2" class="w-4 h-4 mr-1"></i> Delete </a>
+										</div>
+									</div>
 								</div>
 							</td>
 						</tr>

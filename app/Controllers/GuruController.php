@@ -73,13 +73,13 @@ class GuruController extends BaseController
         if ($foto->isValid() && !$foto->hasMoved()) {
 
         // Nama File Gambar Pake Nama Sendiri
-           $extension = $foto->getClientExtension();
-           $namaPengguna = $this->request->getPost('nama');
-           $newName = $namaPengguna . '_' . date('dmYHis') . '.' . $extension;
+         $extension = $foto->getClientExtension();
+         $namaPengguna = $this->request->getPost('nama');
+         $newName = $namaPengguna . '_' . date('dmYHis') . '.' . $extension;
 
-           $foto->move('uploads/guru/', $newName);
+         $foto->move('uploads/guru/', $newName);
 
-           $data = [
+         $data = [
             'nama' => $nama,
             'email' => $email,
             'foto' => $newName,
@@ -182,7 +182,10 @@ public function update($id)
     $foto = $this->request->getFile('foto');
     if ($foto->isValid() && !$foto->hasMoved() && in_array($foto->getClientMimeType(), ['image/jpeg', 'image/png'])) {
         if (!empty($guru['foto'])) {
-            unlink('uploads/guru/' . $guru['foto']);
+            $gandos = 'uploads/guru/' . $guru['foto'];
+            if (file_exists($gandos)) {
+                unlink($gandos);
+            }
         }
 
         $extension = $foto->getClientExtension();

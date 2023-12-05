@@ -1,6 +1,20 @@
 <?= $this->extend('layouts/admin/admin-main') ?>
 <?= $this->section('content') ?>
 
+<style>
+    .password-input-group {
+        position: relative;
+    }
+
+    .password-toggle {
+        position: absolute;
+        top: 70%;
+        right: 10px;
+        transform: translateY(-50%);
+        cursor: pointer;
+    }
+</style>
+
 <div class="intro-y col-span-12 md:col-span-12 mt-4">
     <?= $this->include('components/alert-login') ?>
 </div>
@@ -39,7 +53,7 @@
                     <?php elseif (!empty($item['gambar_url']['gambar_guru_url'])): ?>
                         <img title="Akun: <?= $item['status'] ?>" data-action="zoom" class="tooltip rounded-full" src="<?= $item['gambar_url']['gambar_guru_url']; ?>">
                     <?php else: ?>
-                        <img alt="Foto" src="<?= base_url('source/dist/images/profile.png'); ?>">
+                        <img alt="Foto" src="<?= base_url('source/dist-css/images/profile.png'); ?>">
                     <?php endif; ?>                    
 
                 </div>
@@ -67,6 +81,7 @@
                         <div class="progress-bar w-<?= ($item['status'] == 'Active') ? '100' : '0' ?> bg-primary" role="progressbar" aria-valuenow="<?= ($item['status'] == 'Active') ? '100' : '0' ?>" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
                 </div>
+                <button class="btn btn-dark-soft py-1 px-2 mr-2" data-tw-toggle="modal" data-tw-target="#password-<?= $item['id_user'] ?>">Reset Password</button>
                 <button class="btn btn-primary-soft py-1 px-2 mr-2" data-tw-toggle="modal" data-tw-target="#update-<?= $item['id_user'] ?>">Edit</button>
                 <button class="btn btn-danger-soft py-1 px-2" data-tw-toggle="modal" data-tw-target="#delete-<?= $item['id_user'] ?>" data-delete-url="<?= base_url('admin/data-users/delete/' . $item['id_user']) ?>">Hapus</button>
             </div>
@@ -92,82 +107,6 @@
     </select>
 </div>
 </div>
-
-<script>
-    $(document).ready(function() {
-        var dataUser = <?php echo json_encode($dataUser); ?>; 
-        var totalItems = dataUser.length;
-        var itemsPerPage = 5;
-        var currentPage = 1;
-
-        // Fungsi untuk menampilkan halaman tertentu
-        function showPage(page) {
-            $cc.hide();
-            var startIndex = (page - 1) * itemsPerPage;
-            var endIndex = startIndex + itemsPerPage;
-            $cc.slice(startIndex, endIndex).show();
-        }
-
-        // Inisialisasi tampilan awal
-        showPage(currentPage);
-
-        // Fungsi untuk mengubah jumlah item per halaman
-        $('#items-per-page').on('change', function() {
-            itemsPerPage = parseInt($(this).val());
-            // Reset halaman ke 1 ketika mengubah jumlah item per halaman
-            currentPage = 1; 
-            showPage(currentPage);
-            createPaginationItems();
-        });
-
-        // Fungsi untuk menghitung jumlah halaman yang diperlukan
-        function calculateTotalPages() {
-            return Math.ceil(totalItems / itemsPerPage);
-        }
-        
-        function createPaginationItems() {
-            var totalPages = calculateTotalPages();
-            var $pagination = $('.pagination');
-            // Menghapus item-item pagination yang ada
-            $pagination.empty(); 
-
-            // Tambahkan tombol "Previous"
-            $pagination.append('<li class="page-item"><a class="page-link prev" href="#"> <i class="w-4 h-4 fas fa-chevron-left"></i> </a></li>');
-
-            // Tambahkan tombol-tombol halaman
-            for (var i = 1; i <= totalPages; i++) {
-                var pageClass = (i === currentPage) ? 'active' : '';
-                $pagination.append('<li class="page-item page ' + pageClass + '"><a class="page-link" href="#">' + i + '</a></li>');
-            }
-
-            // Tambahkan tombol "Next"
-            $pagination.append('<li class="page-item"><a class="page-link next" href="#"> <i class="w-4 h-4 fas fa-chevron-right"></i> </a></li>');
-        }
-
-        // Inisialisasi pagination item
-        createPaginationItems();
-
-        // Fungsi untuk mengubah halaman saat tombol "Previous" atau "Next" diklik
-        $('.pagination').on('click', 'a', function(e) {
-            e.preventDefault();
-            var $this = $(this);
-            if ($this.hasClass('prev')) {
-                if (currentPage > 1) {
-                    currentPage--;
-                }
-            } else if ($this.hasClass('next')) {
-                if (currentPage < calculateTotalPages()) {
-                    currentPage++;
-                }
-            } else {
-                currentPage = parseInt($this.text());
-            }
-            showPage(currentPage);
-            createPaginationItems();
-        });
-    });
-
-</script>
 
 <!-- BEGIN: Modal Content -->
 <div id="header-footer-modal-preview" class="modal" tabindex="-1" aria-hidden="true">
@@ -209,6 +148,40 @@
 </div> 
 
 <?php foreach ($dataUser as $key => $item) : ?>
+    <div id="password-<?= $item['id_user'] ?>" class="modal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="font-medium text-base mr-auto">Reset Password</h2> 
+                </div>
+                <form action="<?= base_url('admin/data-user/ganti-password/' . $item['id_user']) ?>" method="POST">
+                    <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
+                        <!-- Password Baru -->
+                        <div class="col-span-12 sm:col-span-12">
+                            <div class="password-input-group">
+                                <label for="regular-form-1" class="form-label">Password Baru</label>
+                                <input id="password_baru" name="password_baru" type="password" class="form-control" value="<?= old('password_baru') ?>" required>
+                                <i class="password-toggle fas fa-eye-slash text-primary" onclick="togglePassword('password_baru')"></i>
+                            </div>
+                        </div>
+
+                        <!-- Konfirmasi Password -->
+                        <div class="col-span-12 sm:col-span-12">
+                            <div class="password-input-group">
+                                <label for="regular-form-1" class="form-label">Konfirmasi Password</label>
+                                <input id="konfirmasi_password" name="konfirmasi_password" type="password" class="form-control" value="<?= old('konfirmasi_password') ?>" required>
+                                <i class="password-toggle fas fa-eye-slash text-primary" onclick="togglePassword('konfirmasi_password')"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer"> 
+                        <button type="button" data-tw-dismiss="modal" class="btn btn-outline-secondary w-20 mr-1">Cancel</button> 
+                        <button type="submit" class="btn btn-primary w-20">Simpan</button> 
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
     <div id="update-<?= $item['id_user'] ?>" class="modal" tabindex="-1" aria-hidden="true">
        <div class="modal-dialog">
            <div class="modal-content">
@@ -224,10 +197,6 @@
                     <div class="col-span-12 sm:col-span-12"> 
                         <label for="modal-form-1" class="form-label">Email</label> 
                         <input id="modal-form-1" name="email" type="email" class="form-control" placeholder="Email Aktif" value="<?= $item['email'] ?>" required> 
-                    </div>
-                    <div class="col-span-12 sm:col-span-12"> 
-                        <label for="modal-form-1" class="form-label">Password</label> 
-                        <input id="modal-form-1" name="password" type="password" class="form-control" placeholder="**********" value="<?= $item['password'] ?>" required disabled> 
                     </div>
                     <div class="col-span-12 sm:col-span-12"> 
                         <label for="modal-form-1" class="form-label">Role</label> 
@@ -267,5 +236,22 @@
 </div>
 </div>
 <?php endforeach ?>
+
+<script>
+    function togglePassword(inputId) {
+        const passwordInput = document.getElementById(inputId);
+        const icon = document.querySelector(`#${inputId} + i`);
+
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            icon.classList.remove('fa-eye-slash');
+            icon.classList.add('fa-eye');
+        } else {
+            passwordInput.type = "password";
+            icon.classList.remove('fa-eye');
+            icon.classList.add('fa-eye-slash');
+        }
+    }
+</script>
 
 <?= $this->endSection() ?>
