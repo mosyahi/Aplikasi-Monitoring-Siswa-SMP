@@ -186,7 +186,7 @@ class CetakController extends BaseController
 
                 $pdfContent = $dompdf->output();
 
-                $filename = 'Laporan-Pelanggaran_' . date('d-m-Y_H-i-s') . '.pdf';
+                $filename = 'Rekap-Monitoring_' . date('d-m-Y_H-i-s') . '.pdf';
 
                 $response = service('response');
 

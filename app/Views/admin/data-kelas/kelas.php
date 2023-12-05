@@ -54,7 +54,7 @@
                             </td>
                             <td>
                                 <div class="flex justify-center items-center">
-                                    <button class="flex items-center mr-3" data-tw-toggle="modal" data-tw-target="#update-<?= $item['id_kelas'] ?>"> <i data-lucide="check-square" class="w-4 h-4 mr-1"></i> Edit </button>
+                                    <button class="flex items-center mr-3" data-tw-toggle="modal" data-tw-target="#update-<?= $item['id_kelas'] ?>"> <i data-lucide="edit" class="w-4 h-4 mr-1"></i> Edit </button>
                                     <button class="flex items-center text-danger" href="javascript:;" data-tw-toggle="modal" data-tw-target="#delete-<?= $item['id_kelas'] ?>" data-delete-url="<?= base_url('admin/data-kelas/delete/' . $item['id_kelas']) ?>"> <i data-lucide="trash-2" class="w-4 h-4 mr-1"></i> Delete </button>
                                 </div>
                             </td>

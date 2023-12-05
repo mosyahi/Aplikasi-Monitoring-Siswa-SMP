@@ -83,7 +83,7 @@
                         <td class="table-report__action w-56">
                             <div class="flex justify-center items-center">
                                 <a href="javascript:;" type="button" data-tw-toggle="modal" data-tw-target="#view-<?= $item['id_siswa'] ?>" class="flex items-center mr-3 text-primary"> <i data-lucide="toggle-right" class="w-4 h-4 mr-1"></i> View </a>
-                                <a class="flex items-center mr-3" href="<?= base_url('admin/data-siswa/edit/' . $item['id_siswa']) ?>"> <i data-lucide="check-square" class="w-4 h-4 mr-1"></i> Edit </a>
+                                <a class="flex items-center mr-3" href="<?= base_url('admin/data-siswa/edit/' . $item['id_siswa']) ?>"> <i data-lucide="edit" class="w-4 h-4 mr-1"></i> Edit </a>
                                 <a class="flex items-center text-danger" href="javascript:;" data-tw-toggle="modal" data-tw-target="#delete-<?= $item['id_siswa'] ?>" data-delete-url="<?= base_url('admin/data-siswa/delete/' . $item['id_siswa']) ?>"> <i data-lucide="trash-2" class="w-4 h-4 mr-1"></i> Delete </a>
                             </div>
                         </td>
