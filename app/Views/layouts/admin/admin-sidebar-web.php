@@ -2,7 +2,7 @@
 <nav class="side-nav">
 	<a href="" class="intro-x flex items-center pl-5 pt-4">
 		<img alt="Midone - HTML Admin Template" class="w-8" src="<?= base_url() ?>source/dist-css/images/smpn2sumber.png">
-		<span class="hidden xl:block text-white text-lg ml-3"> SMPN 2 Sumber </span> 
+		<span class="hidden xl:block text-white text-lg ml-3"> SMPN 2 Sumber </span>
 	</a>
 	<li class="side-nav__devider my-6"></li>
 	<ul>
@@ -30,16 +30,16 @@
 			<ul class="<?= ($active == 'kelas' || $active == 'anggota') ? 'side-menu__sub-open' : '' ?>">
 				<li>
 					<a href="<?= base_url('admin/data-kelas') ?>" class="side-menu <?= ($active == 'kelas') ? 'side-menu--active' : '' ?>">
-						<div class="side-menu__icon"> 
-							<i data-lucide="git-commit"></i> 
+						<div class="side-menu__icon">
+							<i data-lucide="git-commit"></i>
 						</div>
 						<div class="side-menu__title"> Set Kelas </div>
 					</a>
 				</li>
 				<li>
 					<a href="<?= base_url('admin/data-anggota-kelas') ?>" class="side-menu <?= ($active == 'anggota') ? 'side-menu--active' : '' ?>">
-						<div class="side-menu__icon"> 
-							<i data-lucide="git-commit"></i> 
+						<div class="side-menu__icon">
+							<i data-lucide="git-commit"></i>
 						</div>
 						<div class="side-menu__title"> Anggota Kelas </div>
 					</a>
@@ -63,8 +63,8 @@
 				</li>
 				<li>
 					<a href="<?= base_url('admin/data-siswa') ?>" class="side-menu <?= ($active == 'siswa') ? 'side-menu--active' : '' ?>">
-						<div class="side-menu__icon"> 
-							<i data-lucide="git-commit"></i> 
+						<div class="side-menu__icon">
+							<i data-lucide="git-commit"></i>
 						</div>
 						<div class="side-menu__title"> Data Siswa </div>
 					</a>
@@ -72,6 +72,12 @@
 			</ul>
 		</li>
 		<li class="side-nav__devider my-6"></li>
+		<li>
+			<a href="<?= base_url('admin/absensi') ?>" class="side-menu <?= ($active == 'absen') ? 'side-menu--active' : '' ?>">
+				<div class="side-menu__icon"> <i data-lucide="book"></i> </div>
+				<div class="side-menu__title"> Absensi </div>
+			</a>
+		</li>
 		<li>
 			<a href="<?= base_url('admin/prestasi-akademik') ?>" class="side-menu <?= ($active == 'prestasi') ? 'side-menu--active' : '' ?>">
 				<div class="side-menu__icon"> <i data-lucide="book"></i> </div>
@@ -99,4 +105,4 @@
 		</li>
 	</ul>
 </nav>
-		<!-- END: Side Menu -->
+<!-- END: Side Menu -->

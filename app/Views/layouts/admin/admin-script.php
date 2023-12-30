@@ -2,13 +2,14 @@
 <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
 <script src="<?= base_url() ?>source/dist-css/js/app.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script>
 	$(document).ready(function() {
 		var $table = $('.table-report');
 		var $tbody = $table.find('tbody');
 		var $rows = $tbody.find('tr');
 		var totalItems = $rows.length;
-		var itemsPerPage = 10; 
+		var itemsPerPage = 10;
 		var currentPage = 1;
 
 		function showPage(page) {
@@ -21,7 +22,7 @@
 
 		$('#items-per-page').on('change', function() {
 			itemsPerPage = parseInt($(this).val());
-			currentPage = 1; 
+			currentPage = 1;
 			showPage(currentPage);
 			createPaginationItems();
 		});
@@ -29,11 +30,11 @@
 		function calculateTotalPages() {
 			return Math.ceil(totalItems / itemsPerPage);
 		}
-		
+
 		function createPaginationItems() {
 			var totalPages = calculateTotalPages();
 			var $pagination = $('.pagination');
-			$pagination.empty(); 
+			$pagination.empty();
 
 			$pagination.append('<li class="page-item"><a class="page-link prev" href="#"> <i class="w-4 h-4 fas fa-chevron-left"></i> </a></li>');
 
@@ -64,5 +65,4 @@
 			createPaginationItems();
 		});
 	});
-
 </script>

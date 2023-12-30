@@ -14,6 +14,12 @@
 		</li>
 		<li class="side-nav__devider my-6"></li>
 		<li>
+			<a href="<?= base_url('guru/absensi') ?>" class="side-menu <?= ($active == 'absen') ? 'side-menu--active' : '' ?>">
+				<div class="side-menu__icon"> <i data-lucide="book"></i> </div>
+				<div class="side-menu__title"> Absensi </div>
+			</a>
+		</li>
+		<li>
 			<a href="<?= base_url('guru/data-anggota-kelas') ?>" class="side-menu <?= ($active == 'anggota') ? 'side-menu--active' : '' ?>">
 				<div class="side-menu__icon"> <i data-lucide="users"></i> </div>
 				<div class="side-menu__title"> Data Siswa </div>

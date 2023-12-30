@@ -90,6 +90,9 @@ $routes->group('admin', ['filter' => 'auth'], function ($routes) {
     $routes->post('data-pelanggaran/update/(:num)', 'PelanggaranController::update/$1');
     $routes->get('data-pelanggaran/delete/(:num)', 'PelanggaranController::delete/$1');
     $routes->get('data-pelanggaran/cetak/(:num)', 'CetakController::laporanPelanggaran/$1');
+
+    //DATA ABSENSI
+    $routes->get('absensi', 'PresensiAdminController::index');
 });
 
 $routes->group('siswa', ['filter' => 'auth'], function ($routes) {
@@ -129,6 +132,12 @@ $routes->group('guru', ['filter' => 'auth'], function ($routes) {
     $routes->get('data-pelanggaran', 'PelanggaranController::index');
     $routes->post('data-pelanggaran/add', 'PelanggaranController::add');
     $routes->post('data-pelanggaran/update/(:num)', 'PelanggaranController::update/$1');
+
+    //DATA ABSENSI
+    $routes->get('absensi', 'AbsenController::index');
+    $routes->post('absen/mark-presensi/(:num)/(:segment)', 'AbsenController::markPresensi/$1/$2');
+    $routes->get('absen/view-presensi/(:num)', 'AbsenController::viewPresensi/$1');
+    $routes->get('data-anggota-kelas', 'SiswaController::anggota');
 });
 
 /*

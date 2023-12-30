@@ -6,6 +6,7 @@ use App\Controllers\BaseController;
 use App\Models\SiswaModel;
 use App\Models\KelasModel;
 use App\Models\UserModel;
+use App\Models\PresensiModel;
 
 class SiswaController extends BaseController
 {
@@ -16,6 +17,10 @@ class SiswaController extends BaseController
 
         $modelKelas = new KelasModel;
         $kelas = $modelKelas->findAll();
+
+        $model = new PresensiModel;
+        $presensi = $model->findAll();
+
         $kelasSiswa = [];
         if (!empty($siswa)) {
             foreach ($siswa as $item) {
@@ -36,6 +41,7 @@ class SiswaController extends BaseController
             'siswa' => $siswa,
             'kelas' => $kelas,
             'kelasSiswa' => $kelasSiswa,
+            'presensi' => $presensi
         ];
 
         return view('admin/data-siswa/index', $data);
@@ -92,7 +98,8 @@ class SiswaController extends BaseController
         return view('admin/data-siswa/new', $data);
     }
 
-    private function ubahNomorTelepon($nomor) {
+    private function ubahNomorTelepon($nomor)
+    {
         if (substr($nomor, 0, 2) === '08') {
             $nomor = '628' . substr($nomor, 2);
         } elseif (substr($nomor, 0, 3) === '+62') {
@@ -293,11 +300,11 @@ class SiswaController extends BaseController
 
         if ($foto->isValid() && !$foto->hasMoved() && in_array($foto->getClientMimeType(), ['image/jpeg', 'image/png'])) {
             if (!empty($siswa['foto'])) {
-                    $gandos = 'uploads/siswa/' . $siswa['foto'];
-                    if (file_exists($gandos)) {
-                        unlink($gandos);
-                    }
+                $gandos = 'uploads/siswa/' . $siswa['foto'];
+                if (file_exists($gandos)) {
+                    unlink($gandos);
                 }
+            }
 
             $extension = $foto->getClientExtension();
             $namaPengguna = $this->request->getPost('nama');

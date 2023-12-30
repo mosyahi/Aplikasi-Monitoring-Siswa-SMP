@@ -45,6 +45,7 @@
                 </div>
 
                 <div class="grid grid-cols-12 gap-6 mt-5">
+
                     <a href="<?= base_url('guru/data-siswa') ?>" class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
                         <div class="report-box zoom-in">
                             <div class="box p-5">
@@ -59,6 +60,22 @@
                             </div>
                         </div>
                     </a>
+                    <a href="<?= base_url('guru/absensi') ?>" class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
+                        <div class="report-box zoom-in">
+                            <div class="box p-5">
+                                <div class="flex">
+                                    <i data-lucide="book-open" class="report-box__icon text-pending"></i>
+                                    <div class="ml-auto">
+                                        <div class="report-box__indicator bg-pending tooltip cursor-pointer" title="<?= count($presensi) ?> Data Presensi"> <?= count($presensi) ?> <i class="w-4 h-4 ml-0.5"></i> </div>
+                                    </div>
+                                </div>
+                                <div class="text-3xl font-medium leading-8 mt-6"><?= count($presensi) ?></div>
+                                <div class="text-base text-slate-500 mt-1">Data Presensi</div>
+                            </div>
+                        </div>
+                    </a>
+
+
 
                     <a href="<?= base_url('guru/prestasi-akademik') ?>" class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
                         <div class="report-box zoom-in">

@@ -9,5 +9,6 @@
 	<!-- BEGIN: CSS Assets-->
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="<?= base_url() ?>source/dist-css/css/app.css" />
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10">
 	<!-- END: CSS Assets-->
 </head>

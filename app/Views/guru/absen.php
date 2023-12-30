@@ -7,17 +7,21 @@
 
 <div class="intro-y flex items-center h-10">
     <h2 class="text-lg font-medium truncate mr-5">
-        Data Siswa
+        Data Anggota Kelas
     </h2>
 </div>
 
 <div class="grid grid-cols-12 gap-6 mt-5">
     <div class="intro-y col-span-12 flex flex-wrap sm:flex-nowrap items-center mt-2">
-        <a type="button" href="<?= base_url('admin/data-siswa/new') ?>" class="btn btn-primary shadow-md mr-2">Tambah Siswa</a>
-        <div class="dropdown">
-            <button class="dropdown-toggle btn px-2 box" aria-expanded="false" data-tw-toggle="dropdown">
-                <span class="w-5 h-5 flex items-center justify-center"> <i class="w-4 h-4" data-lucide="plus"></i> </span>
-            </button>
+        <div class="w-full sm:w-auto mt-3 sm:mt-0 sm:ml-auto md:ml-0">
+            <select data-placeholder="Pilih Kelas" class="tom-select w-full" id="kelasSelect" name="tingkat">
+                <option value="Semua Kelas">-- Semua Kelas --</option>
+                <?php foreach ($kelas as $kelasItem) : ?>
+                    <option value="<?= $kelasItem['tingkat'] ?> <?= $kelasItem['tipe_kelas'] ?>">
+                        <?= $kelasItem['tingkat'] ?> <?= $kelasItem['tipe_kelas'] ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
         </div>
         <div class="hidden md:block mx-auto text-slate-500">
             <a href="" class="ml-auto flex items-center text-primary"> <i data-lucide="refresh-ccw" class="w-4 h-4 mr-3"></i> Reload Data </a>
@@ -37,12 +41,13 @@
                     <th class="whitespace-nowrap">NO</th>
                     <th class="whitespace-nowrap">FOTO</th>
                     <th class="text-center whitespace-nowrap">NAMA</th>
-                    <th class="text-center whitespace-nowrap">HP ORANGTUA</th>
                     <th class="text-center whitespace-nowrap">KELAS</th>
+                    <th class="text-center whitespace-nowrap">PRESENSI</th>
+                    <th class="text-center whitespace-nowrap">STATUS</th>
                     <th class="text-center whitespace-nowrap">ACTIONS</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="mangBoleh">
                 <?php if (empty($siswa)) : ?>
                     <tr>
                         <td colspan="6" class="text-center whitespace-nowrap">-- Belum ada data --</td>
@@ -60,23 +65,38 @@
                                 </div>
                             </td>
                             <td class="table-report__action">
-                                <div class="font-medium whitespace-nowrap flex items-center justify-center"><?= $item['nama'] ?></div>
-                                <div class="text-slate-500 text-xs whitespace-nowrap mt-0.5 flex items-center justify-center">NIS:&nbsp;<?= $item['nis'] ?></div>
-                            </td>
-                            <td class="table-report__action">
                                 <div class="flex justify-center items-center">
                                     <div class="font-medium whitespace-nowrap">
-                                        <?= $item['no_hp_orangtua'] ?>
+                                        <?= $item['nama'] ?>
                                     </div>
                                 </div>
                             </td>
                             <td class="table-report__action">
                                 <div class="flex justify-center items-center">
                                     <div class="font-medium whitespace-nowrap">
-                                        <?php foreach ($kelas as $key) : ?>
-                                            <?php if ($item['id_kelas'] == $key['id_kelas']) : ?>
-                                                <?= $key['tingkat'] ?> <?= $key['tipe_kelas'] ?>
-                                            <?php endif; ?>
+                                        <?php foreach ($kelas as $key => $kel) : ?>
+                                            <?php if ($kel['id_kelas'] == $item['id_kelas']) : ?>
+                                                <?= $kel['tingkat'] ?> <?= $kel['tipe_kelas'] ?>
+                                            <?php endif ?>
+                                        <?php endforeach ?>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="table-report__action text-center">
+                                <div class="flex justify-center items-center">
+                                    <div class="font-medium whitespace-nowrap">
+                                        <button onclick="markPresensi('<?= $item['id_siswa'] ?>', 'hadir')" class="btn btn-success">Hadir</button>
+                                        <button onclick="markPresensi('<?= $item['id_siswa'] ?>', 'alpa')" class="btn btn-danger">Alpa</button>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="table-report__action text-center">
+                                <div class="flex justify-center items-center">
+                                    <div class="font-medium whitespace-nowrap">
+                                        <?php foreach ($presensi as $pre) : ?>
+                                            <?php if ($pre['id_siswa'] == $item['id_siswa']) : ?>
+                                                <?= $pre['status'] ?>
+                                            <?php endif ?>
                                         <?php endforeach ?>
                                     </div>
                                 </div>
@@ -84,7 +104,7 @@
                             <td class="table-report__action w-56">
                                 <div class="flex justify-center items-center">
                                     <a href="javascript:;" type="button" data-tw-toggle="modal" data-tw-target="#view-<?= $item['id_siswa'] ?>" class="flex items-center mr-3 text-primary"> <i data-lucide="toggle-right" class="w-4 h-4 mr-1"></i> View </a>
-                                    <a class="flex items-center mr-3" href="<?= base_url('admin/data-siswa/edit/' . $item['id_siswa'] . '/' . str_replace(' ', '-', urldecode($item['nama']))) ?>"> <i data-lucide="edit" class="w-4 h-4 mr-1"></i> Edit </a>
+                                    <a class="flex items-center mr-3" href="<?= base_url('admin/data-siswa/edit/' . $item['id_siswa']) ?>"> <i data-lucide="edit" class="w-4 h-4 mr-1"></i> Edit </a>
                                     <a class="flex items-center text-danger" href="javascript:;" data-tw-toggle="modal" data-tw-target="#delete-<?= $item['id_siswa'] ?>" data-delete-url="<?= base_url('admin/data-siswa/delete/' . $item['id_siswa']) ?>"> <i data-lucide="trash-2" class="w-4 h-4 mr-1"></i> Delete </a>
                                 </div>
                             </td>
@@ -112,6 +132,7 @@
             <option value="100">100</option>
         </select>
     </div>
+    <!-- END: Data List -->
 </div>
 
 <?php foreach ($siswa as $key => $item) : ?>
@@ -126,7 +147,7 @@
                         <div class="text-slate-500 mt-2">
                             Apakah anda yakin ingin menghapus siswa ( <?= $item['nama'] ?>)
                             <br>
-                            Penghapusan ini bersifat permanen.
+                            Penghapusan ini bersifat permanen beserta dengan biodata keseluruhan.
                         </div>
                     </div>
                     <div class="px-5 pb-8 text-center">
@@ -206,5 +227,68 @@
         </div>
 
     <?php endforeach ?>
+
+    <script>
+        function markPresensi(idSiswa, status) {
+            $.ajax({
+                url: '<?= base_url('guru/absen/mark-presensi/') ?>' + idSiswa + '/' + status,
+                type: 'POST',
+                success: function(response) {
+                    if (response.status === 'success') {
+                        // Show SweetAlert2 success notification
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Yeaaa!! <br><br>Presensi berhasil ditandai.',
+                            showConfirmButton: false,
+                            timer: 1500, // Time in milliseconds
+                        }).then(function() {
+                            // Reload the page after success message
+                            location.reload();
+                        });
+                    } else {
+                        // Show SweetAlert2 error notification
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Gagal menandai presensi.',
+                        });
+                    }
+                },
+                error: function() {
+                    // Show SweetAlert2 error notification
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Terjadi kesalahan.',
+                    });
+                }
+            });
+        }
+    </script>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            function filterSiswaByKelas(selectedKelas) {
+                const mangBoleh = document.getElementById('mangBoleh');
+                const rows = mangBoleh.getElementsByTagName('tr');
+
+                for (let i = 0; i < rows.length; i++) {
+                    const row = rows[i];
+                    const kelasCell = row.cells[3];
+
+                    if (selectedKelas === 'Semua Kelas' || kelasCell.textContent.includes(selectedKelas)) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                }
+            }
+
+            const kelasSelect = document.getElementById('kelasSelect');
+            kelasSelect.addEventListener('change', function() {
+                const selectedKelas = kelasSelect.value;
+                filterSiswaByKelas(selectedKelas);
+            });
+        });
+    </script>
 
     <?= $this->endSection() ?>
