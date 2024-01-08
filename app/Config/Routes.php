@@ -137,6 +137,7 @@ $routes->group('guru', ['filter' => 'auth'], function ($routes) {
     $routes->get('absensi', 'AbsenController::index');
     $routes->post('absen/mark-presensi/(:num)/(:segment)', 'AbsenController::markPresensi/$1/$2');
     $routes->get('absen/view-presensi/(:num)', 'AbsenController::viewPresensi/$1');
+    $routes->get('presensi/detail/(:num)', 'AbsenController::detail/$1');
     $routes->get('data-anggota-kelas', 'SiswaController::anggota');
 });
 

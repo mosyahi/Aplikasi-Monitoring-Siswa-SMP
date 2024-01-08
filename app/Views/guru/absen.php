@@ -83,11 +83,28 @@
                                 </div>
                             </td>
                             <td class="table-report__action text-center">
-                                <div class="flex justify-center items-center">
-                                    <div class="font-medium whitespace-nowrap">
-                                        <button onclick="markPresensi('<?= $item['id_siswa'] ?>', 'hadir')" class="btn btn-success">Hadir</button>
-                                        <button onclick="markPresensi('<?= $item['id_siswa'] ?>', 'alpa')" class="btn btn-danger">Alpa</button>
+                                <!-- <div class="flex justify-center items-center"> -->
+                                <div class="font-medium whitespace-nowrap">
+                                    <div class="dropdown ml-auto">
+                                        <a class="dropdown-toggle block text-primary" href="javascript:;" aria-expanded="false" data-tw-toggle="dropdown"> <i class="fas fa-user-check w-5 h-5 text-slate-500 text-primary"></i> Presensi</a>
+                                        <div class="dropdown-menu w-40">
+                                            <ul class="dropdown-content">
+                                                <li>
+                                                    <a onclick="markPresensi('<?= $item['id_siswa'] ?>', 'hadir')" class="dropdown-item">Hadir</a>
+                                                </li>
+                                                <li>
+                                                    <a onclick="markPresensi('<?= $item['id_siswa'] ?>', 'alfa')" class="dropdown-item">Alfa</a>
+                                                </li>
+                                                <li>
+                                                    <a onclick="markPresensi('<?= $item['id_siswa'] ?>', 'sakit')" class="dropdown-item">Sakit</a>
+                                                </li>
+                                                <li>
+                                                    <a onclick="markPresensi('<?= $item['id_siswa'] ?>', 'izin')" class="dropdown-item">Izin</a>
+                                                </li>
+                                            </ul>
+                                        </div>
                                     </div>
+                                    <!-- </div> -->
                                 </div>
                             </td>
                             <td class="table-report__action text-center">

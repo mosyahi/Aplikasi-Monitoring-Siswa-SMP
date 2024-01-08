@@ -29,7 +29,8 @@ class AbsenController extends BaseController
             'presensi' => $presensi
 
         ];
-        return view('guru/absen', $data);
+
+        return view('guru/presensi/presensi', $data);
     }
 
     public function add()
@@ -148,18 +149,40 @@ class AbsenController extends BaseController
         }
     }
 
+    public function detail($id)
+    {
+        $model = new SiswaModel;
+        $siswa = $model->where('id_kelas', $id)->findAll();
+
+        $model = new KelasModel();
+        $kelas = $model->findAll();
+
+        $model = new PresensiModel();
+        $presensi = $model->findAll();
+
+        $data = [
+            'title' => 'Absensi',
+            'active' => 'absen',
+            'kelas' => $kelas,
+            'siswa' => $siswa,
+            'presensi' => $presensi
+
+        ];
+
+        return view('guru/presensi/detail', $data);
+    }
+
 
 
     public function markPresensi($idSiswa, $status)
     {
         try {
             // Validasi status presensi
-            if (!in_array($status, ['hadir', 'alpa'])) {
+            if (!in_array($status, ['hadir', 'alfa', 'izin', 'sakit'])) {
                 throw new \Exception('Status presensi tidak valid.');
             }
 
-            // Ambil id_guru dari sesi atau informasi pengguna yang masuk
-            $idGuru = 1; // Gantilah ini dengan cara sesuai mendapatkan id_guru
+            $idGuru =  session()->get('guru_id');
 
             $tanggal = date('Y-m-d');
             // Simpan data presensi ke database
