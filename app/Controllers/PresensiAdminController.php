@@ -11,14 +11,14 @@ class PresensiAdminController extends BaseController
 {
     public function index()
     {
-        $model = new SiswaModel;
-        $siswa = $model->findAll();
+        $modelSiswa = new SiswaModel();
+        $siswa = $modelSiswa->findAll();
 
-        $model = new KelasModel();
-        $kelas = $model->findAll();
+        $modelKelas = new KelasModel();
+        $kelas = $modelKelas->findAll();
 
-        $model = new PresensiModel();
-        $presensi = $model->findAll();
+        $modelPresensi = new PresensiModel();
+        $presensi = $modelPresensi->findAll();
 
         $data = [
             'title' => 'Absensi',
@@ -26,9 +26,30 @@ class PresensiAdminController extends BaseController
             'kelas' => $kelas,
             'siswa' => $siswa,
             'presensi' => $presensi
-
         ];
 
-        return view('admin/absen', $data);
+        return view('admin/presensi/presensi', $data);
+    }
+
+    public function detail($id)
+    {
+        $modelSiswa = new SiswaModel();
+        $siswa = $modelSiswa->where('id_kelas', $id)->findAll();
+
+        $modelKelas = new KelasModel();
+        $kelas = $modelKelas->findAll();
+
+        $modelPresensi = new PresensiModel();
+        $presensi = $modelPresensi->findAll();
+
+        $data = [
+            'title' => 'Absensi',
+            'active' => 'absen',
+            'kelas' => $kelas,
+            'siswa' => $siswa,
+            'presensi' => $presensi
+        ];
+
+        return view('admin/presensi/detail', $data);
     }
 }

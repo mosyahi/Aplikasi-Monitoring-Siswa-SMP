@@ -34,7 +34,7 @@
                     <th class="whitespace-nowrap">FOTO</th>
                     <th class="text-center whitespace-nowrap">NAMA</th>
                     <th class="text-center whitespace-nowrap">KELAS</th>
-                    <th class="text-center whitespace-nowrap">PRESENSI</th>
+                    <th class="text-center whitespace-nowrap">TANGGAL</th>
                     <th class="text-center whitespace-nowrap">STATUS</th>
                     <th class="text-center whitespace-nowrap">ACTIONS</th>
                 </tr>
@@ -75,30 +75,33 @@
                                 </div>
                             </td>
                             <td class="table-report__action text-center">
-                                <!-- <div class="flex justify-center items-center"> -->
                                 <div class="font-medium whitespace-nowrap">
-                                    <div class="dropdown ml-auto">
-                                        <a class="dropdown-toggle block text-primary" href="javascript:;" aria-expanded="false" data-tw-toggle="dropdown"> <i class="fas fa-user-check w-5 h-5 text-slate-500 text-primary"></i> Presensi</a>
-                                        <div class="dropdown-menu w-40">
-                                            <ul class="dropdown-content">
-                                                <li>
-                                                    <a onclick="markPresensi('<?= $item['id_siswa'] ?>', 'hadir')" class="dropdown-item">Hadir</a>
-                                                </li>
-                                                <li>
-                                                    <a onclick="markPresensi('<?= $item['id_siswa'] ?>', 'alfa')" class="dropdown-item">Alfa</a>
-                                                </li>
-                                                <li>
-                                                    <a onclick="markPresensi('<?= $item['id_siswa'] ?>', 'sakit')" class="dropdown-item">Sakit</a>
-                                                </li>
-                                                <li>
-                                                    <a onclick="markPresensi('<?= $item['id_siswa'] ?>', 'izin')" class="dropdown-item">Izin</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <!-- </div> -->
+                                    <?php foreach ($presensi as $pre) : ?>
+                                        <?php if ($pre['id_siswa'] == $item['id_siswa']) : ?>
+                                            <?php
+                                            // Store unique dates for each student
+                                            $uniqueDates[$item['id_siswa']][] = date('d-m-Y', strtotime($pre['tanggal']));
+                                            ?>
+                                        <?php endif ?>
+                                    <?php endforeach ?>
+
+                                    <?php if (!empty($uniqueDates[$item['id_siswa']])) : ?>
+                                        <?php
+                                        // Display unique dates for each student
+                                        $uniqueDates[$item['id_siswa']] = array_unique($uniqueDates[$item['id_siswa']]);
+                                        foreach ($uniqueDates[$item['id_siswa']] as $uniqueDate) :
+                                        ?>
+                                            <span class="badge badge-primary">
+                                                <?= $uniqueDate ?>
+                                            </span>
+                                        <?php endforeach ?>
+                                    <?php endif ?>
+
+                                    <?php if (empty($presensi) || !in_array($item['id_siswa'], array_column($presensi, 'id_siswa'))) : ?>
+                                    <?php endif ?>
                                 </div>
                             </td>
+
                             <td class="table-report__action text-center">
                                 <div class="font-medium whitespace-nowrap">
                                     <?php
@@ -158,40 +161,5 @@
     <!-- END: Data List -->
 </div>
 
-<script>
-    function markPresensi(idSiswa, status) {
-        $.ajax({
-            url: '<?= base_url('guru/absen/mark-presensi/') ?>' + idSiswa + '/' + status,
-            type: 'POST',
-            success: function(response) {
-                if (response.status === 'success') {
-                    // Show SweetAlert2 success notification
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Yeaaa!! <br><br>Presensi berhasil ditandai.',
-                        showConfirmButton: false,
-                        timer: 1500, // Time in milliseconds
-                    }).then(function() {
-                        // Reload the page after success message
-                        location.reload();
-                    });
-                } else {
-                    // Show SweetAlert2 error notification
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Gagal menandai presensi.',
-                    });
-                }
-            },
-            error: function() {
-                // Show SweetAlert2 error notification
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Terjadi kesalahan.',
-                });
-            }
-        });
-    }
-</script>
 
 <?= $this->endSection() ?>

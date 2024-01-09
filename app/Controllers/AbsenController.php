@@ -182,22 +182,27 @@ class AbsenController extends BaseController
                 throw new \Exception('Status presensi tidak valid.');
             }
 
-            $idGuru =  session()->get('guru_id');
-
+            $idGuru = session()->get('guru_id');
             $tanggal = date('Y-m-d');
-            // Simpan data presensi ke database
+
+            // Cek apakah presensi sudah ada untuk tanggal ini
             $modelPresensi = new PresensiModel();
-            $dataPresensi = [
-                'id_guru' => $idGuru,
-                'id_siswa' => $idSiswa,
-                'status' => $status,
-                'tanggal' => $tanggal
-            ];
+            $existingPresensi = $modelPresensi->where(['id_siswa' => $idSiswa, 'tanggal' => $tanggal])->first();
 
-            $success = $modelPresensi->insert($dataPresensi);
+            if (!$existingPresensi) {
+                // Jika belum ada, tambahkan presensi
+                $dataPresensi = [
+                    'id_guru' => $idGuru,
+                    'id_siswa' => $idSiswa,
+                    'status' => $status,
+                    'tanggal' => $tanggal
+                ];
 
-            if (!$success) {
-                throw new \Exception('Gagal menyimpan data presensi.');
+                $success = $modelPresensi->insert($dataPresensi);
+
+                if (!$success) {
+                    throw new \Exception('Gagal menyimpan data presensi.');
+                }
             }
 
             // Respon JSON jika sukses
@@ -207,6 +212,7 @@ class AbsenController extends BaseController
             return $this->response->setJSON(['status' => 'error', 'message' => $e->getMessage()]);
         }
     }
+
 
     public function viewPresensi($idSiswa)
     {

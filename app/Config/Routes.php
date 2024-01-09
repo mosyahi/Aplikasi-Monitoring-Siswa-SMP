@@ -92,6 +92,7 @@ $routes->group('admin', ['filter' => 'auth'], function ($routes) {
     $routes->get('data-pelanggaran/cetak/(:num)', 'CetakController::laporanPelanggaran/$1');
 
     //DATA ABSENSI
+    $routes->get('presensi/detail/(:num)', 'PresensiAdminController::detail/$1');
     $routes->get('absensi', 'PresensiAdminController::index');
 });
 
